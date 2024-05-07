@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Haat Bazaar</string>
+    <string name="language_english">English</string>
+    <string name="language_bangla">বাংলা</string>
+    <string name="phone_input_field_hint_english">Phone</string>
+    <string name="password_input_field_hint_english">Password</string>
+    <string name="forgot_password_button_text_english">Forgot Password?</string>
+    <string name="enter_button_text_english">Enter</string>
 </resources>
