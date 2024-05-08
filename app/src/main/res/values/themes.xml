@@ -1,19 +1,11 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <!-- allows you to set common styles and attributes that will be inherited by both light and dark themes. -->
     <style name="Base.Theme.HaatBazaar" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="materialButtonStyle">@style/CustomButtonStyle</item>
         <item name="materialCardViewStyle">@style/CustomCardStyle</item>
-    </style>
-
-    <style name="CustomCardStyle" parent="Widget.MaterialComponents.CardView">
-        <item name="android:elevation">50dp</item>
-    </style>
-
-    <style name="CustomButtonStyle" parent="Widget.MaterialComponents.Button">
-        <item name="android:textSize">18sp</item>
-        <item name="cornerRadius">10dp</item>
-        <item name="android:padding">15dp</item>
+        <item name="textAppearanceBodyLarge">@style/CustomTextAppearanceBodyLarge</item>
+        <item name="textAppearanceBodyMedium">@style/CustomTextAppearanceBodyMedium</item>
     </style>
 
     <!-- Light theme -->
@@ -64,5 +56,30 @@
         <item name="colorSurfaceContainer">@color/md_theme_surfaceContainer</item>
         <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
+    </style>
+
+    <!-- All Custom Styles -->
+    <style name="CustomCardStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="android:elevation">20dp</item>
+    </style>
+
+    <style name="CustomButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:textSize">18sp</item>
+        <item name="cornerRadius">10dp</item>
+        <item name="android:padding">15dp</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="CustomSwitchStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="CustomTextAppearanceBodyLarge" parent="TextAppearance.Material3.BodyLarge">
+        <item name="fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="CustomTextAppearanceBodyMedium" parent="TextAppearance.Material3.BodyMedium">
+        <item name="fontFamily">@font/poppins_regular</item>
     </style>
 </resources>
