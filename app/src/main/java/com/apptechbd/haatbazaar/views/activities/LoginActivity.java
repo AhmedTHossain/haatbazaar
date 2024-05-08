@@ -40,15 +40,24 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 setLocale(isChecked);
+                Log.d("LoginActivity","is checked: "+isChecked);
             }
         });
     }
 
     private void setLocale(boolean isBengali) {
-        Locale newLocale = isBengali ? new Locale("bn") : Locale.US; // Update locale based on switch state
+        Locale newLocale = isBengali ? new Locale("bn") : Locale.US;
         Resources resources = getResources();
         Configuration configuration = resources.getConfiguration();
         configuration.setLocale(newLocale);
         resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+
+        // Update UI text elements based on the locale (optional)
+        binding.buttonLogin.setText(getString(R.string.enter_button_text_english));
+        binding.buttonForgotPassword.setText(getString(R.string.forgot_password_button_text_english));
+        binding.inputEditTextPhone.setHint(getString(R.string.phone_input_field_hint_english));
+        binding.inputEditTextPassword.setHint(getString(R.string.password_input_field_hint_english));
+        // Repeat for other UI elements
     }
+
 }
