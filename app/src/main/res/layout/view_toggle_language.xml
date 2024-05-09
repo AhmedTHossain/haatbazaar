@@ -5,9 +5,10 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="20dp"
     android:layout_marginEnd="20dp"
-    android:text="@string/language_english"
-    android:textOff="@string/language_english"
-    android:textOn="@string/language_bangla"
+    android:text="@string/language_preferred"
+    android:textOff="@string/language_preferred"
+    android:textOn="@string/language_preferred"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    style="@style/CustomSwitchStyle"/>
+    style="@style/CustomSwitchStyle"
+    android:id="@+id/materialswitch_language"/>

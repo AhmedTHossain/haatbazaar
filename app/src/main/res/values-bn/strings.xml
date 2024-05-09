@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Haat Bazaar</string>
-    <string name="language_english">English</string>
-    <string name="language_bangla">বাংলা</string>
+    <string name="language_preferred">বাংলা</string>
     <string name="phone_input_field_hint_english">ফোন নম্বর</string>
     <string name="password_input_field_hint_english">পাসওয়ার্ড</string>
     <string name="forgot_password_button_text_english">পাসওয়ার্ড ভুলে গেছেন?</string>
     <string name="enter_button_text_english">প্রবেশ করুন</string>
+    <string name="revolutionize_cattle_commerce">Revolutionize Cattle Commerce.</string>
 </resources>

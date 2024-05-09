@@ -14,11 +14,12 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.apptechbd.haatbazaar.R;
 import com.apptechbd.haatbazaar.databinding.ActivityLoginBinding;
+import com.apptechbd.haatbazaar.utils.BaseActivity;
 import com.google.android.material.materialswitch.MaterialSwitch;
 
 import java.util.Locale;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
     private ActivityLoginBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +28,6 @@ public class LoginActivity extends AppCompatActivity {
 
         EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
-        setLocale(false);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -36,28 +36,19 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         MaterialSwitch languageSwitchButton = findViewById(R.id.view_language_toggle);
+        languageSwitchButton.setChecked(getSavedLocale().getLanguage().equals("bn"));
         languageSwitchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                setLocale(isChecked);
-                Log.d("LoginActivity","is checked: "+isChecked);
+                if (isChecked) {
+                    saveLocale("bn");
+                    setLocale(new Locale("bn"));
+                } else {
+                    saveLocale("en");
+                    setLocale(Locale.ENGLISH);
+                }
+                recreate(); // Reload the activity to apply the language change
             }
         });
     }
-
-    private void setLocale(boolean isBengali) {
-        Locale newLocale = isBengali ? new Locale("bn") : Locale.US;
-        Resources resources = getResources();
-        Configuration configuration = resources.getConfiguration();
-        configuration.setLocale(newLocale);
-        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
-
-        // Update UI text elements based on the locale (optional)
-        binding.buttonLogin.setText(getString(R.string.enter_button_text_english));
-        binding.buttonForgotPassword.setText(getString(R.string.forgot_password_button_text_english));
-        binding.inputEditTextPhone.setHint(getString(R.string.phone_input_field_hint_english));
-        binding.inputEditTextPassword.setHint(getString(R.string.password_input_field_hint_english));
-        // Repeat for other UI elements
-    }
-
 }

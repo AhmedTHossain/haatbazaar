@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Haat Bazaar</string>
-    <string name="language_english" translatable="false">English</string>
-    <string name="language_bangla">বাংলা</string>
+    <string name="language_preferred">English</string>
     <string name="phone_input_field_hint_english">Phone</string>
     <string name="password_input_field_hint_english">Password</string>
     <string name="forgot_password_button_text_english">Forgot Password?</string>
     <string name="enter_button_text_english">Enter</string>
+    <string name="revolutionize_cattle_commerce">Revolutionize Cattle Commerce.</string>
 </resources>

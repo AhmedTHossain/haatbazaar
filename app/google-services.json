@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "864406730341",
+    "project_id": "haat-bazaar-3613e",
+    "storage_bucket": "haat-bazaar-3613e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:864406730341:android:a7bfd73667fe171ee2388c",
+        "android_client_info": {
+          "package_name": "com.apptechbd.haatbazaar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6Rr_5K0gC7ZR1wC-crgFg8rYiPxOs0rY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
