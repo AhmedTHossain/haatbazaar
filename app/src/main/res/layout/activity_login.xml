@@ -78,11 +78,12 @@
                     android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputedittext_field_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/phone_input_field_hint_english"
                         android:inputType="phone"
-                        android:maxEms="11"/>
+                        android:maxLength="13"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!--            <com.google.android.material.textfield.TextInputLayout-->

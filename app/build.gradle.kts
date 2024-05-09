@@ -1,5 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
+    // Add the Google services Gradle plugin
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -44,4 +46,8 @@ dependencies {
 
     //imageview library
     implementation (libs.circleimageview)
+    // Import the Firebase BoM
+    implementation(platform(libs.firebase.bom))
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation(libs.firebase.auth)
 }

@@ -15,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.apptechbd.haatbazaar.R;
 import com.apptechbd.haatbazaar.databinding.ActivityLoginBinding;
 import com.apptechbd.haatbazaar.utils.BaseActivity;
+import com.apptechbd.haatbazaar.utils.PhoneNumberFormatter;
 import com.google.android.material.materialswitch.MaterialSwitch;
 
 import java.util.Locale;
@@ -34,6 +35,8 @@ public class LoginActivity extends BaseActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        PhoneNumberFormatter.formatPhoneNumber(binding.inputedittextFieldPhone);
 
         MaterialSwitch languageSwitchButton = findViewById(R.id.view_language_toggle);
         languageSwitchButton.setChecked(getSavedLocale().getLanguage().equals("bn"));
