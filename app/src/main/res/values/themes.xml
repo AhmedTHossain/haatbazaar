@@ -6,6 +6,7 @@
         <item name="materialCardViewStyle">@style/CustomCardStyle</item>
         <item name="textAppearanceBodyLarge">@style/CustomTextAppearanceBodyLarge</item>
         <item name="textAppearanceBodyMedium">@style/CustomTextAppearanceBodyMedium</item>
+        <item name="snackbarStyle">@style/CustomSnackbar</item>
     </style>
 
     <!-- Light theme -->
@@ -82,4 +83,16 @@
     <style name="CustomTextAppearanceBodyMedium" parent="TextAppearance.Material3.BodyMedium">
         <item name="fontFamily">@font/poppins_regular</item>
     </style>
+
+    <style name="CustomSnackbar" parent="Widget.MaterialComponents.Snackbar">
+        <item name="android:background">@color/md_theme_onTertiaryContainer</item> <!-- Change background color -->
+        <item name="android:textColor">#FFFFFF</item> <!-- Change text color -->
+        <item name="android:textAppearance">@style/CustomSnackbarText</item> <!-- Apply custom text appearance -->
+    </style>
+
+    <style name="CustomSnackbarText" parent="TextAppearance.Design.Snackbar.Message">
+        <item name="android:fontFamily">@font/poppins_regular</item> <!-- Change text font -->
+        <!-- You can also set other text attributes here -->
+    </style>
+
 </resources>
