@@ -35,8 +35,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="10dp">
+                android:layout_marginStart="10dp"
+                android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
@@ -46,10 +46,10 @@
                     android:textSize="25sp" />
 
                 <com.google.android.material.textview.MaterialTextView
+                    style="?attr/textAppearancePopupMenuHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/revolutionize_cattle_commerce"
-                    style="?attr/textAppearancePopupMenuHeader"/>
+                    android:text="@string/revolutionize_cattle_commerce" />
             </LinearLayout>
 
 
@@ -82,33 +82,39 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/phone_input_field_hint_english"
                         android:inputType="phone"
-                        android:maxLength="13"/>
+                        android:maxLength="13" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!--            <com.google.android.material.textfield.TextInputLayout-->
-                <!--                android:id="@+id/inputEditText_password"-->
-                <!--                android:layout_width="match_parent"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:layout_marginTop="20dp"-->
-                <!--                app:passwordToggleEnabled="true">-->
+                <include
+                    android:id="@+id/layout_otp_view"
+                    layout="@layout/otp_view"
+                    android:visibility="gone"/>
 
-                <!--                <com.google.android.material.textfield.TextInputEditText-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:inputType="numberPassword"-->
-                <!--                    android:hint="@string/password_input_field_hint_english"/>-->
-                <!--            </com.google.android.material.textfield.TextInputLayout>-->
 
-                <!--            <com.google.android.material.button.MaterialButton-->
-                <!--                android:id="@+id/button_forgot_password"-->
-                <!--                style="@style/Widget.Material3.Button.TextButton"-->
-                <!--                android:layout_width="wrap_content"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:layout_gravity="right"-->
-                <!--                android:layout_marginTop="20dp"-->
-                <!--                android:clickable="true"-->
-                <!--                android:focusable="true"-->
-                <!--                android:text="@string/forgot_password_button_text_english" />-->
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:id="@+id/inputEditText_password"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    app:passwordToggleEnabled="true">-->
+
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:hint="@string/password_input_field_hint_english"-->
+<!--                        android:inputType="numberPassword" />-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--                <com.google.android.material.button.MaterialButton-->
+<!--                    android:id="@+id/button_forgot_password"-->
+<!--                    style="@style/Widget.Material3.Button.TextButton"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="right"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    android:clickable="true"-->
+<!--                    android:focusable="true"-->
+<!--                    android:text="@string/forgot_password_button_text_english" />-->
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/button_login"

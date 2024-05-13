@@ -102,7 +102,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                     @Override
                     public void onVerificationFailed(@NonNull FirebaseException e) {
-                        Log.w("LoginActivity", "Phone verification failed", e);
+                        Log.w("LoginActivity", "Phone verification failed" + e.getMessage());
                         Snackbar.make(binding.buttonLogin, "Verification failed:"+ e.getMessage(), Snackbar.LENGTH_LONG).show();
                     }
                 });
@@ -117,6 +117,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             // Sign in success, proceed to next activity
 //                            startActivity(new Intent(LoginActivity.this, YourSignedInActivity.class));
 //                            finish();
+                            binding.inputedittextFieldPhone.setVisibility(View.GONE);
+                            binding.layoutOtpView.getRoot().setVisibility(View.VISIBLE);
                         } else {
                             Log.w("LoginActivity", "SignInWithCredential:failure", task.getException());
                             Snackbar.make(binding.buttonLogin, "Sign in failed!", Snackbar.LENGTH_LONG).show();
