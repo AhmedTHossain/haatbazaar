@@ -34,7 +34,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener, OtpView.OtpListener {
+public class LoginActivity extends BaseActivity implements View.OnClickListener {
     private ActivityLoginBinding binding;
     private FirebaseAuth mAuth;
 
@@ -72,7 +72,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
         binding.buttonLogin.setOnClickListener(this);
 
-//        binding.layoutOtpView.setOtpListener(this);
+        new OtpView().setupOtpInput(binding.layoutOtpView.getRoot());
     }
 
     @Override
@@ -134,10 +134,5 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                         }
                     }
                 });
-    }
-
-    @Override
-    public void onOtpComplete(String otp) {
-
     }
 }

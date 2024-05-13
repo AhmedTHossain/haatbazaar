@@ -2,6 +2,7 @@ package com.apptechbd.haatbazaar.utils;
 
 import android.content.Context;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -15,78 +16,68 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.apptechbd.haatbazaar.R;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
-public class OtpView extends LinearLayout {
+import java.util.ArrayList;
+import java.util.List;
 
-    private int otpLength;
-    private EditText[] otpFields;
-    private OtpListener listener;
-
-    public OtpView(Context context) {
-        super(context);
-        init(context, null);
+public class OtpView {
+    public OtpView() {
     }
 
-    public OtpView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        init(context, attrs);
-    }
+    public void setupOtpInput(LinearLayout otpLayout) {
+        // Get all TextInputEditText elements
+        List<TextInputEditText> otpFields = new ArrayList<>();
+        for (int i = 0; i < otpLayout.getChildCount(); i++) {
+            View child = otpLayout.getChildAt(i);
+            if (child instanceof TextInputLayout) {
+                TextInputLayout textInputLayout = (TextInputLayout) child;
+                TextInputEditText editText = (TextInputEditText) textInputLayout.getEditText();
+                otpFields.add(editText);
+            }
+        }
 
-    private void init(Context context, @Nullable AttributeSet attrs) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.otp_view, this, true);
+        // Set input filter to allow only single digit
+        InputFilter[] filters = new InputFilter[1];
+        filters[0] = new InputFilter.LengthFilter(1);
+        for (TextInputEditText editText : otpFields) {
+            editText.setFilters(filters);
+        }
 
-        otpLength = 4; // Set your desired OTP length here
-        otpFields = new EditText[otpLength];
-
-        for (int i = 0; i < otpLength; i++) {
-            otpFields[i] = (EditText) getChildAt(i);
-
-            // Set Material Design text appearance
-//            otpFields[i].setBackgroundResource(R.drawable.background_otp_field);
-//            otpFields[i].setTextColor(ContextCompat.getColor(context, R.color.text_color_primary));
-
+        // Add TextWatcher to each EditText
+        for (int i = 0; i < otpFields.size(); i++) {
+            TextInputEditText currentField = otpFields.get(i);
             int finalI = i;
-            otpFields[i].addTextChangedListener(new TextWatcher() {
+            currentField.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    // Not required for this functionality
                 }
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if (s.length() == 1) {
-                        if (finalI < otpLength - 1) {
-                            otpFields[finalI + 1].requestFocus();
-                        } else if (listener != null) {
-                            listener.onOtpComplete(getOtp());
+                    // Check if entered text is a number
+                    if (s.toString().matches("[0-9]")) {
+                        // Move to next field if current field has text and it's not the last field
+                        if (s.length() == 1 && finalI < otpFields.size() - 1) {
+                            otpFields.get(finalI + 1).requestFocus();
+                        } else if (s.length() == 0 && finalI > 0) {
+                            // Move to previous field if current field is empty and it's not the first field
+                            otpFields.get(finalI - 1).requestFocus();
                         }
-                    } else if (s.length() == 0) {
-                        if (finalI > 0) {
-                            otpFields[finalI - 1].requestFocus();
-                        }
+                    } else {
+                        // Remove non-numeric characters
+                        currentField.setText("");
                     }
                 }
 
                 @Override
                 public void afterTextChanged(Editable s) {
+                    // Not required for this functionality
                 }
             });
         }
     }
 
-    public void setOtpListener(OtpListener listener) {
-        this.listener = listener;
-    }
-
-    public String getOtp() {
-        StringBuilder sb = new StringBuilder();
-        for (EditText editText : otpFields) {
-            sb.append(editText.getText().toString().trim());
-        }
-        return sb.toString();
-    }
-
-    public interface OtpListener {
-        void onOtpComplete(String otp);
-    }
 }
