@@ -18,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.apptechbd.haatbazaar.R;
 import com.apptechbd.haatbazaar.databinding.ActivityLoginBinding;
 import com.apptechbd.haatbazaar.utils.BaseActivity;
+import com.apptechbd.haatbazaar.utils.OtpView;
 import com.apptechbd.haatbazaar.utils.PhoneNumberFormatter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,7 +34,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener {
+public class LoginActivity extends BaseActivity implements View.OnClickListener, OtpView.OtpListener {
     private ActivityLoginBinding binding;
     private FirebaseAuth mAuth;
 
@@ -70,6 +71,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         });
 
         binding.buttonLogin.setOnClickListener(this);
+
+//        binding.layoutOtpView.setOtpListener(this);
     }
 
     @Override
@@ -133,4 +136,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 });
     }
 
+    @Override
+    public void onOtpComplete(String otp) {
+
+    }
 }
