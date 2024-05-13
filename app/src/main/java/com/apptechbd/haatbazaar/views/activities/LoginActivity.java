@@ -88,6 +88,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void sendVerificationCode(String phoneNumber) {
+
         Log.d("LoginActivity","phone number sent: "+phoneNumber);
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber,        // Phone number to verify
@@ -95,6 +96,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 TimeUnit.SECONDS,   // Timeout unit
                 this,               // Activity (for callback)
                 new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                    @Override
+                    public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                        super.onCodeSent(s, forceResendingToken);
+                        binding.inputEditTextPhone.setVisibility(View.GONE);
+                        binding.layoutOtpView.getRoot().setVisibility(View.VISIBLE);
+                    }
+
                     @Override
                     public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
                         signInWithPhoneAuthCredential(phoneAuthCredential);
@@ -117,8 +125,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             // Sign in success, proceed to next activity
 //                            startActivity(new Intent(LoginActivity.this, YourSignedInActivity.class));
 //                            finish();
-                            binding.inputedittextFieldPhone.setVisibility(View.GONE);
-                            binding.layoutOtpView.getRoot().setVisibility(View.VISIBLE);
                         } else {
                             Log.w("LoginActivity", "SignInWithCredential:failure", task.getException());
                             Snackbar.make(binding.buttonLogin, "Sign in failed!", Snackbar.LENGTH_LONG).show();
