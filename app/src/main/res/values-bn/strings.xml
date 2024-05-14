@@ -7,4 +7,7 @@
     <string name="forgot_password_button_text_english">পাসওয়ার্ড ভুলে গেছেন?</string>
     <string name="enter_button_text_english">প্রবেশ করুন</string>
     <string name="revolutionize_cattle_commerce">Revolutionize Cattle Commerce.</string>
+    <string name="analytics">Analytics</string>
+    <string name="accounts">Accounts</string>
+    <string name="sign_out">Sign Out</string>
 </resources>
