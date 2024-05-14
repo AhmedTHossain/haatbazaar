@@ -5,7 +5,7 @@
         android:icon="@drawable/icon_analytics"
         android:title="@string/analytics" />
     <item
-        android:id="@+id/account"
+        android:id="@+id/accounts"
         android:icon="@drawable/icon_accounts"
         android:title="@string/accounts" />
     <item

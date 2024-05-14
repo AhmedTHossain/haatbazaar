@@ -10,4 +10,14 @@
     <string name="analytics">Analytics</string>
     <string name="accounts">Accounts</string>
     <string name="sign_out">Sign Out</string>
+    <string name="overview">Overview</string>
+    <string name="date_range">Date Range</string>
+    <string name="monthly">Monthly</string>
+    <string name="weekly">Weekly</string>
+    <string name="daily">Daily</string>
+    <string name="cows_sold">Cows Sold</string>
+    <string name="total_number_of_cows_sold">Total number of cows sold:</string>
+    <string name="total_number_of_goats_sold">Total number of goats sold:</string>
+    <string name="money_received">Money\nReceived:</string>
+    <string name="commission_earned">Commission\nEarned:</string>
 </resources>
