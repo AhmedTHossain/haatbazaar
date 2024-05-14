@@ -91,6 +91,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void sendVerificationCode(String phoneNumber) {
+        binding.inputEditTextPhone.setVisibility(View.GONE);
+        binding.layoutOtpView.getRoot().setVisibility(View.VISIBLE);
 
         Log.d("LoginActivity","phone number sent: "+phoneNumber);
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
@@ -102,8 +104,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     @Override
                     public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                         super.onCodeSent(s, forceResendingToken);
-                        binding.inputEditTextPhone.setVisibility(View.GONE);
-                        binding.layoutOtpView.getRoot().setVisibility(View.VISIBLE);
+//                        binding.inputEditTextPhone.setVisibility(View.GONE);
+//                        binding.layoutOtpView.getRoot().setVisibility(View.VISIBLE);
                     }
 
                     @Override

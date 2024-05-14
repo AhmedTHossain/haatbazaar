@@ -57,20 +57,24 @@ public class OtpView {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    // Check if entered text is a number
-                    if (s.toString().matches("[0-9]")) {
-                        // Move to next field if current field has text and it's not the last field
-                        if (s.length() == 1 && finalI < otpFields.size() - 1) {
-                            otpFields.get(finalI + 1).requestFocus();
-                        } else if (s.length() == 0 && finalI > 0) {
-                            // Move to previous field if current field is empty and it's not the first field
+                    if (s.length() == 0) { // Handle empty field first (potential optimization)
+                        if (finalI > 0) {
                             otpFields.get(finalI - 1).requestFocus();
                         }
-                    } else {
-                        // Remove non-numeric characters
+                        return;
+                    }
+
+                    if (!Character.isDigit(s.charAt(start))) { // Check for single digit at start
                         currentField.setText("");
+                        return;
+                    }
+
+                    // Move to next field if needed
+                    if (s.length() == 1 && finalI < otpFields.size() - 1) {
+                        otpFields.get(finalI + 1).requestFocus();
                     }
                 }
+
 
                 @Override
                 public void afterTextChanged(Editable s) {
