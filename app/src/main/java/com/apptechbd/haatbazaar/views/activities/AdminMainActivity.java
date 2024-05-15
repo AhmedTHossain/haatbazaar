@@ -1,5 +1,6 @@
 package com.apptechbd.haatbazaar.views.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -7,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.apptechbd.haatbazaar.R;
@@ -39,5 +41,14 @@ public class AdminMainActivity extends AppCompatActivity {
     private void initViewModel() {
         viewModel = new ViewModelProvider(this).get(AdminMainViewModel.class);
         viewModel.onBottomNavMenuItemSelect(binding,getSupportFragmentManager());
+        viewModel.logoutEvent.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean isLogout) {
+                if (isLogout) {
+                    startActivity(new Intent(AdminMainActivity.this, LoginActivity.class));
+                    finish();
+                }
+            }
+        });
     }
 }

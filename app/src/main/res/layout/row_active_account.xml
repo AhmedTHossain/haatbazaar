@@ -37,7 +37,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_account_name"
-                style="@style/TextAppearance.AppCompat.Title"
+                style="@style/TextAppearance.AppCompat.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sahidul Islam Miah" />
@@ -61,7 +61,6 @@
             android:drawablePadding="5dp"
             android:drawableTint="@color/md_theme_onPrimary"
             android:text="Remove"
-            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

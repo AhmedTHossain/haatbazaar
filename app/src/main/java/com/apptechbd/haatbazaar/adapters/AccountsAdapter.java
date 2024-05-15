@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.apptechbd.haatbazaar.R;
+import com.apptechbd.haatbazaar.interfaces.OnAccountRemoveClickListener;
 import com.apptechbd.haatbazaar.models.Account;
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
@@ -19,9 +20,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHolder> {
     private ArrayList<Account> accounts;
-
-    public AccountsAdapter(ArrayList<Account> accounts) {
+    private OnAccountRemoveClickListener listener;
+    public AccountsAdapter(ArrayList<Account> accounts, OnAccountRemoveClickListener listener) {
         this.accounts = accounts;
+        this.listener = listener;
     }
 
     @NonNull
@@ -36,6 +38,11 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
         holder.getNameTextView().setText(accounts.get(position).getName());
         holder.getPhoneTextView().setText(accounts.get(position).getPhone());
         Glide.with(holder.getPhotoImageView().getContext()).load(accounts.get(position).getPhoto()).into(holder.getPhotoImageView());
+        holder.getRemoveButtonView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onAccountRemoveClick(holder.getAdapterPosition());
+            }});
     }
 
     @Override

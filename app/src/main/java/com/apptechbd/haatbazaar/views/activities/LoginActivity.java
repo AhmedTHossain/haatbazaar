@@ -1,8 +1,6 @@
 package com.apptechbd.haatbazaar.views.activities;
 
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,7 +8,6 @@ import android.widget.CompoundButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -87,14 +84,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             Snackbar.make(binding.buttonLogin, "Please enter phone number first!", Snackbar.LENGTH_LONG).show();
         else
             // Send phone verification code
-            sendVerificationCode("+88"+phoneNumber.replaceAll("-",""));
+            sendVerificationCode("+88" + phoneNumber.replaceAll("-", ""));
     }
 
     private void sendVerificationCode(String phoneNumber) {
         binding.inputEditTextPhone.setVisibility(View.GONE);
         binding.layoutOtpView.getRoot().setVisibility(View.VISIBLE);
 
-        Log.d("LoginActivity","phone number sent: "+phoneNumber);
+        Log.d("LoginActivity", "phone number sent: " + phoneNumber);
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber,        // Phone number to verify
                 60,                 // Timeout duration
@@ -116,10 +113,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     @Override
                     public void onVerificationFailed(@NonNull FirebaseException e) {
                         Log.w("LoginActivity", "Phone verification failed" + e.getMessage());
-                        Snackbar.make(binding.buttonLogin, "Verification failed:"+ e.getMessage(), Snackbar.LENGTH_LONG).show();
-
-                        startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
-                        finish();
+                        Snackbar.make(binding.buttonLogin, "Verification failed:" + e.getMessage(), Snackbar.LENGTH_LONG).show();
                     }
                 });
     }
@@ -131,8 +125,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, proceed to next activity
-//                            startActivity(new Intent(LoginActivity.this, YourSignedInActivity.class));
-//                            finish();
+                            startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
+                            finish();
                         } else {
                             Log.w("LoginActivity", "SignInWithCredential:failure", task.getException());
                             Snackbar.make(binding.buttonLogin, "Sign in failed!", Snackbar.LENGTH_LONG).show();
