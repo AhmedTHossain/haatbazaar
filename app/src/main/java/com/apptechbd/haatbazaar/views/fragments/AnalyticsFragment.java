@@ -38,17 +38,18 @@ public class AnalyticsFragment extends Fragment {
             @Override
             public void onCheckedChanged(@NonNull ChipGroup chipGroup, @NonNull List<Integer> list) {
                 String dateRange = "";
-                if (chipGroup.getCheckedChipId() == R.id.chip_weekly)
+                if (chipGroup.getCheckedChipId() == R.id.chip_weekly) {
                     dateRange = DateUtil.getLastPeriod("week");
-                else if (chipGroup.getCheckedChipId() == R.id.chip_monthly)
+                } else if (chipGroup.getCheckedChipId() == R.id.chip_monthly) {
                     dateRange = DateUtil.getLastPeriod("month");
-                else
+                } else {
                     dateRange = DateUtil.getTodayDate();
+                }
                 binding.textDateRange.setText(dateRange);
-        }
-    });
+            }
+        });
 
-    // Inflate the layout for this fragment
+        // Inflate the layout for this fragment
         return binding.getRoot();
-}
+    }
 }
