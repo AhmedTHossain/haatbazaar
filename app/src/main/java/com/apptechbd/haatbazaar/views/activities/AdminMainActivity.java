@@ -13,6 +13,7 @@ import com.apptechbd.haatbazaar.R;
 import com.apptechbd.haatbazaar.databinding.ActivityAdminMainBinding;
 import com.apptechbd.haatbazaar.databinding.ActivityLoginBinding;
 import com.apptechbd.haatbazaar.viewmodels.AdminMainViewModel;
+import com.apptechbd.haatbazaar.views.fragments.AnalyticsFragment;
 
 public class AdminMainActivity extends AppCompatActivity {
     private ActivityAdminMainBinding binding;
@@ -32,6 +33,7 @@ public class AdminMainActivity extends AppCompatActivity {
         });
 
         initViewModel();
+        viewModel.replaceFragment(new AnalyticsFragment(), getSupportFragmentManager());
     }
 
     private void initViewModel() {
