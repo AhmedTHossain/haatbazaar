@@ -89,6 +89,7 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
                 adapter.notifyItemRemoved(position);
             }
         });
+        builder.setCancelable(false);
         builder.show();
     }
 }
