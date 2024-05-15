@@ -1,5 +1,6 @@
 package com.apptechbd.haatbazaar.views.fragments;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.apptechbd.haatbazaar.adapters.AccountsAdapter;
 import com.apptechbd.haatbazaar.databinding.FragmentAccountsBinding;
 import com.apptechbd.haatbazaar.interfaces.OnAccountRemoveClickListener;
 import com.apptechbd.haatbazaar.models.Account;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 
@@ -63,7 +65,30 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
 
     @Override
     public void onAccountRemoveClick(int position) {
-        accounts.remove(position);
-        adapter.notifyItemRemoved(position);
+        showAccountRemoveConfirmationDialog(position);
+    }
+
+    private void showAccountRemoveConfirmationDialog(int position) {
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext()); // Use MaterialAlertDialogBuilder for Material Design theme
+        builder.setTitle("Delete User");
+        builder.setMessage("Deleting this user account is permanent. Once deleted, the user won't be able to log in again.");
+        // Set up the negative button
+        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Handle negative button click
+                dialog.dismiss();
+            }
+        });
+        // Set up the positive button
+        builder.setPositiveButton("CONFIRM", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Handle positive button click
+                accounts.remove(position);
+                adapter.notifyItemRemoved(position);
+            }
+        });
+        builder.show();
     }
 }
