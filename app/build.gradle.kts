@@ -45,11 +45,15 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
 
     //imageview library
-    implementation (libs.circleimageview)
+    implementation(libs.circleimageview)
     // Import the Firebase BoM
     implementation(platform(libs.firebase.bom))
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation(libs.firebase.auth)
 //    implementation(libs.firebase.crashlytics)
     implementation(libs.firebase.analytics)
+    //Glide
+    implementation(libs.glide)
+    //shimmer layout
+    implementation(libs.shimmer)
 }

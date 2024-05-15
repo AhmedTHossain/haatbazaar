@@ -3,64 +3,57 @@ package com.apptechbd.haatbazaar.views.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.apptechbd.haatbazaar.R;
+import com.apptechbd.haatbazaar.adapters.AccountsAdapter;
+import com.apptechbd.haatbazaar.databinding.FragmentAccountsBinding;
+import com.apptechbd.haatbazaar.models.Account;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AccountsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
 public class AccountsFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    private FragmentAccountsBinding binding;
     public AccountsFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AccountsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AccountsFragment newInstance(String param1, String param2) {
-        AccountsFragment fragment = new AccountsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        binding = FragmentAccountsBinding.inflate(inflater, container, false);
+
+        getDummyAccounts();
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_accounts, container, false);
+        return binding.getRoot();
+    }
+
+    private void getDummyAccounts(){
+        ArrayList<Account> accounts = new ArrayList<>();
+
+        Account account1 = new Account("Shahidul Islam Miah","01696588950","https://drive.google.com/uc?export=view&id=14gr6Lu-ihzKRtwHLq2fIh-OiINQl_sD6");
+        Account account2 = new Account("Jahangir Hossain","01996588950","https://drive.google.com/uc?export=view&id=1cMES8jZLXCw6iPh8rLPTe6M8SYLbbE_U");
+        Account account3 = new Account("Mohammad Ali","01896588950","https://drive.google.com/uc?export=view&id=1EXuGikoCGTrAoaVUs_WpJA3kpYkwQ_Fs");
+        Account account4 = new Account("Jalaluddin Ahmed","01596588950","https://drive.google.com/uc?export=view&id=1jrU2Z2SGONe1vhC9BujYE1EfPfJR6a6u");
+        Account account5 = new Account("Muhammad Salahuddin Ahmed","01696588950","https://drive.google.com/uc?export=view&id=1OM6phGhQybpfDtqEroweYahi7z8khBHK");
+
+        accounts.add(account1);
+        accounts.add(account2);
+        accounts.add(account3);
+        accounts.add(account4);
+        accounts.add(account5);
+
+        setAccounts(accounts);
+    }
+
+    private void setAccounts(ArrayList<Account> accounts) {
+        binding.recyclerviewAccounts.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerviewAccounts.setHasFixedSize(true);
+        binding.recyclerviewAccounts.setAdapter(new AccountsAdapter(accounts));
     }
 }
