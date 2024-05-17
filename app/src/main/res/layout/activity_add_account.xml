@@ -90,6 +90,7 @@
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_alignParentStart="true"
+                    app:shapeAppearanceOverlay="@style/CustomeImageviewRoundedCorners"
                     android:src="@drawable/icon_profile_placeholder_with_background" />
 
                 <com.google.android.material.button.MaterialButton
