@@ -3,6 +3,9 @@ package com.apptechbd.haatbazaar.views.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -27,6 +30,9 @@ import com.apptechbd.haatbazaar.utils.PopUpWindow;
 public class AddAccountActivity extends AppCompatActivity implements View.OnClickListener {
     private ActivityAddAccountBinding binding;
     private Uri selectedImageUri = null;
+    private boolean isNameEntered = false;
+    private boolean isPhoneEntered = false;
+    private boolean isImagePicked = false;
     private ActivityResultLauncher<Intent> pickImageLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -36,10 +42,16 @@ public class AddAccountActivity extends AppCompatActivity implements View.OnClic
                     if (data != null) {
                         selectedImageUri = data.getData();
                         binding.shapeableImageViewProfilePhoto.setImageURI(selectedImageUri);
+
+                        // Implement image picking logic here (using Intent or library)
+                        // Once image is picked, update isImagePicked flag to true
+                        isImagePicked = true;
+                        updateButtonState();
                     }
                 }
             }
     );
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +72,53 @@ public class AddAccountActivity extends AppCompatActivity implements View.OnClic
         binding.buttonAddPhoto.setOnClickListener(this);
         binding.shapeableImageViewProfilePhoto.setOnClickListener(this);
 
+        // Add TextWatcher to nameEditText
+        binding.inputEditTextFieldName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().trim().isEmpty()) {
+                    isNameEntered = true;
+                    updateButtonState();
+                } else {
+                    isNameEntered = false;
+                    updateButtonState();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        // Add TextWatcher to phoneEditText
+        binding.inputedittextFieldPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int count, int after) {
+                if (!s.toString().trim().isEmpty()) {
+                    isPhoneEntered = true;
+                    updateButtonState();
+                } else {
+                    isPhoneEntered = false;
+                    updateButtonState();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void openImagePicker() {
@@ -69,10 +128,15 @@ public class AddAccountActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.button_add_photo)
+        if (v.getId() == R.id.button_add_photo) {
             openImagePicker();
+        }
         if (v.getId() == R.id.shapeableImageView_profile_photo)
             new PopUpWindow().showPopupWindow(binding.main, selectedImageUri);
     }
 
+    private void updateButtonState() {
+        Log.d("TAG", "updateButtonState: " + isNameEntered + " " + isPhoneEntered + " " + isImagePicked);
+        binding.buttonAddAccount.setEnabled(isNameEntered && isPhoneEntered && isImagePicked);
+    }
 }
