@@ -91,10 +91,13 @@
                     android:layout_height="150dp"
                     android:layout_alignParentStart="true"
                     app:shapeAppearanceOverlay="@style/CustomeImageviewRoundedCorners"
-                    android:src="@drawable/icon_profile_placeholder_with_background" />
+                    android:src="@drawable/icon_profile_placeholder_with_background"
+                    android:scaleType="centerCrop"
+                    android:clickable="true"
+                    android:focusable="true"/>
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_remove_account"
+                    android:id="@+id/button_add_photo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/md_theme_tertiary"

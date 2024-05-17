@@ -26,4 +26,5 @@
     <string name="account_information">Account Information</string>
     <string name="add_account">Add Account</string>
     <string name="name">Name</string>
+    <string name="selected_photo">Selected Photo</string>
 </resources>
