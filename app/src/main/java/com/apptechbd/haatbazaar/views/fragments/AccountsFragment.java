@@ -1,6 +1,7 @@
 package com.apptechbd.haatbazaar.views.fragments;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +14,12 @@ import com.apptechbd.haatbazaar.adapters.AccountsAdapter;
 import com.apptechbd.haatbazaar.databinding.FragmentAccountsBinding;
 import com.apptechbd.haatbazaar.interfaces.OnAccountRemoveClickListener;
 import com.apptechbd.haatbazaar.models.Account;
+import com.apptechbd.haatbazaar.views.activities.AddAccountActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 
-public class AccountsFragment extends Fragment implements OnAccountRemoveClickListener {
+public class AccountsFragment extends Fragment implements OnAccountRemoveClickListener, View.OnClickListener {
     private FragmentAccountsBinding binding;
     private ArrayList<Account> accounts;
     private AccountsAdapter adapter;
@@ -32,6 +34,7 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
         binding = FragmentAccountsBinding.inflate(inflater, container, false);
 
         getDummyAccounts();
+        binding.buttonAddNewAccount.setOnClickListener(this);
 
         // Inflate the layout for this fragment
         return binding.getRoot();
@@ -91,5 +94,11 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
         });
         builder.setCancelable(false);
         builder.show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == binding.buttonAddNewAccount.getId())
+            startActivity(new Intent(requireContext(), AddAccountActivity.class));
     }
 }
