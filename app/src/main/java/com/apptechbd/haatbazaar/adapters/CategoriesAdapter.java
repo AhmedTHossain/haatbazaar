@@ -68,7 +68,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull CategoriesAdapter.ViewHolder holder, int position) {
         if (categories.get(position).isSelected()) {
-            holder.getRootLayout().setCardBackgroundColor(ResourcesCompat.getColor(holder.getRootLayout().getResources(), R.color.checked_md_card_color, null));
+            holder.getRootLayout().setCardBackgroundColor(ResourcesCompat.getColor(holder.getRootLayout().getResources(), R.color.md_theme_onSurface, null));
+            holder.textView.setTextColor(ResourcesCompat.getColor(holder.getRootLayout().getResources(), R.color.md_theme_surface, null));
+            holder.view.setBackgroundColor(ResourcesCompat.getColor(holder.getRootLayout().getResources(), R.color.md_theme_surface, null));
         }
         holder.getRootLayout().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,12 +91,14 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         private ImageView imageView;
         private TextView textView;
         private MaterialCardView rootLayout;
+        private View view;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.text_category);
             imageView = itemView.findViewById(R.id.image_category);
             rootLayout = itemView.findViewById(R.id.cardview);
+            view = itemView.findViewById(R.id.view);
         }
 
         public ImageView getImageView() {
@@ -119,6 +123,14 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
 
         public void setRootLayout(MaterialCardView rootLayout) {
             this.rootLayout = rootLayout;
+        }
+
+        public View getView() {
+            return view;
+        }
+
+        public void setView(View view) {
+            this.view = view;
         }
     }
 }
