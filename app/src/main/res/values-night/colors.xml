@@ -141,4 +141,5 @@
     <color name="md_theme_surfaceContainer_highContrast">#20201D</color>
     <color name="md_theme_surfaceContainerHigh_highContrast">#2A2A28</color>
     <color name="md_theme_surfaceContainerHighest_highContrast">#353532</color>
+    <color name="checked_md_card_color">#595958</color>
 </resources>

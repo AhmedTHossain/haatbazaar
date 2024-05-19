@@ -27,4 +27,11 @@
     <string name="add_account">Add Account</string>
     <string name="name">Name</string>
     <string name="selected_photo">Selected Photo</string>
+    <string name="type_of_purchased_animal">Purchased Animal Type</string>
+    <string name="proceed">Proceed</string>
+    <string name="select_all_types_of_purchased_animals_disclaimer">Select the types of all purchased animals.</string>
+    <string name="cow">Cow</string>
+    <string name="goat">Goat</string>
+    <string name="camel">Camel</string>
+    <string name="sheep">Sheep</string>
 </resources>

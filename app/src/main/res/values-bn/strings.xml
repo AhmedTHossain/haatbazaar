@@ -26,4 +26,11 @@
     <string name="add">Add</string>
     <string name="name">Name</string>
     <string name="selected_photo">Selected Photo</string>
+    <string name="type_of_purchased_animal">ক্রয়কৃত প্রাণীর প্রকার</string>
+    <string name="proceed">এগিয়ে যান</string>
+    <string name="select_all_types_of_purchased_animals_disclaimer">ক্রয়কৃত সকল প্রাণীর প্রকার নির্বাচন করুন।</string>
+    <string name="cow">গরু</string>
+    <string name="goat">ছাগল</string>
+    <string name="camel">উট</string>
+    <string name="sheep">ভেড়া</string>
 </resources>

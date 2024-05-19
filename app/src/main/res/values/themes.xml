@@ -6,6 +6,7 @@
         <item name="materialCardViewStyle">@style/CustomCardStyle</item>
         <item name="textAppearanceBodyLarge">@style/CustomTextAppearanceBodyLarge</item>
         <item name="textAppearanceBodyMedium">@style/CustomTextAppearanceBodyMedium</item>
+        <item name="textAppearanceHeadlineLarge">@style/CustomHeadlineLarge</item>
         <item name="snackbarStyle">@style/CustomSnackbar</item>
         <item name="chipStyle">@style/CustomChipStyle</item>
     </style>
@@ -61,6 +62,10 @@
     </style>
 
     <!-- All Custom Styles -->
+    <style name="CustomHeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="fontFamily">@font/poppins_regular</item>
+    </style>
+
     <style name="CustomCardStyle" parent="Widget.MaterialComponents.CardView">
         <item name="android:elevation">20dp</item>
     </style>
