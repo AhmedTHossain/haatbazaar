@@ -16,15 +16,22 @@ import com.apptechbd.haatbazaar.databinding.FragmentSetQuantityBinding;
 import com.apptechbd.haatbazaar.interfaces.OnQuantityAddClickListener;
 import com.apptechbd.haatbazaar.interfaces.OnQuantitySubtractClickListener;
 import com.apptechbd.haatbazaar.models.Account;
+import com.apptechbd.haatbazaar.models.Quantity;
 
 import java.util.ArrayList;
 
 public class SetQuantityFragment extends Fragment implements OnQuantityAddClickListener, OnQuantitySubtractClickListener {
     private FragmentSetQuantityBinding binding;
     private ArrayList<String> categoriesPurchased;
+    private ArrayList<Quantity> quantitiesPurchased = new ArrayList<>();
     private QuantityAdapter adapter;
     public SetQuantityFragment(ArrayList<String> categoriesPurchased) {
         this.categoriesPurchased = categoriesPurchased;
+
+        for (String category : categoriesPurchased) {
+            Quantity quantity = new Quantity(category, 0);
+            quantitiesPurchased.add(quantity);
+        }
     }
 
     @Override
@@ -49,11 +56,18 @@ public class SetQuantityFragment extends Fragment implements OnQuantityAddClickL
 
     @Override
     public void onQuantityAddClick(int position, int quantity) {
-
+        setQuantity(position, quantity);
     }
 
     @Override
     public void onQuantitySubtractClick(int position, int quantity) {
+        setQuantity(position, quantity);
+    }
 
+    private void setQuantity(int position, int quantity){
+        for (Quantity quantityPurchased : quantitiesPurchased){
+            if (quantityPurchased.getName().equals(categoriesPurchased.get(position)))
+                quantityPurchased.setQuantity(quantity);
+        }
     }
 }

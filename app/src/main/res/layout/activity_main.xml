@@ -50,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/proceed"
+        android:text="@string/set_the_quantity"
         app:layout_constraintBottom_toBottomOf="parent"
         android:enabled="false"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

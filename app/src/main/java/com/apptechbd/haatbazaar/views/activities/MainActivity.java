@@ -98,14 +98,17 @@ public class MainActivity extends BaseActivity implements OnCategoryClickListene
     @Override
     public void onClick(View v) {
         if (v.getId() == binding.buttonProceed.getId()) {
-            ArrayList<String> categoriesPurchased = new ArrayList<>();
-            for (Category category : categoriesSelected)
-                if (category.isSelected())
-                    categoriesPurchased.add(category.getCategoryName());
+            Intent intent;
+            if (binding.buttonProceed.getText().equals(getString(R.string.set_the_quantity))) {
+                ArrayList<String> categoriesPurchased = new ArrayList<>();
+                for (Category category : categoriesSelected)
+                    if (category.isSelected())
+                        categoriesPurchased.add(category.getCategoryName());
 
-            Intent intent = new Intent(this, CartActivity.class);
-            intent.putStringArrayListExtra("categoriesPurchased", categoriesPurchased);
-            startActivity(intent);
+                intent = new Intent(this, CartActivity.class);
+                intent.putStringArrayListExtra("categoriesPurchased", categoriesPurchased);
+                startActivity(intent);
+            }
         }
     }
 }

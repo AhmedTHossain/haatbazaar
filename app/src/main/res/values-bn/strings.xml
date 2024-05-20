@@ -36,4 +36,5 @@
     <string name="quantity_of_purchased_animal">ক্রয়কৃত প্রাণীর সংখ্যা</string>
     <string name="select_quantity_of_all_purchased_animals_disclaimer">ক্রয়কৃত সকল প্রাণীর সংখ্যা নির্ধারণ করুন।</string>
     <string name="set_the_quantity">সংখ্যা নির্ধারণ করুন</string>
+    <string name="set_the_price">মূল্য নির্ধারণ করুন</string>
 </resources>
