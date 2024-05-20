@@ -13,11 +13,13 @@ import com.apptechbd.haatbazaar.R;
 import com.apptechbd.haatbazaar.adapters.AccountsAdapter;
 import com.apptechbd.haatbazaar.adapters.QuantityAdapter;
 import com.apptechbd.haatbazaar.databinding.FragmentSetQuantityBinding;
+import com.apptechbd.haatbazaar.interfaces.OnQuantityAddClickListener;
+import com.apptechbd.haatbazaar.interfaces.OnQuantitySubtractClickListener;
 import com.apptechbd.haatbazaar.models.Account;
 
 import java.util.ArrayList;
 
-public class SetQuantityFragment extends Fragment {
+public class SetQuantityFragment extends Fragment implements OnQuantityAddClickListener, OnQuantitySubtractClickListener {
     private FragmentSetQuantityBinding binding;
     private ArrayList<String> categoriesPurchased;
     private QuantityAdapter adapter;
@@ -40,7 +42,18 @@ public class SetQuantityFragment extends Fragment {
         binding.recyclerviewQuantity.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerviewQuantity.setHasFixedSize(true);
 
-        adapter = new QuantityAdapter(categoriesPurchased);
+        adapter = new QuantityAdapter(categoriesPurchased,this,this);
         binding.recyclerviewQuantity.setAdapter(adapter);
+    }
+
+
+    @Override
+    public void onQuantityAddClick(int position, int quantity) {
+
+    }
+
+    @Override
+    public void onQuantitySubtractClick(int position, int quantity) {
+
     }
 }

@@ -10,15 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.apptechbd.haatbazaar.R;
+import com.apptechbd.haatbazaar.interfaces.OnQuantityAddClickListener;
+import com.apptechbd.haatbazaar.interfaces.OnQuantitySubtractClickListener;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class QuantityAdapter extends RecyclerView.Adapter<QuantityAdapter.ViewHolder> {
     private ArrayList<String> categoriesPurchased;
+    private OnQuantityAddClickListener onQuantityAddClickListener;
+    private OnQuantitySubtractClickListener onQuantitySubtractClickListener;
 
-    public QuantityAdapter(ArrayList<String> categoriesPurchased) {
+    public QuantityAdapter(ArrayList<String> categoriesPurchased, OnQuantityAddClickListener onQuantityAddClickListener, OnQuantitySubtractClickListener onQuantitySubtractClickListener) {
         this.categoriesPurchased = categoriesPurchased;
+        this.onQuantityAddClickListener = onQuantityAddClickListener;
+        this.onQuantitySubtractClickListener = onQuantitySubtractClickListener;
     }
 
     @NonNull
@@ -44,6 +51,30 @@ public class QuantityAdapter extends RecyclerView.Adapter<QuantityAdapter.ViewHo
                 holder.imageView.setImageResource(R.drawable.image_camel);
                 break;
         }
+        holder.plusLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int qty = Integer.parseInt(holder.textView.getText().toString());
+                qty++;
+
+                String qtyStr = String.format(Locale.US, "%02d", qty);
+                holder.textView.setText(qtyStr);
+                holder.textView.setText(String.valueOf(qtyStr));
+                onQuantityAddClickListener.onQuantityAddClick(position, qty);
+            }
+        });
+        holder.minusLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int qty = Integer.parseInt(holder.textView.getText().toString());
+                if (qty > 0) {
+                    qty--;
+                    String qtyStr = String.format(Locale.US, "%02d", qty);
+                    holder.textView.setText(qtyStr);
+                    onQuantitySubtractClickListener.onQuantitySubtractClick(position, qty);
+                }
+            }
+        });
     }
 
     @Override
