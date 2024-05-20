@@ -13,6 +13,7 @@ import com.apptechbd.haatbazaar.R;
 import com.apptechbd.haatbazaar.adapters.AccountsAdapter;
 import com.apptechbd.haatbazaar.adapters.QuantityAdapter;
 import com.apptechbd.haatbazaar.databinding.FragmentSetQuantityBinding;
+import com.apptechbd.haatbazaar.interfaces.EnableOrDisableSetPriceButtonListener;
 import com.apptechbd.haatbazaar.interfaces.OnQuantityAddClickListener;
 import com.apptechbd.haatbazaar.interfaces.OnQuantitySubtractClickListener;
 import com.apptechbd.haatbazaar.models.Account;
@@ -21,12 +22,16 @@ import com.apptechbd.haatbazaar.models.Quantity;
 import java.util.ArrayList;
 
 public class SetQuantityFragment extends Fragment implements OnQuantityAddClickListener, OnQuantitySubtractClickListener {
+
     private FragmentSetQuantityBinding binding;
     private ArrayList<String> categoriesPurchased;
     private ArrayList<Quantity> quantitiesPurchased = new ArrayList<>();
     private QuantityAdapter adapter;
-    public SetQuantityFragment(ArrayList<String> categoriesPurchased) {
+    private EnableOrDisableSetPriceButtonListener enableOrDisableSetPriceButtonListener;
+
+    public SetQuantityFragment(ArrayList<String> categoriesPurchased, EnableOrDisableSetPriceButtonListener enableOrDisableSetPriceButtonListener) {
         this.categoriesPurchased = categoriesPurchased;
+        this.enableOrDisableSetPriceButtonListener = enableOrDisableSetPriceButtonListener;
 
         for (String category : categoriesPurchased) {
             Quantity quantity = new Quantity(category, 0);
@@ -69,5 +74,18 @@ public class SetQuantityFragment extends Fragment implements OnQuantityAddClickL
             if (quantityPurchased.getName().equals(categoriesPurchased.get(position)))
                 quantityPurchased.setQuantity(quantity);
         }
+        checkIfAnyQuantityAdded();
+    }
+
+    private void checkIfAnyQuantityAdded(){
+        int isAnyQuantityAdded = 0;
+        for (Quantity quantityPurchased : quantitiesPurchased){
+            if (quantityPurchased.getQuantity() > 0)
+                isAnyQuantityAdded++;
+        }
+        if (isAnyQuantityAdded > 0)
+            enableOrDisableSetPriceButtonListener.onEnableOrDisableSetPriceButton(true);
+        else
+            enableOrDisableSetPriceButtonListener.onEnableOrDisableSetPriceButton(false);
     }
 }

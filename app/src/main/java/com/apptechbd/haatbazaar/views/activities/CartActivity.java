@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.apptechbd.haatbazaar.R;
 import com.apptechbd.haatbazaar.databinding.ActivityCartBinding;
 import com.apptechbd.haatbazaar.databinding.ActivityMainBinding;
+import com.apptechbd.haatbazaar.interfaces.EnableOrDisableSetPriceButtonListener;
 import com.apptechbd.haatbazaar.utils.BaseActivity;
 import com.apptechbd.haatbazaar.viewmodels.CartViewModel;
 import com.apptechbd.haatbazaar.views.fragments.cart.SetQuantityFragment;
@@ -19,7 +20,7 @@ import com.apptechbd.haatbazaar.views.fragments.cart.SetQuantityFragment;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class CartActivity extends BaseActivity {
+public class CartActivity extends BaseActivity implements EnableOrDisableSetPriceButtonListener {
     private ActivityCartBinding binding;
     private CartViewModel viewModel;
     private ArrayList<String> categoriesPurchased;
@@ -48,6 +49,11 @@ public class CartActivity extends BaseActivity {
 
     private void initViewModel() {
         viewModel = new ViewModelProvider(this).get(CartViewModel.class);
-        viewModel.replaceFragment(new SetQuantityFragment(categoriesPurchased), getSupportFragmentManager());
+        viewModel.replaceFragment(new SetQuantityFragment(categoriesPurchased, this), getSupportFragmentManager());
+    }
+
+    @Override
+    public void onEnableOrDisableSetPriceButton(boolean isEnabled) {
+        binding.button.setEnabled(isEnabled);
     }
 }
