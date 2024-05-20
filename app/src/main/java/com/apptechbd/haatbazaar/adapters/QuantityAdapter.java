@@ -67,10 +67,13 @@ public class QuantityAdapter extends RecyclerView.Adapter<QuantityAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 int qty = Integer.parseInt(holder.textView.getText().toString());
-                if (qty > 0) {
+                if (qty > 1) {
                     qty--;
                     String qtyStr = String.format(Locale.US, "%02d", qty);
                     holder.textView.setText(qtyStr);
+                    onQuantitySubtractClickListener.onQuantitySubtractClick(position, qty);
+                } else {
+                    qty--;
                     onQuantitySubtractClickListener.onQuantitySubtractClick(position, qty);
                 }
             }

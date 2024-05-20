@@ -1,7 +1,9 @@
 package com.apptechbd.haatbazaar.views.fragments.cart;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -18,6 +20,7 @@ import com.apptechbd.haatbazaar.interfaces.OnQuantityAddClickListener;
 import com.apptechbd.haatbazaar.interfaces.OnQuantitySubtractClickListener;
 import com.apptechbd.haatbazaar.models.Account;
 import com.apptechbd.haatbazaar.models.Quantity;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 
@@ -70,11 +73,14 @@ public class SetQuantityFragment extends Fragment implements OnQuantityAddClickL
     }
 
     private void setQuantity(int position, int quantity){
-        for (Quantity quantityPurchased : quantitiesPurchased){
-            if (quantityPurchased.getName().equals(categoriesPurchased.get(position)))
-                quantityPurchased.setQuantity(quantity);
-        }
-        checkIfAnyQuantityAdded();
+        if (quantity>0) {
+            for (Quantity quantityPurchased : quantitiesPurchased) {
+                if (quantityPurchased.getName().equals(categoriesPurchased.get(position)))
+                    quantityPurchased.setQuantity(quantity);
+            }
+            checkIfAnyQuantityAdded();
+        } else
+            showCategoryRemoveConfirmationDialog(position);
     }
 
     private void checkIfAnyQuantityAdded(){
@@ -87,5 +93,30 @@ public class SetQuantityFragment extends Fragment implements OnQuantityAddClickL
             enableOrDisableSetPriceButtonListener.onEnableOrDisableSetPriceButton(true);
         else
             enableOrDisableSetPriceButtonListener.onEnableOrDisableSetPriceButton(false);
+    }
+
+    private void showCategoryRemoveConfirmationDialog(int position) {
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext()); // Use MaterialAlertDialogBuilder for Material Design theme
+        builder.setTitle((requireContext().getString(R.string.remove_from_cart_title)));
+        builder.setMessage(requireContext().getString(R.string.delete_animal_from_cart_disclaimer));
+        // Set up the negative button
+        builder.setNegativeButton((requireContext().getString(R.string.cancel)), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Handle negative button click
+                dialog.dismiss();
+            }
+        });
+        // Set up the positive button
+        builder.setPositiveButton((requireContext().getString(R.string.confirm)), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Handle positive button click
+                categoriesPurchased.remove(position);
+                adapter.notifyItemRemoved(position);
+            }
+        });
+        builder.setCancelable(false);
+        builder.show();
     }
 }

@@ -37,4 +37,9 @@
     <string name="select_quantity_of_all_purchased_animals_disclaimer">ক্রয়কৃত সকল প্রাণীর সংখ্যা নির্ধারণ করুন।</string>
     <string name="set_the_quantity">সংখ্যা নির্ধারণ করুন</string>
     <string name="set_the_price">মূল্য নির্ধারণ করুন</string>
+    <string name="delete_animal_from_cart_disclaimer">এখান থেকে এই প্রাণীটিকে সম্পূর্ণভাবে মুছে ফেললে এটি আপনার ক্রয় থেকে বাদ পড়বে।\n\nএর মানে হলো আপনি প্রাণীটি বিক্রয় করতে পারবেন না এবং এটি আপনার চূড়ান্ত বিলে অন্তর্ভুক্ত থাকবে না।
+\n\nআপনি কি এটি মুছে ফেলতে নিশ্চিত?</string>
+    <string name="confirm">নিশ্চিত</string>
+    <string name="cancel">বাতিল</string>
+    <string name="remove_from_cart_title">প্রাণীটি বাদ দিন</string>
 </resources>

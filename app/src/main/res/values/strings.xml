@@ -38,4 +38,8 @@
     <string name="select_quantity_of_all_purchased_animals_disclaimer">Set the quantity of all purchased animals.</string>
     <string name="set_the_quantity">Set The Quantity</string>
     <string name="set_the_price">Set The Price</string>
+    <string name="delete_animal_from_cart_disclaimer">Removing this animal completely from your cart will exclude it from your purchase.\n\nThis means you won\'t be able to check out with [(animal name)] and it won\'t be included on your final invoice.\n\nAre you sure you want to remove it?</string>
+    <string name="confirm">CONFIRM</string>
+    <string name="cancel">CANCEL</string>
+    <string name="remove_from_cart_title">Remove From Cart</string>
 </resources>
