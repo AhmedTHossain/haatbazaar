@@ -1,6 +1,8 @@
 package com.apptechbd.haatbazaar.views.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,10 +25,11 @@ import com.apptechbd.haatbazaar.utils.BaseActivity;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class MainActivity extends BaseActivity implements OnCategoryClickListener {
+public class MainActivity extends BaseActivity implements OnCategoryClickListener, View.OnClickListener {
     private ActivityMainBinding binding;
     private ArrayList<Category> categories;
     private CategoriesAdapter adapter;
+    private ArrayList<Category> categoriesSelected = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,8 @@ public class MainActivity extends BaseActivity implements OnCategoryClickListene
 
         saveLocale("bn");
         setLocale(new Locale("bn"));
+
+        binding.buttonProceed.setOnClickListener(this);
 
         getDummyCategories();
     }
@@ -74,14 +79,33 @@ public class MainActivity extends BaseActivity implements OnCategoryClickListene
 
     @Override
     public void onCategoryClick(Category category) {
+        // Handle category click event here
         for (int i = 0; i < categories.size(); i++) {
             if (categories.get(i).getCategoryName().equals(category.getCategoryName())) {
-                if (categories.get(i).isSelected())
+                if (categories.get(i).isSelected()) {
                     categories.get(i).setSelected(true);
-                else
+                    categoriesSelected.add(categories.get(i));
+                } else {
                     categories.get(i).setSelected(false);
+                    categoriesSelected.remove(categories.get(i));
+                }
                 adapter.notifyItemChanged(i);
             }
+        }
+        binding.buttonProceed.setEnabled(!categoriesSelected.isEmpty());
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == binding.buttonProceed.getId()) {
+            ArrayList<String> categoriesPurchased = new ArrayList<>();
+            for (Category category : categoriesSelected)
+                if (category.isSelected())
+                    categoriesPurchased.add(category.getCategoryName());
+
+            Intent intent = new Intent(this, CartActivity.class);
+            intent.putStringArrayListExtra("categoriesPurchased", categoriesPurchased);
+            startActivity(intent);
         }
     }
 }

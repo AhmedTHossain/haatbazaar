@@ -34,4 +34,7 @@
     <string name="goat">Goat</string>
     <string name="camel">Camel</string>
     <string name="sheep">Sheep</string>
+    <string name="quantity_of_purchased_animal">Purchased Animal Quantity</string>
+    <string name="select_quantity_of_all_purchased_animals_disclaimer">Set the quantity of all purchased animals.</string>
+    <string name="set_the_quantity">Set The Quantity</string>
 </resources>

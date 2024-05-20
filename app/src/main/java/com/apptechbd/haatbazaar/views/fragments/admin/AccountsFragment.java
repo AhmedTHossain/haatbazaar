@@ -1,4 +1,4 @@
-package com.apptechbd.haatbazaar.views.fragments;
+package com.apptechbd.haatbazaar.views.fragments.admin;
 
 import android.content.DialogInterface;
 import android.content.Intent;

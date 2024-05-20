@@ -13,9 +13,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.apptechbd.haatbazaar.R;
 import com.apptechbd.haatbazaar.databinding.ActivityAdminMainBinding;
-import com.apptechbd.haatbazaar.databinding.ActivityLoginBinding;
 import com.apptechbd.haatbazaar.viewmodels.AdminMainViewModel;
-import com.apptechbd.haatbazaar.views.fragments.AnalyticsFragment;
+import com.apptechbd.haatbazaar.views.fragments.admin.AnalyticsFragment;
 
 public class AdminMainActivity extends AppCompatActivity {
     private ActivityAdminMainBinding binding;

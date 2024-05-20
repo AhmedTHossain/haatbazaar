@@ -1,4 +1,4 @@
-package com.apptechbd.haatbazaar.views.fragments;
+package com.apptechbd.haatbazaar.views.fragments.admin;
 
 import android.os.Bundle;
 
@@ -13,7 +13,6 @@ import com.apptechbd.haatbazaar.R;
 import com.apptechbd.haatbazaar.databinding.FragmentAnalyticsBinding;
 import com.apptechbd.haatbazaar.utils.DateUtil;
 
-import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
 import java.util.List;
