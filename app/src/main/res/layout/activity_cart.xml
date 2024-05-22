@@ -51,5 +51,5 @@
         android:layout_marginTop="20dp"
         android:text="@string/set_the_price"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:enabled="false"/>
+        android:enabled="true"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

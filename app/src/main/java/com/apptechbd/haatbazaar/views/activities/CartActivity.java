@@ -20,7 +20,7 @@ import com.apptechbd.haatbazaar.views.fragments.cart.SetQuantityFragment;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class CartActivity extends BaseActivity implements EnableOrDisableSetPriceButtonListener {
+public class CartActivity extends BaseActivity {
     private ActivityCartBinding binding;
     private CartViewModel viewModel;
     private ArrayList<String> categoriesPurchased;
@@ -49,11 +49,6 @@ public class CartActivity extends BaseActivity implements EnableOrDisableSetPric
 
     private void initViewModel() {
         viewModel = new ViewModelProvider(this).get(CartViewModel.class);
-        viewModel.replaceFragment(new SetQuantityFragment(categoriesPurchased, this), getSupportFragmentManager());
-    }
-
-    @Override
-    public void onEnableOrDisableSetPriceButton(boolean isEnabled) {
-        binding.button.setEnabled(isEnabled);
+        viewModel.replaceFragment(new SetQuantityFragment(categoriesPurchased), getSupportFragmentManager());
     }
 }

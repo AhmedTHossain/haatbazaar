@@ -1,6 +1,7 @@
 package com.apptechbd.haatbazaar.views.fragments.cart;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.core.content.res.ResourcesCompat;
@@ -20,6 +21,7 @@ import com.apptechbd.haatbazaar.interfaces.OnQuantityAddClickListener;
 import com.apptechbd.haatbazaar.interfaces.OnQuantitySubtractClickListener;
 import com.apptechbd.haatbazaar.models.Account;
 import com.apptechbd.haatbazaar.models.Quantity;
+import com.apptechbd.haatbazaar.views.activities.MainActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
@@ -30,11 +32,9 @@ public class SetQuantityFragment extends Fragment implements OnQuantityAddClickL
     private ArrayList<String> categoriesPurchased;
     private ArrayList<Quantity> quantitiesPurchased = new ArrayList<>();
     private QuantityAdapter adapter;
-    private EnableOrDisableSetPriceButtonListener enableOrDisableSetPriceButtonListener;
 
-    public SetQuantityFragment(ArrayList<String> categoriesPurchased, EnableOrDisableSetPriceButtonListener enableOrDisableSetPriceButtonListener) {
+    public SetQuantityFragment(ArrayList<String> categoriesPurchased) {
         this.categoriesPurchased = categoriesPurchased;
-        this.enableOrDisableSetPriceButtonListener = enableOrDisableSetPriceButtonListener;
 
         for (String category : categoriesPurchased) {
             Quantity quantity = new Quantity(category, 0);
@@ -53,11 +53,11 @@ public class SetQuantityFragment extends Fragment implements OnQuantityAddClickL
         return binding.getRoot();
     }
 
-    private void setAccounts(ArrayList<String > categoriesPurchased) {
+    private void setAccounts(ArrayList<String> categoriesPurchased) {
         binding.recyclerviewQuantity.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerviewQuantity.setHasFixedSize(true);
 
-        adapter = new QuantityAdapter(categoriesPurchased,this,this);
+        adapter = new QuantityAdapter(categoriesPurchased, this, this);
         binding.recyclerviewQuantity.setAdapter(adapter);
     }
 
@@ -72,8 +72,8 @@ public class SetQuantityFragment extends Fragment implements OnQuantityAddClickL
         setQuantity(position, quantity);
     }
 
-    private void setQuantity(int position, int quantity){
-        if (quantity>0) {
+    private void setQuantity(int position, int quantity) {
+        if (quantity > 0) {
             for (Quantity quantityPurchased : quantitiesPurchased) {
                 if (quantityPurchased.getName().equals(categoriesPurchased.get(position)))
                     quantityPurchased.setQuantity(quantity);
@@ -83,16 +83,12 @@ public class SetQuantityFragment extends Fragment implements OnQuantityAddClickL
             showCategoryRemoveConfirmationDialog(position);
     }
 
-    private void checkIfAnyQuantityAdded(){
+    private void checkIfAnyQuantityAdded() {
         int isAnyQuantityAdded = 0;
-        for (Quantity quantityPurchased : quantitiesPurchased){
+        for (Quantity quantityPurchased : quantitiesPurchased) {
             if (quantityPurchased.getQuantity() > 0)
                 isAnyQuantityAdded++;
         }
-        if (isAnyQuantityAdded > 0)
-            enableOrDisableSetPriceButtonListener.onEnableOrDisableSetPriceButton(true);
-        else
-            enableOrDisableSetPriceButtonListener.onEnableOrDisableSetPriceButton(false);
     }
 
     private void showCategoryRemoveConfirmationDialog(int position) {
@@ -112,8 +108,13 @@ public class SetQuantityFragment extends Fragment implements OnQuantityAddClickL
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Handle positive button click
+
                 categoriesPurchased.remove(position);
                 adapter.notifyItemRemoved(position);
+
+                if (categoriesPurchased.isEmpty())
+                    startActivity(new Intent(requireActivity(), MainActivity.class));
+
             }
         });
         builder.setCancelable(false);
