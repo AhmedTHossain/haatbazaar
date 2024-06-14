@@ -111,4 +111,8 @@
     <style name="CustomeImageviewRoundedCorners" parent="">
         <item name="cornerSize">10%</item>
     </style>
+
+    <style name="CustomMaterialDateRangePicker" parent="ThemeOverlay.Material3.MaterialCalendar">
+        <item name="android:windowFullscreen">false</item>
+    </style>
 </resources>

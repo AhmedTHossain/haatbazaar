@@ -46,11 +46,11 @@ dependencies {
 
     //imageview library
     implementation(libs.circleimageview)
-    // Import the Firebase BoM
+    //import the Firebase BoM
     implementation(platform(libs.firebase.bom))
-    // When using the BoM, you don't specify versions in Firebase library dependencies
+    //when using the BoM, you don't specify versions in Firebase library dependencies
     implementation(libs.firebase.auth)
-//    implementation(libs.firebase.crashlytics)
+    //implementation(libs.firebase.crashlytics)
     implementation(libs.firebase.analytics)
     //Glide
     implementation(libs.glide)
