@@ -16,6 +16,7 @@ import com.apptechbd.haatbazaar.interfaces.OnAccountRemoveClickListener;
 import com.apptechbd.haatbazaar.models.Account;
 import com.apptechbd.haatbazaar.views.activities.AddAccountActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
@@ -34,10 +35,39 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
         binding = FragmentAccountsBinding.inflate(inflater, container, false);
 
         getDummyAccounts();
+        setupTabListeners();
+
         binding.buttonAddNewAccount.setOnClickListener(this);
 
         // Inflate the layout for this fragment
         return binding.getRoot();
+    }
+
+    private void setupTabListeners() {
+        binding.tablayoutAccounts.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+                if (position == 0) {
+                    // Employees tab selected
+                    getDummyAccounts();
+
+                } else if (position == 1) {
+                    // Suppliers tab selected
+                    getSupplierAccounts();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     private void getDummyAccounts() {
@@ -49,6 +79,26 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
         Account account4 = new Account("Jalaluddin Ahmed", "01596588950", "https://drive.google.com/uc?export=view&id=1jrU2Z2SGONe1vhC9BujYE1EfPfJR6a6u");
         Account account5 = new Account("Muhammad Salahuddin Ahmed", "01696588950", "https://drive.google.com/uc?export=view&id=1OM6phGhQybpfDtqEroweYahi7z8khBHK");
 
+        accounts.add(account1);
+        accounts.add(account2);
+        accounts.add(account3);
+        accounts.add(account4);
+        accounts.add(account5);
+
+        setAccounts(accounts);
+    }
+
+    private void getSupplierAccounts() {
+        accounts = new ArrayList<>();
+
+        Account account6 = new Account("Baker Miah", "01696588950", "https://drive.google.com/uc?export=view&id=1qNoqy9HtRU6eLXbnHQq8zlflwMBnGUaI");
+        Account account1 = new Account("Romiz Uddin", "01696588950", "https://media.istockphoto.com/id/1341652074/photo/rural-man-standing-at-home.jpg?s=612x612&w=0&k=20&c=lGOgY856BHCnE3i09U20oVkqssfshwK9hrdJZRWW5Q8=");
+        Account account2 = new Account("Ruhul Amin", "01996588950", "https://drive.google.com/uc?export=view&id=1CAQP53PuH98Kh_e26-f2-qVLZFkX9ZUJ");
+        Account account3 = new Account("Khalek Miah", "01896588950", "https://drive.google.com/uc?export=view&id=19VqxBym6o6OsvGhsUrsa-GxDb0_ALhy5");
+        Account account4 = new Account("Abbas Ali", "01596588950", "https://drive.google.com/uc?export=view&id=13oawA6646PqewwgmaTXlB6gwzLzHBn6L");
+        Account account5 = new Account("Haripada Bishwas", "01696588950", "https://drive.google.com/uc?export=view&id=1w-0GR6gSrJsj4DobF4MuviAKI5ywP-Ta");
+
+        accounts.add(account6);
         accounts.add(account1);
         accounts.add(account2);
         accounts.add(account3);
