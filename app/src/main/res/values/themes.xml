@@ -113,6 +113,12 @@
     </style>
 
     <style name="CustomMaterialDateRangePicker" parent="ThemeOverlay.Material3.MaterialCalendar">
-        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowFullscreen">false</item>'
+        <item name="materialCalendarHeaderToggleButton">@style/CustomHeaderToggleButton</item>
     </style>
+
+    <style name="CustomHeaderToggleButton" parent="Widget.MaterialComponents.MaterialCalendar.HeaderToggleButton">
+        <item name="android:visibility">gone</item>
+    </style>
+
 </resources>

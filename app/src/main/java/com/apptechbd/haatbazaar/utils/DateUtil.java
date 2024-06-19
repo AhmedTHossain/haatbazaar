@@ -4,6 +4,7 @@ import androidx.core.util.Pair;
 import androidx.fragment.app.FragmentManager;
 
 import com.apptechbd.haatbazaar.R;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -40,7 +41,7 @@ public class DateUtil {
         }
     }
 
-    public static void showMaterialDateRangePicker(FragmentManager fragmentManager, MaterialTextView textDateRange) {
+    public static void showMaterialDateRangePicker(FragmentManager fragmentManager, MaterialTextView textDateRange, Chip chipCustom) {
         MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
 
         // Optional: Set title text for the dialog
@@ -63,6 +64,11 @@ public class DateUtil {
 
             String dateRange = formattedStartDate + " - " + formattedEndDate;
             textDateRange.setText(dateRange);
+        });
+
+        materialDatePicker.addOnNegativeButtonClickListener(selection -> {
+            // Handle negative button click (cancel)
+            chipCustom.setChecked(false);
         });
 
         // Show the MaterialDatePicker dialog

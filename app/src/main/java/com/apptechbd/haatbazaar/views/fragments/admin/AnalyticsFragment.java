@@ -42,7 +42,7 @@ public class AnalyticsFragment extends Fragment {
                 } else if (chipGroup.getCheckedChipId() == R.id.chip_monthly) {
                     dateRange = DateUtil.getLastPeriod("month");
                 } else if (chipGroup.getCheckedChipId() == R.id.chip_custom) {
-                    DateUtil.showMaterialDateRangePicker(getParentFragmentManager(), binding.textDateRange);
+                    DateUtil.showMaterialDateRangePicker(getParentFragmentManager(), binding.textDateRange, binding.chipCustom);
                 } else {
                     dateRange = DateUtil.getTodayDate();
                 }
