@@ -7,17 +7,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.MutableLiveData;
 
 import com.apptechbd.haatbazaar.R;
 import com.apptechbd.haatbazaar.databinding.ActivityAdminMainBinding;
 import com.apptechbd.haatbazaar.views.fragments.admin.AccountsFragment;
 import com.apptechbd.haatbazaar.views.fragments.admin.AnalyticsFragment;
+import com.apptechbd.haatbazaar.views.fragments.admin.MoreFragment;
 
 public class AdminMainViewModel extends AndroidViewModel {
     AnalyticsFragment analyticsFragment = new AnalyticsFragment();
     AccountsFragment accountsFragment = new AccountsFragment();
-    public final MutableLiveData<Boolean> logoutEvent = new MutableLiveData<>();
+    MoreFragment moreFragment = new MoreFragment();
+
     public AdminMainViewModel(@NonNull Application application) {
         super(application);
     }
@@ -30,9 +31,8 @@ public class AdminMainViewModel extends AndroidViewModel {
                 replaceFragment(analyticsFragment, supportFragmentManager);
             } else if (itemId == R.id.accounts) {
                 replaceFragment(accountsFragment, supportFragmentManager);
-            } else if (itemId == R.id.signout) {
-                //ToDo: Signout from firebase
-                logoutEvent.setValue(true);
+            } else if (itemId == R.id.more) {
+                replaceFragment(moreFragment, supportFragmentManager);
             }
 
             return true;

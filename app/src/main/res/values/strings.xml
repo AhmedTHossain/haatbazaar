@@ -43,4 +43,5 @@
     <string name="cancel">CANCEL</string>
     <string name="remove_from_cart_title">Remove From Cart</string>
     <string name="custom">Custom</string>
+    <string name="more">More</string>
 </resources>

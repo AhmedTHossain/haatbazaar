@@ -13,12 +13,18 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.apptechbd.haatbazaar.R;
 import com.apptechbd.haatbazaar.databinding.ActivityAdminMainBinding;
+import com.apptechbd.haatbazaar.interfaces.OnLanguageChangeListener;
+import com.apptechbd.haatbazaar.utils.BaseActivity;
 import com.apptechbd.haatbazaar.viewmodels.AdminMainViewModel;
 import com.apptechbd.haatbazaar.views.fragments.admin.AnalyticsFragment;
+import com.apptechbd.haatbazaar.views.fragments.admin.MoreFragment;
 
-public class AdminMainActivity extends AppCompatActivity {
+import java.util.Locale;
+
+public class AdminMainActivity extends BaseActivity implements OnLanguageChangeListener {
     private ActivityAdminMainBinding binding;
     private AdminMainViewModel viewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,15 +45,22 @@ public class AdminMainActivity extends AppCompatActivity {
 
     private void initViewModel() {
         viewModel = new ViewModelProvider(this).get(AdminMainViewModel.class);
-        viewModel.onBottomNavMenuItemSelect(binding,getSupportFragmentManager());
-        viewModel.logoutEvent.observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean isLogout) {
-                if (isLogout) {
-                    startActivity(new Intent(AdminMainActivity.this, LoginActivity.class));
-                    finish();
-                }
-            }
-        });
+        viewModel.onBottomNavMenuItemSelect(binding, getSupportFragmentManager());
+    }
+
+    @Override
+    public void onLanguageChange(String language) {
+        switch (language) {
+            case "bn":
+                saveLocale("bn");
+                setLocale(new Locale("bn"));
+                break;
+            case "en":
+                saveLocale("en");
+                setLocale(Locale.ENGLISH);
+                break;
+        }
+        recreate();
+        viewModel.replaceFragment(new MoreFragment(), getSupportFragmentManager());
     }
 }
