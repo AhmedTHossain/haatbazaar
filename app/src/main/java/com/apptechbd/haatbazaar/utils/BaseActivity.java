@@ -36,5 +36,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void saveLocale(String lang) {
         sharedPreferences.edit().putString("language", lang).apply();
     }
+
+    protected void saveStartFragmentForAdmin(String fragment){
+        sharedPreferences.edit().putString("start_fragment", fragment).apply();
+    }
+
+    protected String getStartFragmentForAdmin(){
+        return sharedPreferences.getString("start_fragment", "");
+    }
 }
 

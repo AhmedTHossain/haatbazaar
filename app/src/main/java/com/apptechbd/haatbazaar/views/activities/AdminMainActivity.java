@@ -40,7 +40,11 @@ public class AdminMainActivity extends BaseActivity implements OnLanguageChangeL
         });
 
         initViewModel();
-        viewModel.replaceFragment(new AnalyticsFragment(), getSupportFragmentManager());
+
+        if (getStartFragmentForAdmin().equals("more"))
+            viewModel.replaceFragment(new MoreFragment(), getSupportFragmentManager());
+        else
+            viewModel.replaceFragment(new AnalyticsFragment(), getSupportFragmentManager());
     }
 
     private void initViewModel() {
@@ -60,7 +64,7 @@ public class AdminMainActivity extends BaseActivity implements OnLanguageChangeL
                 setLocale(Locale.ENGLISH);
                 break;
         }
+        saveStartFragmentForAdmin("more");
         recreate();
-        viewModel.replaceFragment(new MoreFragment(), getSupportFragmentManager());
     }
 }

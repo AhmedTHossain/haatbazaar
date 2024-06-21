@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="App" />
+                android:text="@string/app" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/menu_item_colorscheme"
@@ -64,14 +64,14 @@
                         android:drawableStart="@drawable/icon_color_scheme"
                         android:drawablePadding="10dp"
                         android:gravity="center"
-                        android:text="Color Scheme" />
+                        android:text="@string/color_scheme" />
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextAppearance.AppCompat.Body1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:text="(System Default)" />
+                        android:text="@string/system_default" />
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
@@ -95,14 +95,14 @@
                         android:drawableStart="@drawable/icon_language"
                         android:drawablePadding="10dp"
                         android:gravity="center"
-                        android:text="Language" />
+                        android:text="@string/language" />
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextAppearance.AppCompat.Body1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:text="(English)" />
+                        android:text="@string/english" />
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
@@ -113,7 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Support &amp; About" />
+                android:text="@string/support_amp_about" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/menu_item_help_center"
@@ -136,7 +136,7 @@
                         android:drawableStart="@drawable/icon_help"
                         android:drawablePadding="10dp"
                         android:gravity="center"
-                        android:text="Help Center" />
+                        android:text="@string/help_center" />
 
                 </LinearLayout>
 
@@ -163,7 +163,7 @@
                         android:drawableStart="@drawable/icon_terms"
                         android:drawablePadding="10dp"
                         android:gravity="center"
-                        android:text="Terms of Use" />
+                        android:text="@string/terms_of_use" />
 
                 </LinearLayout>
 
@@ -190,7 +190,7 @@
                         android:drawableStart="@drawable/icon_privacy"
                         android:drawablePadding="10dp"
                         android:gravity="center"
-                        android:text="Privacy Policy" />
+                        android:text="@string/privacy_policy" />
 
                 </LinearLayout>
 
@@ -226,7 +226,7 @@
                         android:drawableStart="@drawable/icon_signout"
                         android:drawablePadding="10dp"
                         android:gravity="center"
-                        android:text="Log Out" />
+                        android:text="@string/log_out" />
 
                 </LinearLayout>
 

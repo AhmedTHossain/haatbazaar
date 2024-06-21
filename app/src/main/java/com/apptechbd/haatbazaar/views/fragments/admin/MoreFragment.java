@@ -1,7 +1,10 @@
 package com.apptechbd.haatbazaar.views.fragments.admin;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -18,6 +21,7 @@ import com.apptechbd.haatbazaar.interfaces.OnLanguageChangeListener;
 import com.apptechbd.haatbazaar.views.activities.AdminMainActivity;
 import com.apptechbd.haatbazaar.views.activities.LoginActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.radiobutton.MaterialRadioButton;
 
 public class MoreFragment extends Fragment implements View.OnClickListener {
     private FragmentMoreBinding binding;
@@ -40,13 +44,13 @@ public class MoreFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v.getId()==binding.menuItemLogOut.getId()){
+        if (v.getId() == binding.menuItemLogOut.getId()) {
             //ToDo: Signout from firebase
             startActivity(new Intent(requireActivity(), LoginActivity.class));
             requireActivity().finish();
-        } else if (v.getId()==binding.menuItemLanguage.getId()){
+        } else if (v.getId() == binding.menuItemLanguage.getId()) {
             showLanguageChangeDialog();
-        } else if (v.getId()==binding.menuItemColorscheme.getId()){
+        } else if (v.getId() == binding.menuItemColorscheme.getId()) {
             showColorSchemeChangeDialog();
         }
     }
@@ -60,11 +64,23 @@ public class MoreFragment extends Fragment implements View.OnClickListener {
         builder.setView(view);
         builder.setTitle("Choose Language");
 
+        RadioGroup radioGroup = view.findViewById(R.id.radiogroup_language);
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("LanguagePrefs", MODE_PRIVATE);
+        switch (sharedPreferences.getString("language", "")) {
+            case "bn":
+                MaterialRadioButton radioBangla = radioGroup.findViewById(R.id.radio_bangla);
+                radioBangla.setChecked(true);
+                break;
+            case "en":
+                MaterialRadioButton radioEnglish = radioGroup.findViewById(R.id.radio_english);
+                radioEnglish.setChecked(true);
+                break;
+        }
+
         builder.setCancelable(false)
                 .setPositiveButton("SET", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        RadioGroup radioGroup = view.findViewById(R.id.radiogroup_language);
                         int selectedId = radioGroup.getCheckedRadioButtonId();
                         if (selectedId == R.id.radio_english) {
                             OnLanguageChangeListener listener = (OnLanguageChangeListener) getActivity();
