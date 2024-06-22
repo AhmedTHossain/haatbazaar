@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -25,6 +26,8 @@ import com.google.android.material.radiobutton.MaterialRadioButton;
 
 public class MoreFragment extends Fragment implements View.OnClickListener {
     private FragmentMoreBinding binding;
+    private SharedPreferences sharedPreferences;
+
     public MoreFragment() {
         // Required empty public constructor
     }
@@ -37,6 +40,8 @@ public class MoreFragment extends Fragment implements View.OnClickListener {
         binding.menuItemColorscheme.setOnClickListener(this);
         binding.menuItemLanguage.setOnClickListener(this);
         binding.menuItemLogOut.setOnClickListener(this);
+
+        sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", MODE_PRIVATE);
 
         // Inflate the layout for this fragment
         return binding.getRoot();
@@ -65,7 +70,7 @@ public class MoreFragment extends Fragment implements View.OnClickListener {
         builder.setTitle("Choose Language");
 
         RadioGroup radioGroup = view.findViewById(R.id.radiogroup_language);
-        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("LanguagePrefs", MODE_PRIVATE);
+
         switch (sharedPreferences.getString("language", "")) {
             case "bn":
                 MaterialRadioButton radioBangla = radioGroup.findViewById(R.id.radio_bangla);
@@ -109,11 +114,38 @@ public class MoreFragment extends Fragment implements View.OnClickListener {
         builder.setView(view);
         builder.setTitle("Choose Color");
 
+        RadioGroup radioGroup = view.findViewById(R.id.radio_group_color_scheme);
+
+        switch (sharedPreferences.getInt("color_scheme", 0)) {
+            case 1:
+                MaterialRadioButton radioLight = radioGroup.findViewById(R.id.radio_light);
+                radioLight.setChecked(true);
+                break;
+            case 2:
+                MaterialRadioButton radioDark = radioGroup.findViewById(R.id.radio_dark);
+                radioDark.setChecked(true);
+                break;
+            case -1:
+                MaterialRadioButton radioSystemDefault = radioGroup.findViewById(R.id.radio_system_default);
+                radioSystemDefault.setChecked(true);
+                break;
+        }
+
         builder.setCancelable(false)
                 .setPositiveButton("SET", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        int selectedId = radioGroup.getCheckedRadioButtonId();
+                        if (selectedId == R.id.radio_system_default) {
+                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                            sharedPreferences.edit().putInt("color_scheme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM).apply();
+                        } else if (selectedId == R.id.radio_light) {
+                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                            sharedPreferences.edit().putInt("color_scheme", AppCompatDelegate.MODE_NIGHT_NO).apply();
+                        } else if (selectedId == R.id.radio_dark) {
+                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                            sharedPreferences.edit().putInt("color_scheme", AppCompatDelegate.MODE_NIGHT_YES).apply();
+                        }
                     }
                 })
                 .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {

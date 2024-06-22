@@ -7,6 +7,7 @@
     android:paddingEnd="20dp">
 
     <RadioGroup
+        android:id="@+id/radio_group_color_scheme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp">

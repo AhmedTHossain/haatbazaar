@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -40,11 +41,16 @@ public class AdminMainActivity extends BaseActivity implements OnLanguageChangeL
         });
 
         initViewModel();
+        viewModel.replaceFragment(new AnalyticsFragment(), getSupportFragmentManager());
 
-        if (getStartFragmentForAdmin().equals("more"))
-            viewModel.replaceFragment(new MoreFragment(), getSupportFragmentManager());
-        else
-            viewModel.replaceFragment(new AnalyticsFragment(), getSupportFragmentManager());
+//        if (getStartFragmentForAdmin().equals("more")) {
+//            saveStartFragmentForAdmin("admin");
+//            viewModel.replaceFragment(new MoreFragment(), getSupportFragmentManager());
+//        }
+//        else
+//            viewModel.replaceFragment(new AnalyticsFragment(), getSupportFragmentManager());
+
+        getSavedColorScheme();
     }
 
     private void initViewModel() {

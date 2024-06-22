@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import java.util.Locale;
 
@@ -17,7 +18,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sharedPreferences = getSharedPreferences("LanguagePrefs", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         setLocale(getSavedLocale());
     }
 
@@ -43,6 +44,11 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected String getStartFragmentForAdmin(){
         return sharedPreferences.getString("start_fragment", "");
+    }
+
+    protected void getSavedColorScheme(){
+        int colorScheme = sharedPreferences.getInt("color_scheme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        AppCompatDelegate.setDefaultNightMode(colorScheme);
     }
 }
 
