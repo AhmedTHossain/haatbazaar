@@ -21,7 +21,10 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     buildFeatures {
@@ -52,8 +55,12 @@ dependencies {
     implementation(libs.firebase.auth)
     //implementation(libs.firebase.crashlytics)
     implementation(libs.firebase.analytics)
+    implementation(libs.play.services.auth)
     //Glide
     implementation(libs.glide)
     //shimmer layout
     implementation(libs.shimmer)
+    //Flexbox layout
+    implementation(libs.google.flexbox)
+    implementation(libs.browser)
 }

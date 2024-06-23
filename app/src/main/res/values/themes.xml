@@ -67,7 +67,7 @@
     </style>
 
     <style name="CustomCardStyle" parent="Widget.MaterialComponents.CardView">
-        <item name="android:elevation">20dp</item>
+        <item name="android:elevation">1dp</item>
         <item name="cardCornerRadius">10dp</item>
     </style>
 

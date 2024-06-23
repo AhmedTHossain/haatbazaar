@@ -73,7 +73,7 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
     private void getDummyAccounts() {
         accounts = new ArrayList<>();
 
-        Account account1 = new Account("Shahidul Islam Miah", "01696588950", "https://drive.google.com/uc?export=view&id=14gr6Lu-ihzKRtwHLq2fIh-OiINQl_sD6");
+        Account account1 = new Account("Shahidul Islam Miah", "01696588950", "https://drive.google.com/uc?export=view&id=1JTe00cTweVcoToM2g3wHUvTJuqJSuHDm");
         Account account2 = new Account("Jahangir Hossain", "01996588950", "https://drive.google.com/uc?export=view&id=1cMES8jZLXCw6iPh8rLPTe6M8SYLbbE_U");
         Account account3 = new Account("Mohammad Ali", "01896588950", "https://drive.google.com/uc?export=view&id=1EXuGikoCGTrAoaVUs_WpJA3kpYkwQ_Fs");
         Account account4 = new Account("Jalaluddin Ahmed", "01596588950", "https://drive.google.com/uc?export=view&id=1jrU2Z2SGONe1vhC9BujYE1EfPfJR6a6u");

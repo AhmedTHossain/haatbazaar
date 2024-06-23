@@ -1,5 +1,8 @@
 package com.apptechbd.haatbazaar.views.activities;
 
+import static com.apptechbd.haatbazaar.utils.Constants.RC_SIGN_IN;
+import static com.apptechbd.haatbazaar.utils.HelperClass.logErrorMessage;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,33 +10,35 @@ import android.view.View;
 import android.widget.CompoundButton;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.apptechbd.haatbazaar.R;
 import com.apptechbd.haatbazaar.databinding.ActivityLoginBinding;
 import com.apptechbd.haatbazaar.utils.BaseActivity;
-import com.apptechbd.haatbazaar.utils.OtpView;
-import com.apptechbd.haatbazaar.utils.PhoneNumberFormatter;
-import com.google.android.gms.tasks.OnCompleteListener;
+import com.apptechbd.haatbazaar.utils.HelperClass;
+import com.apptechbd.haatbazaar.viewmodels.LoginViewModel;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.materialswitch.MaterialSwitch;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.FirebaseException;
-import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.Locale;
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
     private ActivityLoginBinding binding;
     private FirebaseAuth mAuth;
+    private GoogleSignInClient googleSignInClient;
+    private LoginViewModel loginViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +54,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             return insets;
         });
 
-        PhoneNumberFormatter.formatPhoneNumber(binding.inputedittextFieldPhone);
+        initViewModel();
 
         MaterialSwitch languageSwitchButton = findViewById(R.id.view_language_toggle);
         languageSwitchButton.setChecked(getSavedLocale().getLanguage().equals("bn"));
@@ -67,9 +72,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             }
         });
 
-        binding.buttonLogin.setOnClickListener(this);
+        initGoogleSignInClient();
 
-        new OtpView().setupOtpInput(binding.layoutOtpView.getRoot());
+        binding.buttonLogin.setOnClickListener(this);
     }
 
     @Override
@@ -78,60 +83,56 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             login();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                GoogleSignInAccount googleSignInAccount = task.getResult(ApiException.class);
+                if (googleSignInAccount != null) {
+                    getGoogleAuthCredential(googleSignInAccount);
+                }
+            } catch (ApiException e) {
+                logErrorMessage(e.getMessage());
+            }
+        }
+    }
+
+    private void initViewModel() {
+        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+    }
+
     private void login() {
-        String phoneNumber = Objects.requireNonNull(binding.inputedittextFieldPhone.getText()).toString().trim();
-        if (phoneNumber.isEmpty())
-            Snackbar.make(binding.buttonLogin, "Please enter phone number first!", Snackbar.LENGTH_LONG).show();
-        else
-            // Send phone verification code
-            sendVerificationCode("+88" + phoneNumber.replaceAll("-", ""));
+        googleSignInClient.revokeAccess();
+        Intent signInIntent = googleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    private void sendVerificationCode(String phoneNumber) {
-        binding.inputEditTextPhone.setVisibility(View.GONE);
-        binding.layoutOtpView.getRoot().setVisibility(View.VISIBLE);
+    private void initGoogleSignInClient() {
+        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
 
-        Log.d("LoginActivity", "phone number sent: " + phoneNumber);
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                phoneNumber,        // Phone number to verify
-                60,                 // Timeout duration
-                TimeUnit.SECONDS,   // Timeout unit
-                this,               // Activity (for callback)
-                new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                    @Override
-                    public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                        super.onCodeSent(s, forceResendingToken);
-//                        binding.inputEditTextPhone.setVisibility(View.GONE);
-//                        binding.layoutOtpView.getRoot().setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                        signInWithPhoneAuthCredential(phoneAuthCredential);
-                    }
-
-                    @Override
-                    public void onVerificationFailed(@NonNull FirebaseException e) {
-                        Log.w("LoginActivity", "Phone verification failed" + e.getMessage());
-                        Snackbar.make(binding.buttonLogin, "Verification failed:" + e.getMessage(), Snackbar.LENGTH_LONG).show();
-                    }
-                });
+        googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
     }
 
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, proceed to next activity
-                            startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
-                            finish();
-                        } else {
-                            Log.w("LoginActivity", "SignInWithCredential:failure", task.getException());
-                            Snackbar.make(binding.buttonLogin, "Sign in failed!", Snackbar.LENGTH_LONG).show();
-                        }
-                    }
-                });
+    private void getGoogleAuthCredential(GoogleSignInAccount googleSignInAccount) {
+        String googleTokenId = googleSignInAccount.getIdToken();
+        AuthCredential googleAuthCredential = GoogleAuthProvider.getCredential(googleTokenId, null);
+        signInWithGoogleAuthCredential(googleAuthCredential);
+    }
+
+    private void signInWithGoogleAuthCredential(AuthCredential googleAuthCredential) {
+        loginViewModel.signInWithGoogle(googleAuthCredential);
+        loginViewModel.authenticatedUserLiveData.observe(this, authenticatedUser -> {
+            if (authenticatedUser != null) {
+                new HelperClass().showSnackBar(binding.main, "Hello "+authenticatedUser.getDisplayName());
+                startActivity(new Intent(this,AdminMainActivity.class));
+                finish();
+            }
+        });
     }
 }

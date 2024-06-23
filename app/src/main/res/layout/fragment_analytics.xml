@@ -1,262 +1,378 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:layout_height="wrap_content"
     tools:context=".views.fragments.admin.AnalyticsFragment">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/text_screen_title"
-        style="@style/TextAppearance.Material3.HeadlineLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/overview"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="5dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/md_theme_primary"
-        app:layout_constraintStart_toStartOf="@id/text_screen_title"
-        app:layout_constraintTop_toBottomOf="@id/text_screen_title" />
-
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_screen_title">
+        android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_screen_title"
+            style="@style/TextAppearance.Material3.HeadlineLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/overview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="20dp">
+            android:layout_height="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/md_theme_primary" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text_title_date_range_filters"
-                style="@style/TextAppearance.AppCompat.Title"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_title_date_range_filters"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/date_range" />
+
+        <!-- Date Filters -->
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipgroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:chipSpacingHorizontal="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_title_date_range_filters"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_daily"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:text="@string/date_range"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:text="@string/daily" />
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipgroup"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_weekly"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:chipSpacingHorizontal="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_title_date_range_filters"
-                app:singleSelection="true">
+                android:text="@string/weekly" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_daily"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/daily" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_weekly"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/weekly" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_monthly"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/monthly" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_custom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/custom" />
-            </com.google.android.material.chip.ChipGroup>
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text_date_range"
-                style="@style/TextAppearance.Material3.ActionBar.Subtitle"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_monthly"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="10dp"
-                android:shadowColor="#757575"
-                android:shadowDy="2.5"
-                android:shadowRadius="1"
-                android:text=""
-                app:layout_constraintEnd_toEndOf="@id/cardview_cows_analytics"
-                app:layout_constraintTop_toBottomOf="@id/chipgroup" />
+                android:text="@string/monthly" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_custom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/custom" />
+        </com.google.android.material.chip.ChipGroup>
+        <!-- Date Range/ Date selected -->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_date_range"
+            style="@style/TextAppearance.Material3.ActionBar.Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="10dp"
+            android:shadowColor="#757575"
+            android:shadowDy="2.5"
+            android:shadowRadius="1"
+            android:text="" />
+
+        <!-- Sales Overview -->
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Sales Overview" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:flexWrap="wrap">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardview_cows_analytics"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_date_range">
+                android:layout_marginEnd="20dp"
+                android:layout_weight="1"
+                android:layout_marginTop="20dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:orientation="vertical"
                     android:padding="20dp">
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/text_title_cows_sold"
-                        style="@style/TextAppearance.AppCompat.Title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/cows_sold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/text_label_number_of_cows_sold"
                         style="@style/TextAppearance.AppCompat.Body1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:text="@string/total_number_of_cows_sold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/text_title_cows_sold" />
+                        android:text="@string/cash_received" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/text_number_of_cows_sold"
                         style="@style/TextAppearance.AppCompat.Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:text="39"
-                        app:layout_constraintBottom_toBottomOf="@id/text_label_number_of_cows_sold"
-                        app:layout_constraintStart_toEndOf="@id/text_label_number_of_cows_sold" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:layout_marginTop="15dp"
+                        android:layout_gravity="center"
+                        android:text="45,64,000" />
+                </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardview_goats_analytics"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardview_cows_analytics">
+                android:layout_weight="1"
+                android:layout_marginTop="20dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:orientation="vertical"
                     android:padding="20dp">
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/text_title_goats_sold"
-                        style="@style/TextAppearance.AppCompat.Title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Goats Sold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/text_label_number_of_goats_sold"
                         style="@style/TextAppearance.AppCompat.Body1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:text="@string/total_number_of_goats_sold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/text_title_goats_sold" />
+                        android:text="@string/commission_earned" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/text_number_of_goats_sold"
                         style="@style/TextAppearance.AppCompat.Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:text="42"
-                        app:layout_constraintBottom_toBottomOf="@id/text_label_number_of_goats_sold"
-                        app:layout_constraintStart_toEndOf="@id/text_label_number_of_goats_sold" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:layout_marginTop="15dp"
+                        android:layout_gravity="center"
+                        android:text="3,19,480" />
+                </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                app:layout_flexBasisPercent="40%">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextAppearance.AppCompat.Body1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/animal_sold" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextAppearance.AppCompat.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_gravity="center"
+                        android:text="172" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </com.google.android.flexbox.FlexboxLayout>
+
+        <!-- Sales Per Product -->
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sales Per Product" />
+        <!-- Cows -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardview_cows_analytics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_date_range">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardview_goats_analytics">
+                android:orientation="vertical"
+                android:padding="20dp">
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardview_money_received"
-                    android:layout_width="0dp"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_title_cows_sold"
+                    style="@style/TextAppearance.AppCompat.Title"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_weight="1">
+                    android:text="@string/cows_sold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="20dp">
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/text_label_money_received"
-                            style="@style/TextAppearance.AppCompat.Body1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/money_received" />
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/text_money_received"
-                            style="@style/TextAppearance.AppCompat.Title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:text="1,395,600" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardview_commission_earned"
-                    android:layout_width="0dp"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_label_number_of_cows_sold"
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_weight="1">
+                    android:layout_marginTop="15dp"
+                    android:text="@string/total_number_of_cows_sold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_title_cows_sold" />
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="20dp">
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_number_of_cows_sold"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="72"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/text_label_number_of_cows_sold"
+                    app:layout_constraintStart_toEndOf="@id/text_label_number_of_cows_sold" />
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/text_label_commission_earned"
-                            style="@style/TextAppearance.AppCompat.Body1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/commission_earned" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_label_money_received_from_cows"
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Money received:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_number_of_cows_sold" />
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/text_commission_earned"
-                            style="@style/TextAppearance.AppCompat.Title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:text="93,506" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_money_received_from_cows"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="37,44,000"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/text_label_money_received_from_cows"
+                    app:layout_constraintStart_toEndOf="@id/text_label_money_received_from_cows" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_label_commission_earned_from_cows"
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Comission earned:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_money_received_from_cows" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_commission_earned_from_cows"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="2,62,080"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/text_label_commission_earned_from_cows"
+                    app:layout_constraintStart_toEndOf="@id/text_label_commission_earned_from_cows" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Goats -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardview_goats_analytics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_date_range">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_title_goats_sold"
+                    style="@style/TextAppearance.AppCompat.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/goats_sold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_label_number_of_goats_sold"
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/total_number_of_cows_sold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_title_goats_sold" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_number_of_goats_sold"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="100"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/text_label_number_of_goats_sold"
+                    app:layout_constraintStart_toEndOf="@id/text_label_number_of_goats_sold" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_label_money_received_from_goats"
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Money received:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_number_of_goats_sold" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_money_received_from_goats"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="8,20,000"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/text_label_money_received_from_goats"
+                    app:layout_constraintStart_toEndOf="@id/text_label_money_received_from_goats" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_label_commission_earned_from_goats"
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Comission earned:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_label_money_received_from_goats" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_commission_earned_from_goats"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="57,400"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/text_label_commission_earned_from_goats"
+                    app:layout_constraintStart_toEndOf="@id/text_label_commission_earned_from_goats" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

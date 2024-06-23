@@ -12,7 +12,20 @@
           "package_name": "com.apptechbd.haatbazaar"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "864406730341-db4vkv4q4gb989j5g1rinej616esq18j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.apptechbd.haatbazaar",
+            "certificate_hash": "f0c6dd86f950dfa38db0755bd3a121aea2e5ddb7"
+          }
+        },
+        {
+          "client_id": "864406730341-2tkpsqgbe7o9oouim5r3fljqi9abfrmj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyD6Rr_5K0gC7ZR1wC-crgFg8rYiPxOs0rY"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "864406730341-2tkpsqgbe7o9oouim5r3fljqi9abfrmj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

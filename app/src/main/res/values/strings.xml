@@ -4,23 +4,23 @@
     <string name="phone_input_field_hint_english">Phone</string>
     <string name="password_input_field_hint_english">Password</string>
     <string name="forgot_password_button_text_english">Forgot Password?</string>
-    <string name="enter_button_text_english">Enter</string>
+    <string name="enter_button_text_english">Sign in with Google</string>
     <string name="revolutionize_cattle_commerce">Revolutionize Cattle Commerce.</string>
     <string name="analytics">Analytics</string>
     <string name="accounts">Accounts</string>
     <string name="sign_out">Sign Out</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="overview">Overview</string>
+    <string name="overview">Analytics</string>
     <string name="date_range">Date Range</string>
     <string name="monthly">Monthly</string>
     <string name="weekly">Weekly</string>
     <string name="daily">Daily</string>
-    <string name="cows_sold">Cows Sold</string>
-    <string name="total_number_of_cows_sold">Total number of cows sold:</string>
-    <string name="total_number_of_goats_sold">Total number of goats sold:</string>
+    <string name="cows_sold">Cows</string>
+    <string name="total_number_of_cows_sold">Total sales:</string>
+    <string name="goats_sold">Goats</string>
     <string name="money_received">Money\nReceived:</string>
-    <string name="commission_earned">Commission\nEarned:</string>
+    <string name="commission_earned">Commission Earned</string>
     <string name="active_accounts">Active Accounts</string>
     <string name="add_new_account">Add New Account</string>
     <string name="account_information">Account Information</string>
@@ -51,7 +51,9 @@
     <string name="support_amp_about"><![CDATA[Support & About]]></string>
     <string name="english">(English)</string>
     <string name="help_center">Help Center</string>
-    <string name="terms_of_use">Terms of Use</string>
+    <string name="terms_of_use">Terms of Service</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="log_out">Log Out</string>
+    <string name="cash_received">Cash Received</string>
+    <string name="animal_sold">Animal Sold</string>
 </resources>

@@ -19,7 +19,7 @@
     <string name="total_number_of_cows_sold">সর্বমোট বিক্রিত গরুর সংখ্যা:</string>
     <string name="total_number_of_goats_sold">সর্বমোট বিক্রিত ছাগলের সংখ্যা:</string>
     <string name="money_received">প্রাপ্ত\nটাকা:</string>
-    <string name="commission_earned">প্রাপ্ত\nকমিশন:</string>
+    <string name="commission_earned">প্রাপ্ত কমিশন:</string>
     <string name="active_accounts">Active Accounts</string>
     <string name="add_new_account">নতুন অ্যাকাউন্ট যোগ করুন</string>
     <string name="account_information">Account Information</string>
@@ -54,4 +54,6 @@
     <string name="terms_of_use">ব্যবহারের শর্তাবলী</string>
     <string name="privacy_policy">গোপনীয়তা নীতি</string>
     <string name="log_out">লগ আউট করুন</string>
+    <string name="cash_received">Cash Received</string>
+    <string name="animal_sold">Animal Sold</string>
 </resources>
