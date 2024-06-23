@@ -54,6 +54,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             return insets;
         });
 
+        if (getSignInStatus()) {
+            if (getSignedInUserType().equals("admin"))
+                startActivity(new Intent(this, AdminMainActivity.class));
+            else
+                startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
+
         initViewModel();
 
         MaterialSwitch languageSwitchButton = findViewById(R.id.view_language_toggle);
@@ -105,7 +113,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private void login() {
 //        binding.progressView.setVisibility(View.VISIBLE);
-        googleSignInClient.revokeAccess();
+        googleSignInClient.signOut();
         Intent signInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -130,19 +138,24 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         loginViewModel.signInWithGoogle(googleAuthCredential);
         loginViewModel.authenticatedUserLiveData.observe(this, authenticatedUser -> {
             if (authenticatedUser != null) {
-                new HelperClass().showSnackBar(binding.main, "Hello "+authenticatedUser.getDisplayName());
+                new HelperClass().showSnackBar(binding.main, "Hello " + authenticatedUser.getDisplayName());
 
                 loginViewModel.checkIfAdminUser(authenticatedUser.getUid(), binding.main);
                 loginViewModel.isAdminUser.observe(this, isAdmin -> {
-                    if (isAdmin)
+                    if (isAdmin) {
+                        saveSignedInUserType("admin");
                         startActivity(new Intent(this, AdminMainActivity.class));
-                    else
+                    } else {
+                        saveSignedInUserType("user");
                         startActivity(new Intent(this, MainActivity.class));
+                    }
 
                     finish();
                 });
 
-            }
+                saveSignInStatus(true);
+            } else
+                saveSignInStatus(false);
         });
     }
 }

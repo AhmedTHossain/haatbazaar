@@ -50,5 +50,21 @@ public abstract class BaseActivity extends AppCompatActivity {
         int colorScheme = sharedPreferences.getInt("color_scheme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         AppCompatDelegate.setDefaultNightMode(colorScheme);
     }
+
+    protected void saveSignInStatus(Boolean status){
+        sharedPreferences.edit().putBoolean("sign_in_status", status).apply();
+    }
+
+    protected Boolean getSignInStatus(){
+        return sharedPreferences.getBoolean("sign_in_status", false);
+    }
+
+    protected void saveSignedInUserType(String type){
+        sharedPreferences.edit().putString("user_type", type).apply();
+    }
+
+    protected String getSignedInUserType(){
+        return sharedPreferences.getString("user_type", "");
+    }
 }
 

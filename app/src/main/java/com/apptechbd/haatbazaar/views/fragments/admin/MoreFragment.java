@@ -51,6 +51,7 @@ public class MoreFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         if (v.getId() == binding.menuItemLogOut.getId()) {
             //ToDo: Signout from firebase
+            sharedPreferences.edit().putBoolean("sign_in_status", false).apply();
             startActivity(new Intent(requireActivity(), LoginActivity.class));
             requireActivity().finish();
         } else if (v.getId() == binding.menuItemLanguage.getId()) {
