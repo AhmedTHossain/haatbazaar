@@ -118,6 +118,15 @@
                 android:textColor="@color/md_theme_primary" />
         </com.google.android.flexbox.FlexboxLayout>
 
+<!--        <com.google.android.material.progressindicator.CircularProgressIndicator-->
+<!--            android:id="@+id/progress_view"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:visibility="visible"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            app:indicatorColor="@color/md_theme_primary"/>-->
+
     </LinearLayout>
 
     <com.google.android.flexbox.FlexboxLayout

@@ -55,6 +55,8 @@ dependencies {
     implementation(libs.firebase.auth)
     //implementation(libs.firebase.crashlytics)
     implementation(libs.firebase.analytics)
+    // Declare the dependency for the Cloud Firestore library
+    implementation(libs.firebase.firestore)
     implementation(libs.play.services.auth)
     //Glide
     implementation(libs.glide)
@@ -63,4 +65,6 @@ dependencies {
     //Flexbox layout
     implementation(libs.google.flexbox)
     implementation(libs.browser)
+    //SpinKit progress view
+//    implementation(libs.android.spinkit)
 }

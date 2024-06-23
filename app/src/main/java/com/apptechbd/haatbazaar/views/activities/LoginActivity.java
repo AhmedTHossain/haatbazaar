@@ -104,6 +104,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void login() {
+//        binding.progressView.setVisibility(View.VISIBLE);
         googleSignInClient.revokeAccess();
         Intent signInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -130,8 +131,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         loginViewModel.authenticatedUserLiveData.observe(this, authenticatedUser -> {
             if (authenticatedUser != null) {
                 new HelperClass().showSnackBar(binding.main, "Hello "+authenticatedUser.getDisplayName());
-                startActivity(new Intent(this,AdminMainActivity.class));
-                finish();
+
+                loginViewModel.checkIfAdminUser(authenticatedUser.getUid(), binding.main);
+                loginViewModel.isAdminUser.observe(this, isAdmin -> {
+                    if (isAdmin)
+                        startActivity(new Intent(this, AdminMainActivity.class));
+                    else
+                        startActivity(new Intent(this, MainActivity.class));
+
+                    finish();
+                });
+
             }
         });
     }
