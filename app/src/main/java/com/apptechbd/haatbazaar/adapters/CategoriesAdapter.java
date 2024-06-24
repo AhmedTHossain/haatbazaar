@@ -71,6 +71,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
             holder.getRootLayout().setCardBackgroundColor(ResourcesCompat.getColor(holder.getRootLayout().getResources(), R.color.md_theme_onSurface, null));
             holder.textView.setTextColor(ResourcesCompat.getColor(holder.getRootLayout().getResources(), R.color.md_theme_surface, null));
             holder.view.setBackgroundColor(ResourcesCompat.getColor(holder.getRootLayout().getResources(), R.color.md_theme_surface, null));
+
+//            holder.imageView.setColorFilter(ResourcesCompat.getColor(holder.getRootLayout().getResources(), R.color.md_theme_surface, null));
         }
         holder.getRootLayout().setOnClickListener(new View.OnClickListener() {
             @Override
