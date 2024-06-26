@@ -8,7 +8,7 @@ public class StaffIdGenerator {
 
     private static final int SALT_SIZE = 16; // Size of the random salt in bytes
 
-    public static String generateStaffId(String email) throws Exception {
+    public String generateStaffId(String email) throws Exception {
         SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
         byte[] salt = new byte[SALT_SIZE];
         random.nextBytes(salt);

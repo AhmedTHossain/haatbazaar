@@ -24,8 +24,12 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.apptechbd.haatbazaar.R;
 import com.apptechbd.haatbazaar.databinding.ActivityAddAccountBinding;
+import com.apptechbd.haatbazaar.utils.HelperClass;
 import com.apptechbd.haatbazaar.utils.PhoneNumberFormatter;
 import com.apptechbd.haatbazaar.utils.PopUpWindow;
+import com.apptechbd.haatbazaar.utils.StaffIdGenerator;
+
+import java.util.Objects;
 
 public class AddAccountActivity extends AppCompatActivity implements View.OnClickListener {
     private ActivityAddAccountBinding binding;
@@ -71,6 +75,8 @@ public class AddAccountActivity extends AppCompatActivity implements View.OnClic
 
         binding.buttonAddPhoto.setOnClickListener(this);
         binding.shapeableImageViewProfilePhoto.setOnClickListener(this);
+
+        binding.buttonAddAccount.setOnClickListener(this);
 
         // Add TextWatcher to nameEditText
         binding.inputEditTextFieldName.addTextChangedListener(new TextWatcher() {
@@ -133,6 +139,14 @@ public class AddAccountActivity extends AppCompatActivity implements View.OnClic
         }
         if (v.getId() == R.id.shapeableImageView_profile_photo)
             new PopUpWindow().showPopupWindow(binding.main, selectedImageUri);
+
+        if (v.getId() == R.id.button_add_account){
+            try {
+                String id = new StaffIdGenerator().generateStaffId(Objects.requireNonNull(binding.inputedittextFieldEmail.getText()).toString());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     private void updateButtonState() {

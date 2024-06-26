@@ -3,11 +3,10 @@ package com.apptechbd.haatbazaar.models;
 import java.time.Instant;
 
 public class AdminAccount {
-    private int id;
-    private String name, owner, email, phone, address;
+    private String id, name, owner, email, phone, address;
     private long created_on;
 
-    public AdminAccount(int id, String name, String owner, String email, String phone, String address, long created_on) {
+    public AdminAccount(String id, String name, String owner, String email, String phone, String address, long created_on) {
         this.id = id;
         this.name = name;
         this.owner = owner;
@@ -17,11 +16,11 @@ public class AdminAccount {
         this.created_on = created_on;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
