@@ -55,9 +55,12 @@ dependencies {
     implementation(libs.firebase.auth)
     //implementation(libs.firebase.crashlytics)
     implementation(libs.firebase.analytics)
-    // Declare the dependency for the Cloud Firestore library
+    //Declare the dependency for the Cloud Firestore library
     implementation(libs.firebase.firestore)
+    //Firebase auth
     implementation(libs.play.services.auth)
+    //Firebase cloud storage
+    implementation(libs.firebase.storage)
     //Glide
     implementation(libs.glide)
     //shimmer layout
