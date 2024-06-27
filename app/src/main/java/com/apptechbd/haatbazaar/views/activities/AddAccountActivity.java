@@ -143,6 +143,9 @@ public class AddAccountActivity extends AppCompatActivity implements View.OnClic
         if (v.getId() == R.id.button_add_account){
             try {
                 String id = new StaffIdGenerator().generateStaffId(Objects.requireNonNull(binding.inputedittextFieldEmail.getText()).toString());
+                String name = binding.inputEditTextFieldName.getText().toString();
+                String phone = binding.inputedittextFieldPhone.getText().toString();
+                String email = binding.inputedittextFieldEmail.getText().toString();
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

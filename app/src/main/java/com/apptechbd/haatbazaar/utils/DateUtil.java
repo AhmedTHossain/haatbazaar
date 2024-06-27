@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class DateUtil {
     public static String getTodayDate() {
@@ -79,6 +80,23 @@ public class DateUtil {
     private static String formatDate(Long timestamp) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM, yyyy", Locale.getDefault());
         return dateFormat.format(new Date(timestamp));
+    }
+
+    public static String getCurrentEpochTimeString() {
+        // Get the current time in milliseconds
+        long currentTimeMillis = System.currentTimeMillis();
+
+        // Get the system default time zone
+        TimeZone timeZone = TimeZone.getDefault();
+
+        // Calculate the offset from UTC (in milliseconds)
+        int offset = timeZone.getRawOffset();
+
+        // Adjust the current time to epoch time in the device's time zone
+        long epochMilli = currentTimeMillis - offset;
+
+        // Convert epoch time in milliseconds to String
+        return String.valueOf(epochMilli);
     }
 
 }
