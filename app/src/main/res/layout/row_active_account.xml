@@ -13,27 +13,28 @@
         android:paddingStart="5dp"
         android:paddingEnd="5dp"
         android:paddingTop="10dp"
-        android:paddingBottom="10dp">
+        android:paddingBottom="5dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/circleimageview_account_photo"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="10dp"
             android:src="@drawable/icon_account_photo_placeholder"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
+            android:id="@+id/layout_info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/button_remove_account"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/circleimageview_account_photo"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="@id/circleimageview_account_photo"
+            app:layout_constraintBottom_toBottomOf="@id/circleimageview_account_photo">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_account_name"
@@ -50,6 +51,14 @@
                 android:layout_marginTop="5dp"
                 android:text="0179-658-8950" />
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_account_email"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="xyz@gmail.com" />
+
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -58,12 +67,11 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/md_theme_tertiary"
             android:drawableEnd="@drawable/icon_remove_account"
-            android:drawablePadding="5dp"
+            android:drawablePadding="10dp"
             android:drawableTint="@color/md_theme_onPrimary"
             android:text="Remove"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="@id/layout_info"
+            app:layout_constraintTop_toBottomOf="@id/circleimageview_account_photo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

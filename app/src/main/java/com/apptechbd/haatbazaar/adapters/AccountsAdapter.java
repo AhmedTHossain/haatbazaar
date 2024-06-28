@@ -30,6 +30,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHolder> {
     private ArrayList<Account> accounts;
     private OnAccountRemoveClickListener listener;
+
     public AccountsAdapter(ArrayList<Account> accounts, OnAccountRemoveClickListener listener) {
         this.accounts = accounts;
         this.listener = listener;
@@ -47,6 +48,9 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.getNameTextView().setText(accounts.get(position).getName());
         holder.getPhoneTextView().setText(accounts.get(position).getPhone());
+
+        if (!accounts.get(position).getEmail().isEmpty())
+            holder.getEmailTextView().setText(accounts.get(position).getEmail());
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference().child("staff_photos/");
@@ -75,7 +79,8 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 listener.onAccountRemoveClick(holder.getAdapterPosition());
-            }});
+            }
+        });
     }
 
     @Override
@@ -84,7 +89,7 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private MaterialTextView nameTextView, phoneTextView;
+        private MaterialTextView nameTextView, phoneTextView, emailTextView;
         private CircleImageView photoImageView;
         private MaterialButton removeButtonView;
 
@@ -94,6 +99,7 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
             phoneTextView = itemView.findViewById(R.id.text_account_phone);
             photoImageView = itemView.findViewById(R.id.circleimageview_account_photo);
             removeButtonView = itemView.findViewById(R.id.button_remove_account);
+            emailTextView = itemView.findViewById(R.id.text_account_email);
         }
 
         public MaterialTextView getNameTextView() {
@@ -126,6 +132,14 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
 
         public void setRemoveButtonView(MaterialButton removeButtonView) {
             this.removeButtonView = removeButtonView;
+        }
+
+        public MaterialTextView getEmailTextView() {
+            return emailTextView;
+        }
+
+        public void setEmailTextView(MaterialTextView emailTextView) {
+            this.emailTextView = emailTextView;
         }
     }
 }

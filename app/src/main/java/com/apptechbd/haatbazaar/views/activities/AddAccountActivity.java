@@ -1,13 +1,16 @@
 package com.apptechbd.haatbazaar.views.activities;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.RadioGroup;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -19,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.apptechbd.haatbazaar.R;
 import com.apptechbd.haatbazaar.databinding.ActivityAddAccountBinding;
+import com.apptechbd.haatbazaar.interfaces.OnLanguageChangeListener;
 import com.apptechbd.haatbazaar.models.Account;
 import com.apptechbd.haatbazaar.utils.BaseActivity;
 import com.apptechbd.haatbazaar.utils.DateUtil;
@@ -27,6 +31,8 @@ import com.apptechbd.haatbazaar.utils.PhoneNumberFormatter;
 import com.apptechbd.haatbazaar.utils.PopUpWindow;
 import com.apptechbd.haatbazaar.utils.StaffIdGenerator;
 import com.apptechbd.haatbazaar.viewmodels.AddAccountViewModel;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.radiobutton.MaterialRadioButton;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -40,6 +46,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
     private boolean isImagePicked = false;
     private boolean isEmailEntered = false;
     private AddAccountViewModel addAccountViewModel;
+    private MaterialAlertDialogBuilder builder;
 
     private ActivityResultLauncher<Intent> pickImageLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -75,6 +82,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         });
 
         initViewModel();
+        showProgressDialog("Staff");
 
         PhoneNumberFormatter.formatPhoneNumber(binding.inputedittextFieldPhone);
         binding.buttonAddAccount.setEnabled(false);
@@ -178,7 +186,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
     }
 
     public void uploadImageToFirebase(Context context, Uri imageUri, Account account) {
-
+        showProgressDialog("Staff");
         // Get Firebase Storage instance
         FirebaseStorage storage = FirebaseStorage.getInstance();
 
@@ -193,19 +201,36 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         imageRef.putFile(imageUri)
                 .addOnSuccessListener(taskSnapshot -> {
                     // Upload success
-                    account.setPhoto("staff_photos/"+account.getId() + ".jpg");
+                    account.setPhoto("staff_photos/" + account.getId() + ".jpg");
                     Log.d("TAG", "uploadImageToFirebase: " + account.getPhoto());
                     addAccountViewModel.addStaff(account);
                     addAccountViewModel.ifStaffAdded.observe(this, ifStaffAdded -> {
                         if (ifStaffAdded) {
-                            new HelperClass().showSnackBar(binding.main, "New Staff Account added successfully!");
+                            new HelperClass().showSnackBar(binding.main, "New staff account added successfully!");
                         } else
                             new HelperClass().showSnackBar(binding.main, "Failed to add the new staff account!");
+                        super.onBackPressed();
                     });
                 })
                 .addOnFailureListener(exception -> {
                     // Upload failed
 
                 });
+    }
+
+    private void showProgressDialog(String accountType) {
+        builder = new MaterialAlertDialogBuilder(this); // Use MaterialAlertDialogBuilder for Material Design theme
+
+        LayoutInflater li = LayoutInflater.from(this);
+        View view = li.inflate(R.layout.progress_alert_dialog, null);
+
+        builder.setView(view);
+
+        builder.setTitle("Creating Account");
+
+        builder.setCancelable(false)
+                .setPositiveButton("", null)
+                .setNegativeButton("", null);
+        builder.show();
     }
 }
