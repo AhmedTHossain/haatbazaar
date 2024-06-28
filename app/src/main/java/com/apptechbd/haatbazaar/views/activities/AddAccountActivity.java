@@ -47,6 +47,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
     private boolean isEmailEntered = false;
     private AddAccountViewModel addAccountViewModel;
     private MaterialAlertDialogBuilder builder;
+    private int position;
 
     private ActivityResultLauncher<Intent> pickImageLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -82,6 +83,15 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         });
 
         initViewModel();
+        position = getIntent().getIntExtra("position", -1);
+        switch (position){
+            case 0:
+                binding.inputEditTextEmail.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                binding.inputEditTextEmail.setVisibility(View.GONE);
+                break;
+        }
 
         PhoneNumberFormatter.formatPhoneNumber(binding.inputedittextFieldPhone);
         binding.buttonAddAccount.setEnabled(false);

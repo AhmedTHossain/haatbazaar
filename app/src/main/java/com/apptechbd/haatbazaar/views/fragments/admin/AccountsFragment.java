@@ -37,6 +37,7 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
     private AccountsAdapter adapter;
     private AccountsViewModel accountsViewModel;
     private SharedPreferences sharedPreferences;
+    private  int position = 0;
 
     public AccountsFragment() {
         // Required empty public constructor
@@ -66,9 +67,9 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
         binding.tablayoutAccounts.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                int position = tab.getPosition();
+                position = tab.getPosition();
                 if (position == 0) {
-                    // Employees tab selected
+                    // Staffs tab selected
                     getStaffAccounts();
 
                 } else if (position == 1) {
@@ -183,8 +184,11 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == binding.buttonAddNewAccount.getId())
-            startActivity(new Intent(requireContext(), AddAccountActivity.class));
+        if (v.getId() == binding.buttonAddNewAccount.getId()) {
+            Intent intent = new Intent(requireContext(),AddAccountActivity.class);
+            intent.putExtra("position", position);
+            startActivity(intent);
+        }
     }
 
     private AdminAccount getAdminAccount() {
