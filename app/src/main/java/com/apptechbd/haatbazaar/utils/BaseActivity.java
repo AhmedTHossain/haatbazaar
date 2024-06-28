@@ -1,13 +1,18 @@
 package com.apptechbd.haatbazaar.utils;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+
+import com.apptechbd.haatbazaar.models.AdminAccount;
+import com.google.gson.Gson;
 
 import java.util.Locale;
 
@@ -65,6 +70,17 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected String getSignedInUserType(){
         return sharedPreferences.getString("user_type", "");
+    }
+
+    protected AdminAccount getAdminAccount(){
+        String adminAccountJson = sharedPreferences.getString("admin_account", "");
+        return new Gson().fromJson(adminAccountJson, AdminAccount.class);
+    }
+
+    protected void storeAdminAccount(AdminAccount object) {
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(object);
+        sharedPreferences.edit().putString("admin_account", jsonString).apply();
     }
 }
 

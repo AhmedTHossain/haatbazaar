@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.apptechbd.haatbazaar.R;
 import com.apptechbd.haatbazaar.databinding.ActivityLoginBinding;
+import com.apptechbd.haatbazaar.models.AdminAccount;
 import com.apptechbd.haatbazaar.utils.BaseActivity;
 import com.apptechbd.haatbazaar.utils.HelperClass;
 import com.apptechbd.haatbazaar.viewmodels.LoginViewModel;
@@ -140,10 +141,20 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             if (authenticatedUser != null) {
                 new HelperClass().showSnackBar(binding.main, "Hello " + authenticatedUser.getDisplayName());
 
-                loginViewModel.checkIfAdminUser(authenticatedUser.getUid(), binding.main);
+                loginViewModel.checkIfAdminUser(authenticatedUser.getUid(), binding.main, this);
                 loginViewModel.isAdminUser.observe(this, isAdmin -> {
-                    if (isAdmin) {
+                    if (isAdmin != null) {
                         saveSignedInUserType("admin");
+
+                        //retrieving admin user data
+                        String uid = authenticatedUser.getUid();
+
+                        //Storing the retrieved admin account locally
+                        isAdmin.setId(uid);
+                        storeAdminAccount(isAdmin);
+
+                        //creating local copy of admin user profile
+
                         startActivity(new Intent(this, AdminMainActivity.class));
                     } else {
                         saveSignedInUserType("user");
