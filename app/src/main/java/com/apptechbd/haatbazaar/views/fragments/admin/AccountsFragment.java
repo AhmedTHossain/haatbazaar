@@ -1,29 +1,42 @@
 package com.apptechbd.haatbazaar.views.fragments.admin;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import static com.apptechbd.haatbazaar.utils.Constants.TAG;
+
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.apptechbd.haatbazaar.adapters.AccountsAdapter;
 import com.apptechbd.haatbazaar.databinding.FragmentAccountsBinding;
 import com.apptechbd.haatbazaar.interfaces.OnAccountRemoveClickListener;
+import com.apptechbd.haatbazaar.models.AdminAccount;
 import com.apptechbd.haatbazaar.models.Account;
+import com.apptechbd.haatbazaar.viewmodels.AccountsViewModel;
 import com.apptechbd.haatbazaar.views.activities.AddAccountActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
 public class AccountsFragment extends Fragment implements OnAccountRemoveClickListener, View.OnClickListener {
     private FragmentAccountsBinding binding;
     private ArrayList<Account> accounts;
+
     private AccountsAdapter adapter;
+    private AccountsViewModel accountsViewModel;
+    private SharedPreferences sharedPreferences;
 
     public AccountsFragment() {
         // Required empty public constructor
@@ -33,14 +46,20 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentAccountsBinding.inflate(inflater, container, false);
+        sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        initViewModel();
 
-        getDummyAccounts();
         setupTabListeners();
 
         binding.buttonAddNewAccount.setOnClickListener(this);
 
         // Inflate the layout for this fragment
         return binding.getRoot();
+    }
+
+    private void initViewModel() {
+        accountsViewModel = new ViewModelProvider(this).get(AccountsViewModel.class);
+        getStaffAccounts();
     }
 
     private void setupTabListeners() {
@@ -50,7 +69,7 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
                 int position = tab.getPosition();
                 if (position == 0) {
                     // Employees tab selected
-                    getDummyAccounts();
+                    getStaffAccounts();
 
                 } else if (position == 1) {
                     // Suppliers tab selected
@@ -70,33 +89,46 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
         });
     }
 
-    private void getDummyAccounts() {
+//    private void getDummyAccounts() {
+//        accounts = new ArrayList<>();
+//
+//        Account account1 = new Account("Shahidul Islam Miah", "01696588950", "https://drive.google.com/uc?export=view&id=1JTe00cTweVcoToM2g3wHUvTJuqJSuHDm");
+//        Account account2 = new Account("Jahangir Hossain", "01996588950", "https://drive.google.com/uc?export=view&id=1cMES8jZLXCw6iPh8rLPTe6M8SYLbbE_U");
+//        Account account3 = new Account("Mohammad Ali", "01896588950", "https://drive.google.com/uc?export=view&id=1EXuGikoCGTrAoaVUs_WpJA3kpYkwQ_Fs");
+//        Account account4 = new Account("Jalaluddin Ahmed", "01596588950", "https://drive.google.com/uc?export=view&id=1jrU2Z2SGONe1vhC9BujYE1EfPfJR6a6u");
+//        Account account5 = new Account("Muhammad Salahuddin Ahmed", "01696588950", "https://drive.google.com/uc?export=view&id=1OM6phGhQybpfDtqEroweYahi7z8khBHK");
+//
+//        accounts.add(account1);
+//        accounts.add(account2);
+//        accounts.add(account3);
+//        accounts.add(account4);
+//        accounts.add(account5);
+//
+//        setAccounts(accounts);
+//    }
+
+    private void getStaffAccounts() {
         accounts = new ArrayList<>();
+        accountsViewModel.getStaffAccounts(getAdminAccount().getId());
 
-        Account account1 = new Account("Shahidul Islam Miah", "01696588950", "https://drive.google.com/uc?export=view&id=1JTe00cTweVcoToM2g3wHUvTJuqJSuHDm");
-        Account account2 = new Account("Jahangir Hossain", "01996588950", "https://drive.google.com/uc?export=view&id=1cMES8jZLXCw6iPh8rLPTe6M8SYLbbE_U");
-        Account account3 = new Account("Mohammad Ali", "01896588950", "https://drive.google.com/uc?export=view&id=1EXuGikoCGTrAoaVUs_WpJA3kpYkwQ_Fs");
-        Account account4 = new Account("Jalaluddin Ahmed", "01596588950", "https://drive.google.com/uc?export=view&id=1jrU2Z2SGONe1vhC9BujYE1EfPfJR6a6u");
-        Account account5 = new Account("Muhammad Salahuddin Ahmed", "01696588950", "https://drive.google.com/uc?export=view&id=1OM6phGhQybpfDtqEroweYahi7z8khBHK");
-
-        accounts.add(account1);
-        accounts.add(account2);
-        accounts.add(account3);
-        accounts.add(account4);
-        accounts.add(account5);
-
-        setAccounts(accounts);
+        accountsViewModel.staffAccounts.observe(getViewLifecycleOwner(), staffAccounts -> {
+            if (staffAccounts != null) {
+                accounts.addAll(staffAccounts);
+                Log.d(TAG, "getStaffAccounts: " + accounts.size());
+                setAccounts(accounts);
+            }
+        });
     }
 
     private void getSupplierAccounts() {
         accounts = new ArrayList<>();
 
-        Account account6 = new Account("Baker Miah", "01696588950", "https://drive.google.com/uc?export=view&id=1qNoqy9HtRU6eLXbnHQq8zlflwMBnGUaI");
-        Account account1 = new Account("Romiz Uddin", "01696588950", "https://media.istockphoto.com/id/1341652074/photo/rural-man-standing-at-home.jpg?s=612x612&w=0&k=20&c=lGOgY856BHCnE3i09U20oVkqssfshwK9hrdJZRWW5Q8=");
-        Account account2 = new Account("Ruhul Amin", "01996588950", "https://drive.google.com/uc?export=view&id=1CAQP53PuH98Kh_e26-f2-qVLZFkX9ZUJ");
-        Account account3 = new Account("Khalek Miah", "01896588950", "https://drive.google.com/uc?export=view&id=19VqxBym6o6OsvGhsUrsa-GxDb0_ALhy5");
-        Account account4 = new Account("Abbas Ali", "01596588950", "https://drive.google.com/uc?export=view&id=13oawA6646PqewwgmaTXlB6gwzLzHBn6L");
-        Account account5 = new Account("Haripada Bishwas", "01696588950", "https://drive.google.com/uc?export=view&id=1w-0GR6gSrJsj4DobF4MuviAKI5ywP-Ta");
+        Account account6 = new Account("", "Baker Miah", "", "01696588950", "https://drive.google.com/uc?export=view&id=1qNoqy9HtRU6eLXbnHQq8zlflwMBnGUaI","","",true);
+        Account account1 = new Account("","Romiz Uddin","","01696588950", "https://media.istockphoto.com/id/1341652074/photo/rural-man-standing-at-home.jpg?s=612x612&w=0&k=20&c=lGOgY856BHCnE3i09U20oVkqssfshwK9hrdJZRWW5Q8=","","",true);
+        Account account2 = new Account("","Ruhul Amin", "", "01996588950", "https://drive.google.com/uc?export=view&id=1CAQP53PuH98Kh_e26-f2-qVLZFkX9ZUJ","","",true);
+        Account account3 = new Account("","Khalek Miah", "", "01896588950", "https://drive.google.com/uc?export=view&id=19VqxBym6o6OsvGhsUrsa-GxDb0_ALhy5","","",true);
+        Account account4 = new Account("","Abbas Ali", "", "01596588950", "https://drive.google.com/uc?export=view&id=13oawA6646PqewwgmaTXlB6gwzLzHBn6L","","",true);
+        Account account5 = new Account("","Haripada Bishwas", "", "01696588950", "https://drive.google.com/uc?export=view&id=1w-0GR6gSrJsj4DobF4MuviAKI5ywP-Ta","","",true);
 
         accounts.add(account6);
         accounts.add(account1);
@@ -150,5 +182,10 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
     public void onClick(View v) {
         if (v.getId() == binding.buttonAddNewAccount.getId())
             startActivity(new Intent(requireContext(), AddAccountActivity.class));
+    }
+
+    private AdminAccount getAdminAccount() {
+        String adminAccountJson = sharedPreferences.getString("admin_account", "");
+        return new Gson().fromJson(adminAccountJson, AdminAccount.class);
     }
 }

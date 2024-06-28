@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.apptechbd.haatbazaar.models.StaffAccount;
+import com.apptechbd.haatbazaar.models.Account;
 import com.apptechbd.haatbazaar.repositories.AddAccountRepository;
 
 public class AddAccountViewModel extends AndroidViewModel {
@@ -18,7 +18,7 @@ public class AddAccountViewModel extends AndroidViewModel {
         addAccountRepository = new AddAccountRepository();
     }
 
-    public void addStaff(StaffAccount staffAccount) {
-        ifStaffAdded = addAccountRepository.addStaff(staffAccount);
+    public void addStaff(Account account) {
+        ifStaffAdded = addAccountRepository.addStaff(account);
     }
 }

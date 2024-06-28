@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -13,13 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.apptechbd.haatbazaar.R;
-import com.apptechbd.haatbazaar.adapters.AccountsAdapter;
 import com.apptechbd.haatbazaar.adapters.QuantityAdapter;
 import com.apptechbd.haatbazaar.databinding.FragmentSetQuantityBinding;
-import com.apptechbd.haatbazaar.interfaces.EnableOrDisableSetPriceButtonListener;
 import com.apptechbd.haatbazaar.interfaces.OnQuantityAddClickListener;
 import com.apptechbd.haatbazaar.interfaces.OnQuantitySubtractClickListener;
-import com.apptechbd.haatbazaar.models.Account;
 import com.apptechbd.haatbazaar.models.Quantity;
 import com.apptechbd.haatbazaar.views.activities.MainActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;

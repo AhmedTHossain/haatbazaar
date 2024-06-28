@@ -19,7 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.apptechbd.haatbazaar.R;
 import com.apptechbd.haatbazaar.databinding.ActivityAddAccountBinding;
-import com.apptechbd.haatbazaar.models.StaffAccount;
+import com.apptechbd.haatbazaar.models.Account;
 import com.apptechbd.haatbazaar.utils.BaseActivity;
 import com.apptechbd.haatbazaar.utils.DateUtil;
 import com.apptechbd.haatbazaar.utils.HelperClass;
@@ -27,7 +27,6 @@ import com.apptechbd.haatbazaar.utils.PhoneNumberFormatter;
 import com.apptechbd.haatbazaar.utils.PopUpWindow;
 import com.apptechbd.haatbazaar.utils.StaffIdGenerator;
 import com.apptechbd.haatbazaar.viewmodels.AddAccountViewModel;
-import com.apptechbd.haatbazaar.viewmodels.LoginViewModel;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -161,11 +160,11 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
                 String name = binding.inputEditTextFieldName.getText().toString();
                 String phone = binding.inputedittextFieldPhone.getText().toString();
 
-                StaffAccount staffAccount = new StaffAccount(id, name, email, phone, "", admin, created, true);
+                Account account = new Account(id, name, email, phone, "", admin, created, true);
 
                 // Upload the selected image to Firebase Storage
                 if (selectedImageUri != null) {
-                    uploadImageToFirebase(this, selectedImageUri, staffAccount);
+                    uploadImageToFirebase(this, selectedImageUri, account);
                 }
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -178,21 +177,25 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         binding.buttonAddAccount.setEnabled(isNameEntered && isPhoneEntered && isImagePicked);
     }
 
-    public void uploadImageToFirebase(Context context, Uri imageUri, StaffAccount staffAccount) {
+    public void uploadImageToFirebase(Context context, Uri imageUri, Account account) {
 
         // Get Firebase Storage instance
         FirebaseStorage storage = FirebaseStorage.getInstance();
 
         // Create a reference to the image location in Firebase Storage
-        StorageReference storageRef = storage.getReference().child("staff_photos/" + staffAccount.getId() + ".jpeg");
+        StorageReference storageRef = storage.getReference().child("staff_photos/");
+        //Define the filename for the image
+        String filename = account.getId() + ".jpg";
+        // Create a reference to the image file within the "staff_photos" folder
+        StorageReference imageRef = storageRef.child(filename);
 
         // Upload the image to Firebase Storage
-        storageRef.putFile(imageUri)
+        imageRef.putFile(imageUri)
                 .addOnSuccessListener(taskSnapshot -> {
                     // Upload success
-                    staffAccount.setPhoto(String.valueOf(imageUri));
-                    Log.d("TAG", "uploadImageToFirebase: " + staffAccount.getPhoto());
-                    addAccountViewModel.addStaff(staffAccount);
+                    account.setPhoto("staff_photos/"+account.getId() + ".jpg");
+                    Log.d("TAG", "uploadImageToFirebase: " + account.getPhoto());
+                    addAccountViewModel.addStaff(account);
                     addAccountViewModel.ifStaffAdded.observe(this, ifStaffAdded -> {
                         if (ifStaffAdded) {
                             new HelperClass().showSnackBar(binding.main, "New Staff Account added successfully!");
