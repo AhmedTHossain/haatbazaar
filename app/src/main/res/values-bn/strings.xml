@@ -57,4 +57,5 @@
     <string name="cash_received">Cash Received</string>
     <string name="animal_sold">Animal Sold</string>
     <string name="email">Email</string>
+    <string name="export_report">Export Report</string>
 </resources>
