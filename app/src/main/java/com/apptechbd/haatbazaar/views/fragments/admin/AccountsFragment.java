@@ -141,6 +141,9 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
     }
 
     private void setAccounts(ArrayList<Account> accounts) {
+        binding.spinKit.setVisibility(View.GONE);
+        binding.recyclerviewAccounts.setVisibility(View.VISIBLE);
+
         binding.recyclerviewAccounts.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerviewAccounts.setHasFixedSize(true);
 

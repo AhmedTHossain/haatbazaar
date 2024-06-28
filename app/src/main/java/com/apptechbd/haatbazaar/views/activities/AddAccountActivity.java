@@ -82,7 +82,6 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         });
 
         initViewModel();
-        showProgressDialog("Staff");
 
         PhoneNumberFormatter.formatPhoneNumber(binding.inputedittextFieldPhone);
         binding.buttonAddAccount.setEnabled(false);
@@ -139,6 +138,11 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     private void initViewModel() {
