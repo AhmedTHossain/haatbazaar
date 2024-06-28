@@ -6,6 +6,7 @@ import static com.apptechbd.haatbazaar.utils.HelperClass.logErrorMessage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CompoundButton;
 
@@ -28,7 +29,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.materialswitch.MaterialSwitch;
+import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -40,6 +43,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private FirebaseAuth mAuth;
     private GoogleSignInClient googleSignInClient;
     private LoginViewModel loginViewModel;
+    private MaterialAlertDialogBuilder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +117,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void login() {
-//        binding.progressView.setVisibility(View.VISIBLE);
+        showProgressDialog();
         googleSignInClient.signOut();
         Intent signInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -168,5 +172,26 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             } else
                 saveSignInStatus(false);
         });
+    }
+
+    private void showProgressDialog() {
+        builder = new MaterialAlertDialogBuilder(this); // Use MaterialAlertDialogBuilder for Material Design theme
+
+        LayoutInflater li = LayoutInflater.from(this);
+        View view = li.inflate(R.layout.progress_alert_dialog, null);
+
+        MaterialTextView textDisclaimer = view.findViewById(R.id.text_disclaimer);
+
+        String disclaimer = "Please wait while we sign you in to your organization.";
+        textDisclaimer.setText(disclaimer);
+
+        builder.setView(view);
+
+        builder.setTitle("Signing In");
+
+        builder.setCancelable(false)
+                .setPositiveButton("", null)
+                .setNegativeButton("", null);
+        builder.show();
     }
 }

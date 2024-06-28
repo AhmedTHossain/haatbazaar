@@ -33,6 +33,7 @@ import com.apptechbd.haatbazaar.utils.StaffIdGenerator;
 import com.apptechbd.haatbazaar.viewmodels.AddAccountViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.radiobutton.MaterialRadioButton;
+import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -230,10 +231,10 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         String rootDir = "";
 
         if (position == 0) {
-            showProgressDialog("Staff");
+            showProgressDialog("staff");
             rootDir = "staff_photos/";
         } else {
-            showProgressDialog("Supplier");
+            showProgressDialog("supplier");
             rootDir = "supplier_photos/";
         }
 
@@ -285,6 +286,11 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
 
         LayoutInflater li = LayoutInflater.from(this);
         View view = li.inflate(R.layout.progress_alert_dialog, null);
+
+        MaterialTextView textDisclaimer = view.findViewById(R.id.text_disclaimer);
+
+        String disclaimer = "Please wait while we create a new "+accountType+" account for your organization.";
+        textDisclaimer.setText(disclaimer);
 
         builder.setView(view);
 
