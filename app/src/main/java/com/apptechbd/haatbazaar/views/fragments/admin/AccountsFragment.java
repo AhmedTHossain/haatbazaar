@@ -74,7 +74,7 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
 
                 } else if (position == 1) {
                     // Suppliers tab selected
-                    getSupplierAccounts();
+                    getSuppliersAccounts();
                 }
             }
 
@@ -121,7 +121,7 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
         });
     }
 
-    private void getSupplierAccounts() {
+    private void getDummySupplierAccounts() {
         accounts = new ArrayList<>();
 
         Account account6 = new Account("", "Baker Miah", "", "01696588950", "https://drive.google.com/uc?export=view&id=1qNoqy9HtRU6eLXbnHQq8zlflwMBnGUaI","","",true);
@@ -141,6 +141,19 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
         setAccounts(accounts);
     }
 
+    private void getSuppliersAccounts() {
+        accounts = new ArrayList<>();
+        accountsViewModel.getSupplierAccounts(getAdminAccount().getId());
+
+        accountsViewModel.supplierAccounts.observe(getViewLifecycleOwner(), supplierAccounts -> {
+            if (supplierAccounts != null) {
+                accounts.addAll(supplierAccounts);
+                Log.d(TAG, "getSuppliersAccounts: " + accounts.size());
+                setAccounts(accounts);
+            }
+        });
+    }
+
     private void setAccounts(ArrayList<Account> accounts) {
         binding.spinKit.setVisibility(View.GONE);
         binding.recyclerviewAccounts.setVisibility(View.VISIBLE);
@@ -148,7 +161,7 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
         binding.recyclerviewAccounts.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerviewAccounts.setHasFixedSize(true);
 
-        adapter = new AccountsAdapter(accounts, this);
+        adapter = new AccountsAdapter(accounts, this, position);
         binding.recyclerviewAccounts.setAdapter(adapter);
     }
 

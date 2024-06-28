@@ -39,4 +39,28 @@ public class AccountsRepository {
         });
         return staffAccounts;
     }
+
+    public MutableLiveData<ArrayList<Account>> getSupplierAccounts(String admin) {
+        MutableLiveData<ArrayList<Account>> supplierAccounts = new MutableLiveData<>();
+        db.collection("suppliers").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                    ArrayList<Account> accountArrayList = new ArrayList<>();
+                    for (DocumentSnapshot d : list) {
+                        if (admin.equals(d.getString("admin")))
+                            accountArrayList.add(new Account(d.getString("id"), d.getString("name"), d.getString("email"), d.getString("phone"), d.getString("photo"), d.getString("admin"), d.getString("created_on"), d.getBoolean("active")));
+                    }
+                    supplierAccounts.setValue(accountArrayList);
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                supplierAccounts.setValue(null);
+            }
+        });
+        return supplierAccounts;
+    }
 }

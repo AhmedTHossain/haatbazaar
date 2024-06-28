@@ -196,10 +196,11 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
 
         if (v.getId() == R.id.button_add_account) {
             try {
-
                 String admin = getAdminAccount().getId();
                 String created = DateUtil.getCurrentEpochTimeString();
-                String email = binding.inputedittextFieldEmail.getText().toString();
+                String email = "";
+                if (position == 0)
+                    email = binding.inputedittextFieldEmail.getText().toString();
                 String id = new StaffIdGenerator().generateStaffId(Objects.requireNonNull(binding.inputedittextFieldEmail.getText()).toString());
                 String name = binding.inputEditTextFieldName.getText().toString();
                 String phone = binding.inputedittextFieldPhone.getText().toString();
@@ -224,31 +225,54 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
     }
 
     public void uploadImageToFirebase(Context context, Uri imageUri, Account account) {
-        showProgressDialog("Staff");
         // Get Firebase Storage instance
         FirebaseStorage storage = FirebaseStorage.getInstance();
+        String rootDir = "";
+
+        if (position == 0) {
+            showProgressDialog("Staff");
+            rootDir = "staff_photos/";
+        } else {
+            showProgressDialog("Supplier");
+            rootDir = "supplier_photos/";
+        }
 
         // Create a reference to the image location in Firebase Storage
-        StorageReference storageRef = storage.getReference().child("staff_photos/");
+        StorageReference storageRef = storage.getReference().child(rootDir);
         //Define the filename for the image
         String filename = account.getId() + ".jpg";
         // Create a reference to the image file within the "staff_photos" folder
         StorageReference imageRef = storageRef.child(filename);
 
         // Upload the image to Firebase Storage
+        String finalRootDir = rootDir;
         imageRef.putFile(imageUri)
                 .addOnSuccessListener(taskSnapshot -> {
                     // Upload success
-                    account.setPhoto("staff_photos/" + account.getId() + ".jpg");
+                    account.setPhoto(finalRootDir + account.getId() + ".jpg");
                     Log.d("TAG", "uploadImageToFirebase: " + account.getPhoto());
-                    addAccountViewModel.addStaff(account);
-                    addAccountViewModel.ifStaffAdded.observe(this, ifStaffAdded -> {
-                        if (ifStaffAdded) {
-                            new HelperClass().showSnackBar(binding.main, "New staff account added successfully!");
-                        } else
-                            new HelperClass().showSnackBar(binding.main, "Failed to add the new staff account!");
-                        super.onBackPressed();
-                    });
+
+                    // Add the account to Firestore
+                    if (position == 0) {
+                        addAccountViewModel.addStaff(account);
+                        addAccountViewModel.ifStaffAdded.observe(this, ifStaffAdded -> {
+                            if (ifStaffAdded)
+                                new HelperClass().showSnackBar(binding.main, "New staff account added successfully!");
+                            else
+                                new HelperClass().showSnackBar(binding.main, "Failed to add the new staff account!");
+                            super.onBackPressed();
+                        });
+                    } else {
+                        addAccountViewModel.addSupplier(account);
+                        addAccountViewModel.ifSupplierAdded.observe(this, ifSupplierAdded -> {
+                            if (ifSupplierAdded)
+                                new HelperClass().showSnackBar(binding.main, "New supplier account added successfully!");
+                            else
+                                new HelperClass().showSnackBar(binding.main, "Failed to add the new supplier account!");
+                            super.onBackPressed();
+                        });
+                    }
+
                 })
                 .addOnFailureListener(exception -> {
                     // Upload failed

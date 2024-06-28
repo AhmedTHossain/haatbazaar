@@ -15,7 +15,6 @@ import com.apptechbd.haatbazaar.R;
 import com.apptechbd.haatbazaar.interfaces.OnAccountRemoveClickListener;
 import com.apptechbd.haatbazaar.models.Account;
 import com.bumptech.glide.Glide;
-import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
@@ -30,10 +29,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHolder> {
     private ArrayList<Account> accounts;
     private OnAccountRemoveClickListener listener;
+    private int accountType;
 
-    public AccountsAdapter(ArrayList<Account> accounts, OnAccountRemoveClickListener listener) {
+    public AccountsAdapter(ArrayList<Account> accounts, OnAccountRemoveClickListener listener, int accountType) {
         this.accounts = accounts;
         this.listener = listener;
+        this.accountType = accountType;
         Log.d(TAG, "setStaffAccounts: " + accounts.size());
     }
 
@@ -51,9 +52,16 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
 
         if (!accounts.get(position).getEmail().isEmpty())
             holder.getEmailTextView().setText(accounts.get(position).getEmail());
+        else
+            holder.getEmailTextView().setVisibility(View.GONE);
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference().child("staff_photos/");
+        StorageReference storageRef;
+        if (accountType == 0)
+            storageRef = storage.getReference().child("staff_photos/");
+        else
+            storageRef = storage.getReference().child("supplier_photos/");
+
         //Define the filename for the image
         String filename = accounts.get(position).getId() + ".jpg";
         // Create a reference to the image file within the "staff_photos" folder

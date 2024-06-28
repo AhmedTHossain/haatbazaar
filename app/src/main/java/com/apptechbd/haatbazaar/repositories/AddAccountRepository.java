@@ -35,4 +35,26 @@ public class AddAccountRepository {
                 });
         return ifStaffAdded;
     }
+
+    public MutableLiveData<Boolean> addSupplier(Account staff) {
+        MutableLiveData<Boolean> ifSupplierAdded = new MutableLiveData<>();
+        // Add a new document with a generated ID
+        db.collection("suppliers")
+                .add(staff)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId());
+                        ifSupplierAdded.setValue(true);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("TAG", "Error adding document", e);
+                        ifSupplierAdded.setValue(false);
+                    }
+                });
+        return ifSupplierAdded;
+    }
 }
