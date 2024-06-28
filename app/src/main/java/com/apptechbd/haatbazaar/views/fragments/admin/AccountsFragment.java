@@ -58,6 +58,15 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
         return binding.getRoot();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (position == 0)
+            getStaffAccounts();
+        else if (position == 1)
+            getSuppliersAccounts();
+    }
+
     private void initViewModel() {
         accountsViewModel = new ViewModelProvider(this).get(AccountsViewModel.class);
         getStaffAccounts();
