@@ -96,6 +96,11 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
         return accounts.size();
     }
 
+    public void updateAccounts(ArrayList<Account> filteredAccounts) {
+        accounts = filteredAccounts;
+        notifyDataSetChanged();
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private MaterialTextView nameTextView, phoneTextView, emailTextView;
         private CircleImageView photoImageView;

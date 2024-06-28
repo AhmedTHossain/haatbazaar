@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -53,6 +54,27 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
         setupTabListeners();
 
         binding.buttonAddNewAccount.setOnClickListener(this);
+
+        binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Filter accounts based on search query (name in this case)
+                ArrayList<Account> filteredAccounts = new ArrayList<>();
+                for (Account account : accounts) {
+                    if (account.getName().toLowerCase().contains(newText.toLowerCase())) {
+                        filteredAccounts.add(account);
+                    }
+                }
+                // Update adapter with filtered list
+                adapter.updateAccounts(filteredAccounts);
+                return false;
+            }
+        });
 
         // Inflate the layout for this fragment
         return binding.getRoot();
