@@ -84,7 +84,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
 
         initViewModel();
         position = getIntent().getIntExtra("position", -1);
-        switch (position){
+        switch (position) {
             case 0:
                 binding.inputEditTextEmail.setVisibility(View.VISIBLE);
                 break;
@@ -148,6 +148,28 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
 
             }
         });
+
+        binding.inputedittextFieldEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().trim().isEmpty())
+                    isEmailEntered = true;
+                else
+                    isEmailEntered = false;
+                updateButtonState();
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
@@ -195,8 +217,10 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
     }
 
     private void updateButtonState() {
-        Log.d("TAG", "updateButtonState: " + isNameEntered + " " + isPhoneEntered + " " + isImagePicked);
-        binding.buttonAddAccount.setEnabled(isNameEntered && isPhoneEntered && isImagePicked);
+        Log.d("TAG", "updateButtonState: " + isNameEntered + " " + isEmailEntered + " " + isPhoneEntered + " " + isImagePicked);
+        if (position != 0)
+            isEmailEntered = true;
+        binding.buttonAddAccount.setEnabled(isNameEntered && isEmailEntered && isPhoneEntered && isImagePicked);
     }
 
     public void uploadImageToFirebase(Context context, Uri imageUri, Account account) {
