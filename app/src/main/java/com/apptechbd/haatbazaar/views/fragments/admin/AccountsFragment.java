@@ -69,7 +69,6 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
 
     private void initViewModel() {
         accountsViewModel = new ViewModelProvider(this).get(AccountsViewModel.class);
-        getStaffAccounts();
     }
 
     private void setupTabListeners() {
