@@ -99,4 +99,18 @@ public class DateUtil {
         return String.valueOf(epochMilli);
     }
 
+    public static String epochToHumanReadable(String epochTimeString) {
+        // Parse the epoch time string into a long value
+        long epochTime = Long.parseLong(epochTimeString);
+
+        // Create a Date object from the epoch time in milliseconds
+        Date date = new Date(epochTime);
+
+        // Specify the desired date format
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy",Locale.getDefault());
+
+        // Format the date and return it as a string
+        return dateFormat.format(date);
+    }
+
 }

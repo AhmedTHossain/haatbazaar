@@ -33,12 +33,11 @@
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/circleimageview_account_photo"
-            app:layout_constraintTop_toTopOf="@id/circleimageview_account_photo"
-            app:layout_constraintBottom_toBottomOf="@id/circleimageview_account_photo">
+            app:layout_constraintTop_toTopOf="@id/circleimageview_account_photo">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_account_name"
-                style="@style/TextAppearance.AppCompat.Body2"
+                style="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sahidul Islam Miah" />
@@ -48,7 +47,7 @@
                 style="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="0179-658-8950" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -56,22 +55,35 @@
                 style="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="xyz@gmail.com" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_account_created_on"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="12/12/2023"
+                android:gravity="center"
+                android:drawableStart="@drawable/icon_date_range"
+                android:drawablePadding="5dp"/>
 
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_remove_account"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/md_theme_tertiary"
             android:drawableEnd="@drawable/icon_remove_account"
             android:drawablePadding="10dp"
+            android:layout_marginTop="15dp"
             android:drawableTint="@color/md_theme_onPrimary"
             android:text="Remove"
+            app:layout_constraintStart_toStartOf="@id/layout_info"
             app:layout_constraintEnd_toEndOf="@id/layout_info"
-            app:layout_constraintTop_toBottomOf="@id/circleimageview_account_photo" />
+            app:layout_constraintTop_toBottomOf="@id/layout_info" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -40,7 +40,7 @@ public class AccountsRepository {
                     ArrayList<Account> accountArrayList = new ArrayList<>();
                     for (DocumentSnapshot d : list) {
                         if (admin.equals(d.getString("admin")))
-                            accountArrayList.add(new Account(d.getString("id"), d.getString("name"), d.getString("email"), d.getString("phone"), d.getString("photo"), d.getString("admin"), d.getString("created_on"), d.getBoolean("active")));
+                            accountArrayList.add(new Account(d.getString("id"), d.getString("name"), d.getString("email"), d.getString("phone"), d.getString("photo"), d.getString("admin"), d.getString("created"), d.getBoolean("active")));
                     }
                     staffAccounts.setValue(accountArrayList);
                 }
@@ -64,7 +64,7 @@ public class AccountsRepository {
                     ArrayList<Account> accountArrayList = new ArrayList<>();
                     for (DocumentSnapshot d : list) {
                         if (admin.equals(d.getString("admin")))
-                            accountArrayList.add(new Account(d.getString("id"), d.getString("name"), d.getString("email"), d.getString("phone"), d.getString("photo"), d.getString("admin"), d.getString("created_on"), d.getBoolean("active")));
+                            accountArrayList.add(new Account(d.getString("id"), d.getString("name"), d.getString("email"), d.getString("phone"), d.getString("photo"), d.getString("admin"), d.getString("created"), d.getBoolean("active")));
                     }
                     supplierAccounts.setValue(accountArrayList);
                 }

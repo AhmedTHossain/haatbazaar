@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.apptechbd.haatbazaar.R;
 import com.apptechbd.haatbazaar.interfaces.OnAccountRemoveClickListener;
 import com.apptechbd.haatbazaar.models.Account;
+import com.apptechbd.haatbazaar.utils.DateUtil;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -49,6 +50,8 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.getNameTextView().setText(accounts.get(position).getName());
         holder.getPhoneTextView().setText(accounts.get(position).getPhone());
+
+        holder.getCreatedOnTextView().setText(DateUtil.epochToHumanReadable(accounts.get(position).getCreated()));
 
         if (!accounts.get(position).getEmail().isEmpty())
             holder.getEmailTextView().setText(accounts.get(position).getEmail());
@@ -102,7 +105,7 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private MaterialTextView nameTextView, phoneTextView, emailTextView;
+        private MaterialTextView nameTextView, phoneTextView, emailTextView, createdOnTextView;
         private CircleImageView photoImageView;
         private MaterialButton removeButtonView;
 
@@ -113,6 +116,7 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
             photoImageView = itemView.findViewById(R.id.circleimageview_account_photo);
             removeButtonView = itemView.findViewById(R.id.button_remove_account);
             emailTextView = itemView.findViewById(R.id.text_account_email);
+            createdOnTextView = itemView.findViewById(R.id.text_account_created_on);
         }
 
         public MaterialTextView getNameTextView() {
@@ -153,6 +157,14 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
 
         public void setEmailTextView(MaterialTextView emailTextView) {
             this.emailTextView = emailTextView;
+        }
+
+        public MaterialTextView getCreatedOnTextView() {
+            return createdOnTextView;
+        }
+
+        public void setCreatedOnTextView(MaterialTextView createdOnTextView) {
+            this.createdOnTextView = createdOnTextView;
         }
     }
 }

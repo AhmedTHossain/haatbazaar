@@ -192,6 +192,9 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
         binding.recyclerviewAccounts.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerviewAccounts.setHasFixedSize(true);
 
+        for (Account account: accounts)
+            Log.d(TAG,"created on: " + account.getCreated());
+
         adapter = new AccountsAdapter(accounts, this, position);
         binding.recyclerviewAccounts.setAdapter(adapter);
     }
