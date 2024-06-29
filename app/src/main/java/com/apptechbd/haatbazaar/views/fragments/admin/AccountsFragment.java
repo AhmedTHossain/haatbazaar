@@ -23,6 +23,7 @@ import com.apptechbd.haatbazaar.databinding.FragmentAccountsBinding;
 import com.apptechbd.haatbazaar.interfaces.OnAccountRemoveClickListener;
 import com.apptechbd.haatbazaar.models.AdminAccount;
 import com.apptechbd.haatbazaar.models.Account;
+import com.apptechbd.haatbazaar.utils.HelperClass;
 import com.apptechbd.haatbazaar.viewmodels.AccountsViewModel;
 import com.apptechbd.haatbazaar.views.activities.AddAccountActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -38,7 +39,7 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
     private AccountsAdapter adapter;
     private AccountsViewModel accountsViewModel;
     private SharedPreferences sharedPreferences;
-    private  int position = 0;
+    private int position = 0;
 
     public AccountsFragment() {
         // Required empty public constructor
@@ -154,12 +155,12 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
     private void getDummySupplierAccounts() {
         accounts = new ArrayList<>();
 
-        Account account6 = new Account("", "Baker Miah", "", "01696588950", "https://drive.google.com/uc?export=view&id=1qNoqy9HtRU6eLXbnHQq8zlflwMBnGUaI","","",true);
-        Account account1 = new Account("","Romiz Uddin","","01696588950", "https://media.istockphoto.com/id/1341652074/photo/rural-man-standing-at-home.jpg?s=612x612&w=0&k=20&c=lGOgY856BHCnE3i09U20oVkqssfshwK9hrdJZRWW5Q8=","","",true);
-        Account account2 = new Account("","Ruhul Amin", "", "01996588950", "https://drive.google.com/uc?export=view&id=1CAQP53PuH98Kh_e26-f2-qVLZFkX9ZUJ","","",true);
-        Account account3 = new Account("","Khalek Miah", "", "01896588950", "https://drive.google.com/uc?export=view&id=19VqxBym6o6OsvGhsUrsa-GxDb0_ALhy5","","",true);
-        Account account4 = new Account("","Abbas Ali", "", "01596588950", "https://drive.google.com/uc?export=view&id=13oawA6646PqewwgmaTXlB6gwzLzHBn6L","","",true);
-        Account account5 = new Account("","Haripada Bishwas", "", "01696588950", "https://drive.google.com/uc?export=view&id=1w-0GR6gSrJsj4DobF4MuviAKI5ywP-Ta","","",true);
+        Account account6 = new Account("", "Baker Miah", "", "01696588950", "https://drive.google.com/uc?export=view&id=1qNoqy9HtRU6eLXbnHQq8zlflwMBnGUaI", "", "", true);
+        Account account1 = new Account("", "Romiz Uddin", "", "01696588950", "https://media.istockphoto.com/id/1341652074/photo/rural-man-standing-at-home.jpg?s=612x612&w=0&k=20&c=lGOgY856BHCnE3i09U20oVkqssfshwK9hrdJZRWW5Q8=", "", "", true);
+        Account account2 = new Account("", "Ruhul Amin", "", "01996588950", "https://drive.google.com/uc?export=view&id=1CAQP53PuH98Kh_e26-f2-qVLZFkX9ZUJ", "", "", true);
+        Account account3 = new Account("", "Khalek Miah", "", "01896588950", "https://drive.google.com/uc?export=view&id=19VqxBym6o6OsvGhsUrsa-GxDb0_ALhy5", "", "", true);
+        Account account4 = new Account("", "Abbas Ali", "", "01596588950", "https://drive.google.com/uc?export=view&id=13oawA6646PqewwgmaTXlB6gwzLzHBn6L", "", "", true);
+        Account account5 = new Account("", "Haripada Bishwas", "", "01696588950", "https://drive.google.com/uc?export=view&id=1w-0GR6gSrJsj4DobF4MuviAKI5ywP-Ta", "", "", true);
 
         accounts.add(account6);
         accounts.add(account1);
@@ -196,11 +197,11 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
     }
 
     @Override
-    public void onAccountRemoveClick(int position) {
-        showAccountRemoveConfirmationDialog(position);
+    public void onAccountRemoveClick(int position, Account account) {
+        showAccountRemoveConfirmationDialog(position, account, this.position);
     }
 
-    private void showAccountRemoveConfirmationDialog(int position) {
+    private void showAccountRemoveConfirmationDialog(int position, Account account, int type) {
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext()); // Use MaterialAlertDialogBuilder for Material Design theme
         builder.setTitle("Delete User");
         builder.setMessage("Deleting this user account is permanent. Once deleted, the user won't be able to log in again.");
@@ -217,8 +218,21 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Handle positive button click
-                accounts.remove(position);
-                adapter.notifyItemRemoved(position);
+                // Delete account from DB
+                String collection = "";
+                if (type == 0)
+                    collection = "staffs";
+                else
+                    collection = "suppliers";
+                accountsViewModel.deleteAccount(account, collection);
+                accountsViewModel.ifStaffDeleted.observe(getViewLifecycleOwner(), ifStaffDeleted -> {
+                    if (ifStaffDeleted) {
+                        new HelperClass().showSnackBar(binding.getRoot(), "Account deleted successfully!");
+                        accounts.remove(position);
+                        adapter.notifyItemRemoved(position);
+                    } else
+                        new HelperClass().showSnackBar(binding.getRoot(), "Failed to delete account!");
+                });
             }
         });
         builder.setCancelable(false);
@@ -228,7 +242,7 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
     @Override
     public void onClick(View v) {
         if (v.getId() == binding.buttonAddNewAccount.getId()) {
-            Intent intent = new Intent(requireContext(),AddAccountActivity.class);
+            Intent intent = new Intent(requireContext(), AddAccountActivity.class);
             intent.putExtra("position", position);
             startActivity(intent);
         }

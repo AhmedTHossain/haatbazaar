@@ -86,7 +86,7 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
         holder.getRemoveButtonView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onAccountRemoveClick(holder.getAdapterPosition());
+                listener.onAccountRemoveClick(holder.getAdapterPosition(),accounts.get(holder.getAdapterPosition()));
             }
         });
     }

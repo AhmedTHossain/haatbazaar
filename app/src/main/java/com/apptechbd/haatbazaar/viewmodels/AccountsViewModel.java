@@ -16,6 +16,7 @@ public class AccountsViewModel extends AndroidViewModel {
     private AccountsRepository accountsRepository;
     public LiveData<ArrayList<Account>> staffAccounts;
     public LiveData<ArrayList<Account>> supplierAccounts;
+    public LiveData<Boolean> ifStaffDeleted;
 
     public AccountsViewModel(@NonNull Application application) {
         super(application);
@@ -28,5 +29,9 @@ public class AccountsViewModel extends AndroidViewModel {
 
     public void getSupplierAccounts(String admin) {
         supplierAccounts = accountsRepository.getSupplierAccounts(admin);
+    }
+
+    public void deleteAccount(Account account, String collection){
+        ifStaffDeleted = accountsRepository.deleteAccount(account,collection);
     }
 }
