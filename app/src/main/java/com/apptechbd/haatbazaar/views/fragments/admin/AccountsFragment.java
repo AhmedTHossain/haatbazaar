@@ -148,6 +148,10 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
                 accounts.addAll(staffAccounts);
                 Log.d(TAG, "getStaffAccounts: " + accounts.size());
                 setAccounts(accounts);
+            } else {
+                binding.spinKit.setVisibility(View.GONE);
+                binding.recyclerviewAccounts.setVisibility(View.GONE);
+                binding.layoutPlaceholderNoAccount.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -187,13 +191,14 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
 
     private void setAccounts(ArrayList<Account> accounts) {
         binding.spinKit.setVisibility(View.GONE);
+        binding.layoutPlaceholderNoAccount.setVisibility(View.GONE);
         binding.recyclerviewAccounts.setVisibility(View.VISIBLE);
 
         binding.recyclerviewAccounts.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerviewAccounts.setHasFixedSize(true);
 
-        for (Account account: accounts)
-            Log.d(TAG,"created on: " + account.getCreated());
+        for (Account account : accounts)
+            Log.d(TAG, "created on: " + account.getCreated());
 
         adapter = new AccountsAdapter(accounts, this, position);
         binding.recyclerviewAccounts.setAdapter(adapter);
@@ -233,6 +238,11 @@ public class AccountsFragment extends Fragment implements OnAccountRemoveClickLi
                         new HelperClass().showSnackBar(binding.getRoot(), "Account deleted successfully!");
                         accounts.remove(position);
                         adapter.notifyItemRemoved(position);
+                        if (accounts.isEmpty()){
+                            binding.spinKit.setVisibility(View.GONE);
+                            binding.layoutPlaceholderNoAccount.setVisibility(View.VISIBLE);
+                            binding.recyclerviewAccounts.setVisibility(View.GONE);
+                        }
                     } else
                         new HelperClass().showSnackBar(binding.getRoot(), "Failed to delete account!");
                 });

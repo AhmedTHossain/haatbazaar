@@ -43,7 +43,8 @@ public class AccountsRepository {
                             accountArrayList.add(new Account(d.getString("id"), d.getString("name"), d.getString("email"), d.getString("phone"), d.getString("photo"), d.getString("admin"), d.getString("created"), d.getBoolean("active")));
                     }
                     staffAccounts.setValue(accountArrayList);
-                }
+                } else
+                    staffAccounts.setValue(null);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
