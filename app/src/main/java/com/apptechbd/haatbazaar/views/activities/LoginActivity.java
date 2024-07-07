@@ -12,6 +12,7 @@ import android.widget.CompoundButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -19,7 +20,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.apptechbd.haatbazaar.R;
 import com.apptechbd.haatbazaar.databinding.ActivityLoginBinding;
-import com.apptechbd.haatbazaar.models.AdminAccount;
 import com.apptechbd.haatbazaar.utils.BaseActivity;
 import com.apptechbd.haatbazaar.utils.HelperClass;
 import com.apptechbd.haatbazaar.viewmodels.LoginViewModel;
@@ -44,6 +44,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private GoogleSignInClient googleSignInClient;
     private LoginViewModel loginViewModel;
     private MaterialAlertDialogBuilder builder;
+    private AlertDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +64,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             if (getSignedInUserType().equals("admin"))
                 startActivity(new Intent(this, AdminMainActivity.class));
             else
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, HomeActivity.class));
             finish();
         }
 
@@ -143,7 +144,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         loginViewModel.signInWithGoogle(googleAuthCredential);
         loginViewModel.authenticatedUserLiveData.observe(this, authenticatedUser -> {
             if (authenticatedUser != null) {
-                new HelperClass().showSnackBar(binding.main, "Hello " + authenticatedUser.getDisplayName());
+//                new HelperClass().showSnackBar(binding.main, "Hello " + authenticatedUser.getDisplayName());
 
                 loginViewModel.checkIfAdminUser(authenticatedUser.getUid(), binding.main, this);
                 loginViewModel.isAdminUser.observe(this, isAdmin -> {
@@ -157,15 +158,29 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         isAdmin.setId(uid);
                         storeAdminAccount(isAdmin);
 
-                        //creating local copy of admin user profile
-
+                        new HelperClass().showSnackBar(binding.main, "Hello " + authenticatedUser.getDisplayName());
                         startActivity(new Intent(this, AdminMainActivity.class));
+//                        finish();
                     } else {
-                        saveSignedInUserType("user");
-                        startActivity(new Intent(this, MainActivity.class));
+                        loginViewModel.getStaffProfile(authenticatedUser.getEmail(), binding.main, this);
+                        loginViewModel.staffProfile.observe(this, staffProfile -> {
+                            if (staffProfile != null) {
+                                saveSignedInUserType("user");
+                                storeAccount(staffProfile);
+                                // Remove observer to prevent potential leaks
+                                loginViewModel.staffProfile.removeObservers(this);
+
+                                new HelperClass().showSnackBar(binding.main, "Hello " + authenticatedUser.getDisplayName());// Add this line
+                                startActivity(new Intent(this, HomeActivity.class));
+//                                finish();
+                            } else {
+                                new HelperClass().showSnackBar(binding.main, "No account found in Database! Please reach out to your admin for further assistance.");
+                                dismissProgressDialog();
+                            }
+                        });
                     }
 
-                    finish();
+                    dismissProgressDialog();  // Add this line
                 });
 
                 saveSignInStatus(true);
@@ -192,6 +207,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         builder.setCancelable(false)
                 .setPositiveButton("", null)
                 .setNegativeButton("", null);
-        builder.show();
+        progressDialog = builder.show();
+    }
+
+    private void dismissProgressDialog() {
+        if (builder != null) {
+            progressDialog.dismiss();  // This will prevent the dialog from showing again
+        }
     }
 }

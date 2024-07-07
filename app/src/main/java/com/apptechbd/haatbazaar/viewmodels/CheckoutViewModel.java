@@ -10,16 +10,15 @@ import androidx.lifecycle.AndroidViewModel;
 
 import com.apptechbd.haatbazaar.R;
 
-public class CartViewModel extends AndroidViewModel {
-
-    public CartViewModel(@NonNull Application application) {
+public class CheckoutViewModel extends AndroidViewModel {
+    public CheckoutViewModel(@NonNull Application application) {
         super(application);
     }
 
     public void replaceFragment(Fragment fragment, FragmentManager supportFragmentManager) {
         FragmentManager fragmentManager = supportFragmentManager;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout_cart, fragment);
+        fragmentTransaction.replace(R.id.frame_layout_home, fragment);
         fragmentTransaction.commit();
     }
 }

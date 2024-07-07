@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.apptechbd.haatbazaar.models.Account;
 import com.apptechbd.haatbazaar.models.AdminAccount;
 import com.google.gson.Gson;
 
@@ -81,6 +82,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String jsonString = gson.toJson(object);
         sharedPreferences.edit().putString("admin_account", jsonString).apply();
+    }
+
+    protected void storeAccount(Account account){
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(account);
+        sharedPreferences.edit().putString("account", jsonString).apply();
     }
 }
 

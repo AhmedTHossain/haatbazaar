@@ -3,7 +3,6 @@ package com.apptechbd.haatbazaar.views.activities;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -11,11 +10,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.apptechbd.haatbazaar.R;
 import com.apptechbd.haatbazaar.databinding.ActivityCartBinding;
-import com.apptechbd.haatbazaar.databinding.ActivityMainBinding;
-import com.apptechbd.haatbazaar.interfaces.EnableOrDisableSetPriceButtonListener;
 import com.apptechbd.haatbazaar.utils.BaseActivity;
 import com.apptechbd.haatbazaar.viewmodels.CartViewModel;
-import com.apptechbd.haatbazaar.views.fragments.cart.SetQuantityFragment;
+import com.apptechbd.haatbazaar.views.fragments.checkout.SetQuantityFragment;
 
 import java.util.ArrayList;
 import java.util.Locale;

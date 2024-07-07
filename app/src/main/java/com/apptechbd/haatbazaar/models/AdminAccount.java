@@ -1,6 +1,7 @@
 package com.apptechbd.haatbazaar.models;
 
 import java.time.Instant;
+import java.util.Map;
 
 public class AdminAccount {
     private String id, name, owner, email, phone, address;

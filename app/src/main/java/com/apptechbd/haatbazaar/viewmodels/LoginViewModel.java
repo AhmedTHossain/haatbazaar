@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.apptechbd.haatbazaar.models.Account;
 import com.apptechbd.haatbazaar.models.AdminAccount;
 import com.apptechbd.haatbazaar.repositories.LoginRepository;
 import com.google.firebase.auth.AuthCredential;
@@ -17,6 +18,7 @@ public class LoginViewModel extends AndroidViewModel {
     private LoginRepository loginRepository;
     public LiveData<FirebaseUser> authenticatedUserLiveData;
     public LiveData<AdminAccount> isAdminUser;
+    public LiveData<Account> staffProfile;
 
     public LoginViewModel(@NonNull Application application) {
         super(application);
@@ -29,5 +31,9 @@ public class LoginViewModel extends AndroidViewModel {
 
     public void checkIfAdminUser(String uid, View view, Context context) {
         isAdminUser = loginRepository.ifAdminUser(uid, view, context);
+    }
+
+    public void getStaffProfile(String email, View view, Context context){
+        staffProfile = loginRepository.getStaffProfile(email, view, context);
     }
 }

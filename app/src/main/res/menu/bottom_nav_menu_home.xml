@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/checkout"
+        android:icon="@drawable/icon_checkout"
+        android:title="Check Out" />
+    <item
+        android:id="@+id/sales"
+        android:icon="@drawable/icon_daily_income"
+        android:title="Daily Income" />
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/icon_signout"
+        android:title="Log Out" />
+</menu>

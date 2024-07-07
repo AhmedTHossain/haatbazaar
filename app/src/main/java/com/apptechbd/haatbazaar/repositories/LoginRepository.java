@@ -1,5 +1,6 @@
 package com.apptechbd.haatbazaar.repositories;
 
+import static com.apptechbd.haatbazaar.utils.Constants.TAG;
 import static com.apptechbd.haatbazaar.utils.HelperClass.logErrorMessage;
 
 import android.content.Context;
@@ -7,8 +8,10 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.apptechbd.haatbazaar.models.Account;
 import com.apptechbd.haatbazaar.models.AdminAccount;
 import com.apptechbd.haatbazaar.utils.HelperClass;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -50,11 +53,10 @@ public class LoginRepository {
                     List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                     for (DocumentSnapshot d : list) {
                         if (Objects.equals(d.getString("id"), uid)) {
-                            Log.d("LoginRepository", "matched uid: " + d.getString("id") + "sent uid: "+uid);
+                            Log.d("LoginRepository", "matched uid: " + d.getString("id") + "sent uid: " + uid);
 
                             //Storing the retrieved admin account locally
                             AdminAccount adminAccount = new AdminAccount(uid, d.getString("name"), d.getString("owner"), d.getString("email"), d.getString("phone"), d.getString("address"), d.getLong("created_on"));
-
                             isAdmin.setValue(adminAccount);
                         } else
                             isAdmin.setValue(null);
@@ -74,5 +76,30 @@ public class LoginRepository {
             }
         });
         return isAdmin;
+    }
+
+    public LiveData<Account> getStaffProfile(String email, View view, Context context) {
+        MutableLiveData<Account> staffProfile = new MutableLiveData<>();
+        db.collection("staffs").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                    for (DocumentSnapshot d : list) {
+                        if (Objects.equals(d.getString("email"), email)) {
+                            Account account = new Account(d.getString("id"), d.getString("name"), d.getString("email"), d.getString("phone"), d.getString("photo"), d.getString("admin"), d.getString("created"), Boolean.TRUE.equals(d.getBoolean("active")));
+                            staffProfile.setValue(account);
+                        }
+                    }
+                    staffProfile.setValue(null);
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                staffProfile.setValue(null);
+            }
+        });
+        return staffProfile;
     }
 }

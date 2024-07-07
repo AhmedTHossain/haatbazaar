@@ -1,4 +1,4 @@
-package com.apptechbd.haatbazaar.views.fragments.cart;
+package com.apptechbd.haatbazaar.views.fragments.checkout;
 
 import android.content.DialogInterface;
 import android.content.Intent;
