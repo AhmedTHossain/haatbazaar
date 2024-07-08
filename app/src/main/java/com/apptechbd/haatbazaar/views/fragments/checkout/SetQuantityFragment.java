@@ -119,7 +119,7 @@ public class SetQuantityFragment extends Fragment implements OnQuantityAddClickL
                 adapter.notifyItemRemoved(position);
 
                 if (categoriesPurchased.isEmpty())
-                    startActivity(new Intent(requireActivity(), MainActivity.class));
+                    requireActivity().getSupportFragmentManager().popBackStack();
 
                 viewModel.setQuantitiesPurchased(quantitiesPurchased);
 

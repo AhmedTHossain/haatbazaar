@@ -1,5 +1,6 @@
 package com.apptechbd.haatbazaar.views.activities;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -56,6 +57,15 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     private void initViewModel() {
         viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        viewModel.onBottomNavMenuItemSelect(binding, getSupportFragmentManager());
+
+        viewModel.signOutClicked.observe(this, signOutClicked -> {
+            if (signOutClicked){
+                saveSignInStatus(false);
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
+            }
+        });
 
         viewModel.buttonText.observe(this, buttonText -> {
             binding.buttonProceed.setText(buttonText);

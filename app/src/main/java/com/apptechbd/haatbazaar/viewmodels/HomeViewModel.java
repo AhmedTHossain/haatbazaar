@@ -11,10 +11,13 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.apptechbd.haatbazaar.R;
+import com.apptechbd.haatbazaar.databinding.ActivityAdminMainBinding;
+import com.apptechbd.haatbazaar.databinding.ActivityHomeBinding;
 import com.apptechbd.haatbazaar.models.Account;
 import com.apptechbd.haatbazaar.models.AllCategories;
 import com.apptechbd.haatbazaar.models.Quantity;
 import com.apptechbd.haatbazaar.repositories.HomeRepository;
+import com.apptechbd.haatbazaar.views.fragments.checkout.SetCategoryFragment;
 
 import java.util.ArrayList;
 
@@ -26,6 +29,9 @@ public class HomeViewModel extends AndroidViewModel {
     public MutableLiveData<Boolean> isButtonEnabled = new MutableLiveData<>(false);
     private ArrayList<String> categoriesPurchased = new ArrayList<>();
     private ArrayList<Quantity> quantitiesPurchased = new ArrayList<>();
+    public MutableLiveData<Boolean> signOutClicked  = new MutableLiveData<>(false);
+
+    private SetCategoryFragment setCategoryFragment = new SetCategoryFragment();
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
@@ -80,5 +86,25 @@ public class HomeViewModel extends AndroidViewModel {
     }
     public ArrayList<Quantity> getQuantitiesPurchased() {
         return quantitiesPurchased;
+    }
+
+    public void onBottomNavMenuItemSelect(ActivityHomeBinding binding, FragmentManager supportFragmentManager) {
+        binding.bottomNavigationviewHome.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+
+            if (itemId == R.id.checkout) {
+                replaceFragment(setCategoryFragment, supportFragmentManager, "SetCategoryFragment");
+            } else if (itemId == R.id.sales) {
+//                replaceFragment(accountsFragment, supportFragmentManager);
+            } else if (itemId == R.id.logout) {
+                signOutClicked.setValue(true);
+            }
+
+            return true;
+        });
+    }
+
+    public void signOut() {
+        signOutClicked.setValue(true);
     }
 }
