@@ -1,11 +1,9 @@
 package com.apptechbd.haatbazaar.utils;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -88,6 +86,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String jsonString = gson.toJson(account);
         sharedPreferences.edit().putString("account", jsonString).apply();
+    }
+
+    protected Account getAccount(){
+        String accountJson = sharedPreferences.getString("account", "");
+        return new Gson().fromJson(accountJson, Account.class);
     }
 }
 

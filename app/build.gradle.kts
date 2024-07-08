@@ -72,4 +72,5 @@ dependencies {
     implementation(libs.gson)
     //SpinKit progress view
     implementation(libs.android.spinkit)
+    implementation(libs.lifecycle.extensions)
 }

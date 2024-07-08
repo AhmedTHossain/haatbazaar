@@ -33,7 +33,7 @@ public class LoginViewModel extends AndroidViewModel {
         isAdminUser = loginRepository.ifAdminUser(uid, view, context);
     }
 
-    public void getStaffProfile(String email, View view, Context context){
+    public void getStaffProfile(String email, View view, Context context) {
         staffProfile = loginRepository.getStaffProfile(email, view, context);
     }
 }
