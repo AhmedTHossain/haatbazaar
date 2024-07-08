@@ -27,13 +27,13 @@
     <string name="add_account">Add Account</string>
     <string name="name">Name</string>
     <string name="selected_photo">Selected Photo</string>
-    <string name="type_of_purchased_animal">Purchased Animal Type</string>
     <string name="proceed">Proceed</string>
-    <string name="select_all_types_of_purchased_animals_disclaimer">Select type of animals purchased</string>
     <string name="cow">Cow</string>
     <string name="goat">Goat</string>
     <string name="camel">Camel</string>
     <string name="sheep">Sheep</string>
+    <string name="type_of_purchased_animal">Purchased Animal Type</string>
+    <string name="select_all_types_of_purchased_animals_disclaimer">Select type of animals purchased</string>
     <string name="quantity_of_purchased_animal">Purchased Animal Quantity</string>
     <string name="select_quantity_of_all_purchased_animals_disclaimer">Set the quantity of all purchased animals.</string>
     <string name="set_the_quantity">Set The Quantity</string>
@@ -59,4 +59,6 @@
     <string name="animal_sold">Animal Sold</string>
     <string name="email">Email</string>
     <string name="export_report">Export Report</string>
+    <string name="price_of_purchased_animal">Purchased Animal Price</string>
+    <string name="set_price_of_all_purchased_animals_disclaimer">Set the price of all purchased animals.</string>
 </resources>

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import com.apptechbd.haatbazaar.databinding.FragmentSetQuantityBinding;
 import com.apptechbd.haatbazaar.interfaces.OnQuantityAddClickListener;
 import com.apptechbd.haatbazaar.interfaces.OnQuantitySubtractClickListener;
 import com.apptechbd.haatbazaar.models.Quantity;
+import com.apptechbd.haatbazaar.viewmodels.HomeViewModel;
 import com.apptechbd.haatbazaar.views.activities.MainActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -28,14 +30,10 @@ public class SetQuantityFragment extends Fragment implements OnQuantityAddClickL
     private ArrayList<String> categoriesPurchased;
     private ArrayList<Quantity> quantitiesPurchased = new ArrayList<>();
     private QuantityAdapter adapter;
+    private HomeViewModel viewModel;
 
-    public SetQuantityFragment(ArrayList<String> categoriesPurchased) {
-        this.categoriesPurchased = categoriesPurchased;
-
-        for (String category : categoriesPurchased) {
-            Quantity quantity = new Quantity(category, 0);
-            quantitiesPurchased.add(quantity);
-        }
+    public SetQuantityFragment() {
+        // Required empty public constructor
     }
 
     @Override
@@ -43,10 +41,21 @@ public class SetQuantityFragment extends Fragment implements OnQuantityAddClickL
                              Bundle savedInstanceState) {
         binding = FragmentSetQuantityBinding.inflate(inflater, container, false);
 
+        initViewModel();
         setAccounts(categoriesPurchased);
 
         // Inflate the layout for this fragment
         return binding.getRoot();
+    }
+
+    private void initViewModel() {
+        viewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
+        this.categoriesPurchased = viewModel.getCategoriesPurchased();;
+
+        for (String category : categoriesPurchased) {
+            Quantity quantity = new Quantity(category, 0);
+            quantitiesPurchased.add(quantity);
+        }
     }
 
     private void setAccounts(ArrayList<String> categoriesPurchased) {
@@ -85,6 +94,7 @@ public class SetQuantityFragment extends Fragment implements OnQuantityAddClickL
             if (quantityPurchased.getQuantity() > 0)
                 isAnyQuantityAdded++;
         }
+        viewModel.setQuantitiesPurchased(quantitiesPurchased);
     }
 
     private void showCategoryRemoveConfirmationDialog(int position) {
@@ -110,6 +120,8 @@ public class SetQuantityFragment extends Fragment implements OnQuantityAddClickL
 
                 if (categoriesPurchased.isEmpty())
                     startActivity(new Intent(requireActivity(), MainActivity.class));
+
+                viewModel.setQuantitiesPurchased(quantitiesPurchased);
 
             }
         });

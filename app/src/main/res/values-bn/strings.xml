@@ -59,4 +59,6 @@
     <string name="animal_sold">Animal Sold</string>
     <string name="email">Email</string>
     <string name="export_report">Export Report</string>
+    <string name="price_of_purchased_animal">Purchased Animal Price</string>
+    <string name="set_price_of_all_purchased_animals_disclaimer">Set the price of all purchased animals.</string>
 </resources>

@@ -3,15 +3,28 @@ package com.apptechbd.haatbazaar.views.fragments.checkout;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.apptechbd.haatbazaar.adapters.PriceAdapter;
+import com.apptechbd.haatbazaar.adapters.QuantityAdapter;
 import com.apptechbd.haatbazaar.databinding.FragmentSetPriceBinding;
+import com.apptechbd.haatbazaar.models.Quantity;
+import com.apptechbd.haatbazaar.viewmodels.HomeViewModel;
+
+import java.util.ArrayList;
 
 public class SetPriceFragment extends Fragment {
     private FragmentSetPriceBinding binding;
+    private HomeViewModel viewModel;
+    private ArrayList<Quantity> quantitiesPurchased = new ArrayList<>();
+    private ArrayList<String> cartList = new ArrayList<>();
+    private PriceAdapter adapter;
 
     public SetPriceFragment() {
         // Required empty public constructor
@@ -21,7 +34,27 @@ public class SetPriceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentSetPriceBinding.inflate(inflater, container, false);
-        // Inflate the layout for this fragment
+
+        initViewModel();
+        setCart(cartList);
+
         return binding.getRoot();
+    }
+
+    private void setCart(ArrayList<String> cartList) {
+        binding.recyclerviewPrice.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerviewPrice.setHasFixedSize(true);
+
+        adapter = new PriceAdapter(cartList);
+        binding.recyclerviewPrice.setAdapter(adapter);
+    }
+
+    private void initViewModel() {
+        viewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
+        this.quantitiesPurchased = viewModel.getQuantitiesPurchased();
+        Log.d("SetPriceFragment",quantitiesPurchased.get(0).getName()+"s purchased: "+quantitiesPurchased.get(0).getQuantity());
+        
+        for (Quantity qty: quantitiesPurchased)
+            cartList.add(qty.getName());
     }
 }

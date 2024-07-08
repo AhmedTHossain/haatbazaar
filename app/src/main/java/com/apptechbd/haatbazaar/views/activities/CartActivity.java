@@ -46,6 +46,6 @@ public class CartActivity extends BaseActivity {
 
     private void initViewModel() {
         viewModel = new ViewModelProvider(this).get(CartViewModel.class);
-        viewModel.replaceFragment(new SetQuantityFragment(categoriesPurchased), getSupportFragmentManager());
+        viewModel.replaceFragment(new SetQuantityFragment(), getSupportFragmentManager());
     }
 }
