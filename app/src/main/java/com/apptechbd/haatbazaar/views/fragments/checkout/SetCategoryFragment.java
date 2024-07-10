@@ -2,6 +2,7 @@ package com.apptechbd.haatbazaar.views.fragments.checkout;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -14,7 +15,9 @@ import com.apptechbd.haatbazaar.adapters.CategoriesAdapter;
 import com.apptechbd.haatbazaar.databinding.FragmentSetCategoryBinding;
 import com.apptechbd.haatbazaar.interfaces.OnCategoryClickListener;
 import com.apptechbd.haatbazaar.models.Category;
+import com.apptechbd.haatbazaar.utils.HelperClass;
 import com.apptechbd.haatbazaar.viewmodels.HomeViewModel;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -29,6 +32,8 @@ public class SetCategoryFragment extends Fragment implements OnCategoryClickList
     private ArrayList<Category> categoriesList;
     private ArrayList<Category> categoriesSelected = new ArrayList<>();
     private CategoriesAdapter adapter;
+    private MaterialAlertDialogBuilder builder;
+    private AlertDialog progressDialog;
 
     public SetCategoryFragment() {
         // Required empty public constructor
@@ -52,11 +57,15 @@ public class SetCategoryFragment extends Fragment implements OnCategoryClickList
     }
 
     private void initViewModel() {
+        String title = getString(R.string.retrieving_categories_title);
+        String disclaimer = getString(R.string.retrieving_categories_disclaimer);
+        progressDialog = new HelperClass().showProgressDialog(builder, title, disclaimer, progressDialog, requireContext());
         categoriesSelected = new ArrayList<>();
-        Log.d("SetCategoryFragment", "categories purchased = "+categoriesSelected.size());
+        Log.d("SetCategoryFragment", "categories purchased = " + categoriesSelected.size());
         viewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         viewModel.getCategories(viewModel.getAccount().getAdmin());
         viewModel.allCategories.observe(getViewLifecycleOwner(), allCategories -> {
+            progressDialog.dismiss();
             // Update the UI with the retrieved categories
             if (allCategories != null) {
                 // Display the categories in the UI
@@ -66,9 +75,9 @@ public class SetCategoryFragment extends Fragment implements OnCategoryClickList
         });
     }
 
-    private void setCategories(){
+    private void setCategories() {
         categoriesList = new ArrayList<>();
-        for (String s: categories){
+        for (String s : categories) {
             Category category = new Category(s, false);
             categoriesList.add(category);
         }
@@ -94,7 +103,7 @@ public class SetCategoryFragment extends Fragment implements OnCategoryClickList
             }
         }
         viewModel.setButtonEnabled(!categoriesSelected.isEmpty());
-        if (!categoriesSelected.isEmpty()){
+        if (!categoriesSelected.isEmpty()) {
             ArrayList<String> categoriesPurchased = new ArrayList<>();
             for (Category categorySelected : categoriesSelected)
                 if (categorySelected.isSelected())

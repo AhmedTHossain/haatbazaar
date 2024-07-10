@@ -62,4 +62,6 @@
     <string name="price_of_purchased_animal">Purchased Animal Price</string>
     <string name="set_price_of_all_purchased_animals_disclaimer">Set the price of all purchased animals.</string>
     <string name="price">Price</string>
+    <string name="retrieving_categories_title">Retrieving categories</string>
+    <string name="retrieving_categories_disclaimer">Please wait while we retrieve your categories.</string>
 </resources>

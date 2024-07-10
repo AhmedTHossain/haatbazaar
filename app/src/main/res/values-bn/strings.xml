@@ -62,4 +62,6 @@
     <string name="price_of_purchased_animal">ক্রয়কৃত প্রাণীর মূল্য</string>
     <string name="set_price_of_all_purchased_animals_disclaimer">সকল ক্রয়কৃত প্রাণীর মূল্য নির্ধারণ করুন।</string>
     <string name="price">মূল্য</string>
+    <string name="retrieving_categories_title">Retrieving types</string>
+    <string name="retrieving_categories_disclaimer">Please wait while we retrieve your types.</string>
 </resources>
