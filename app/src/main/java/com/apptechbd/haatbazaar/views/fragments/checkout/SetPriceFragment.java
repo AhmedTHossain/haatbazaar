@@ -44,7 +44,7 @@ public class SetPriceFragment extends Fragment {
     private void setCart(ArrayList<String> cartList) {
         binding.recyclerviewPrice.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerviewPrice.setHasFixedSize(true);
-
+        Log.d("SetPriceFragment", "number of items in cart = " + cartList.size());
         adapter = new PriceAdapter(cartList);
         binding.recyclerviewPrice.setAdapter(adapter);
     }
@@ -52,9 +52,11 @@ public class SetPriceFragment extends Fragment {
     private void initViewModel() {
         viewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         this.quantitiesPurchased = viewModel.getQuantitiesPurchased();
-        Log.d("SetPriceFragment",quantitiesPurchased.get(0).getName()+"s purchased: "+quantitiesPurchased.get(0).getQuantity());
-        
-        for (Quantity qty: quantitiesPurchased)
-            cartList.add(qty.getName());
+        Log.d("SetPriceFragment", quantitiesPurchased.get(0).getName() + "s purchased: " + quantitiesPurchased.get(0).getQuantity());
+
+        for (Quantity qty : quantitiesPurchased) {
+            for (int i = 0; i < qty.getQuantity(); i++)
+                cartList.add(qty.getName());
+        }
     }
 }

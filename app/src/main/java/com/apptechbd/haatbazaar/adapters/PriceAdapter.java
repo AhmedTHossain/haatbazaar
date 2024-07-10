@@ -13,6 +13,8 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class PriceAdapter extends RecyclerView.Adapter<PriceAdapter.ViewHolder> {
     private ArrayList<String> cartList;
 
@@ -51,7 +53,7 @@ public class PriceAdapter extends RecyclerView.Adapter<PriceAdapter.ViewHolder> 
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imageView;
+        private CircleImageView imageView;
         private TextInputEditText priceText;
 
         public ViewHolder(@NonNull View itemView) {
@@ -64,7 +66,7 @@ public class PriceAdapter extends RecyclerView.Adapter<PriceAdapter.ViewHolder> 
             return imageView;
         }
 
-        public void setImageView(ImageView imageView) {
+        public void setImageView(CircleImageView imageView) {
             this.imageView = imageView;
         }
 

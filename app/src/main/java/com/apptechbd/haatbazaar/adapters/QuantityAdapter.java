@@ -12,18 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.apptechbd.haatbazaar.R;
 import com.apptechbd.haatbazaar.interfaces.OnQuantityAddClickListener;
 import com.apptechbd.haatbazaar.interfaces.OnQuantitySubtractClickListener;
+import com.apptechbd.haatbazaar.models.Quantity;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
 public class QuantityAdapter extends RecyclerView.Adapter<QuantityAdapter.ViewHolder> {
-    private ArrayList<String> categoriesPurchased;
+    private ArrayList<Quantity> quantitiesPurchased;
     private OnQuantityAddClickListener onQuantityAddClickListener;
     private OnQuantitySubtractClickListener onQuantitySubtractClickListener;
 
-    public QuantityAdapter(ArrayList<String> categoriesPurchased, OnQuantityAddClickListener onQuantityAddClickListener, OnQuantitySubtractClickListener onQuantitySubtractClickListener) {
-        this.categoriesPurchased = categoriesPurchased;
+    public QuantityAdapter(ArrayList<Quantity> quantitiesPurchased, OnQuantityAddClickListener onQuantityAddClickListener, OnQuantitySubtractClickListener onQuantitySubtractClickListener) {
+        this.quantitiesPurchased = quantitiesPurchased;
         this.onQuantityAddClickListener = onQuantityAddClickListener;
         this.onQuantitySubtractClickListener = onQuantitySubtractClickListener;
     }
@@ -37,7 +38,7 @@ public class QuantityAdapter extends RecyclerView.Adapter<QuantityAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull QuantityAdapter.ViewHolder holder, int position) {
-        switch (categoriesPurchased.get(position)) {
+        switch (quantitiesPurchased.get(position).getName()) {
             case "cow":
                 holder.imageView.setImageResource(R.drawable.image_cow);
                 break;
@@ -51,6 +52,10 @@ public class QuantityAdapter extends RecyclerView.Adapter<QuantityAdapter.ViewHo
                 holder.imageView.setImageResource(R.drawable.image_camel);
                 break;
         }
+
+        String qtyStr = String.format(Locale.US, "%02d", quantitiesPurchased.get(position).getQuantity());
+        holder.textView.setText(qtyStr);
+
         holder.plusLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,7 +64,6 @@ public class QuantityAdapter extends RecyclerView.Adapter<QuantityAdapter.ViewHo
 
                 String qtyStr = String.format(Locale.US, "%02d", qty);
                 holder.textView.setText(qtyStr);
-                holder.textView.setText(String.valueOf(qtyStr));
                 onQuantityAddClickListener.onQuantityAddClick(position, qty);
             }
         });
@@ -82,7 +86,7 @@ public class QuantityAdapter extends RecyclerView.Adapter<QuantityAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return categoriesPurchased.size();
+        return quantitiesPurchased.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

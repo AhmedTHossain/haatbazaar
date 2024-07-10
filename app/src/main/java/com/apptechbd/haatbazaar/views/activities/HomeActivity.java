@@ -21,6 +21,8 @@ import com.apptechbd.haatbazaar.views.fragments.checkout.SetPriceFragment;
 import com.apptechbd.haatbazaar.views.fragments.checkout.SetQuantityFragment;
 import com.apptechbd.haatbazaar.views.fragments.checkout.SetCategoryFragment;
 
+import java.util.Locale;
+
 public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private ActivityHomeBinding binding;
     private SharedPreferences sharedPreferences;
@@ -39,6 +41,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        setLocale(new Locale("bn"));
+
         getSavedColorScheme();
         initViewModel();
         binding.buttonProceed.setOnClickListener(this);
@@ -83,15 +88,20 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == binding.buttonProceed.getId()) {
-            switch (binding.buttonProceed.getText().toString().toLowerCase()) {
-                case "set the type":
-                    viewModel.replaceFragment(new SetQuantityFragment(), getSupportFragmentManager(), "SetQuantityFragment");
-                    break;
-                case "set the quantity":
-                    viewModel.replaceFragment(new SetPriceFragment(), getSupportFragmentManager(), "SetPriceFragment");
-                    break;
-                case "set the price":
-                    break;
+            String setTypeButtonText = getResources().getString(R.string.set_the_type);
+            String setQuantityButtonText = getResources().getString(R.string.set_the_quantity);
+            String setPriceButtonText = getResources().getString(R.string.set_the_price);
+
+            if (binding.buttonProceed.getText().toString().toLowerCase().equals(setTypeButtonText)) {
+                viewModel.replaceFragment(new SetQuantityFragment(), getSupportFragmentManager(), "SetQuantityFragment");
+            }
+
+            if (binding.buttonProceed.getText().toString().toLowerCase().equals(setQuantityButtonText)) {
+                viewModel.replaceFragment(new SetPriceFragment(), getSupportFragmentManager(), "SetPriceFragment");
+            }
+
+            if (binding.buttonProceed.getText().toString().toLowerCase().equals(setPriceButtonText)) {
+
             }
         }
     }

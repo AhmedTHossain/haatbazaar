@@ -28,13 +28,13 @@
     <string name="selected_photo">নির্বাচিত ছবি</string>
     <string name="type_of_purchased_animal">ক্রয়কৃত প্রাণীর প্রকার</string>
     <string name="proceed">এগিয়ে যান</string>
-    <string name="select_all_types_of_purchased_animals_disclaimer">ক্রয়কৃত সকল প্রাণীর প্রকার নির্বাচন করুন।</string>
+    <string name="select_all_types_of_purchased_animals_disclaimer">সকল ক্রয়কৃত প্রাণীর প্রকার নির্বাচন করুন।</string>
     <string name="cow">গরু</string>
     <string name="goat">ছাগল</string>
     <string name="camel">উট</string>
     <string name="sheep">ভেড়া</string>
     <string name="quantity_of_purchased_animal">ক্রয়কৃত প্রাণীর সংখ্যা</string>
-    <string name="select_quantity_of_all_purchased_animals_disclaimer">ক্রয়কৃত সকল প্রাণীর সংখ্যা নির্ধারণ করুন।</string>
+    <string name="select_quantity_of_all_purchased_animals_disclaimer">সকল ক্রয়কৃত প্রাণীর সংখ্যা নির্ধারণ করুন।</string>
     <string name="set_the_quantity">সংখ্যা নির্ধারণ করুন</string>
     <string name="set_the_price">মূল্য নির্ধারণ করুন</string>
     <string name="set_the_type">প্রকার নির্ধারণ করুন</string>
@@ -59,6 +59,7 @@
     <string name="animal_sold">Animal Sold</string>
     <string name="email">Email</string>
     <string name="export_report">Export Report</string>
-    <string name="price_of_purchased_animal">Purchased Animal Price</string>
-    <string name="set_price_of_all_purchased_animals_disclaimer">Set the price of all purchased animals.</string>
+    <string name="price_of_purchased_animal">ক্রয়কৃত প্রাণীর মূল্য</string>
+    <string name="set_price_of_all_purchased_animals_disclaimer">সকল ক্রয়কৃত প্রাণীর মূল্য নির্ধারণ করুন।</string>
+    <string name="price">মূল্য</string>
 </resources>

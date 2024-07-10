@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,7 @@ public class SetQuantityFragment extends Fragment implements OnQuantityAddClickL
 
     private FragmentSetQuantityBinding binding;
     private ArrayList<String> categoriesPurchased;
-    private ArrayList<Quantity> quantitiesPurchased = new ArrayList<>();
+    private ArrayList<Quantity> quantitiesPurchased;
     private QuantityAdapter adapter;
     private HomeViewModel viewModel;
 
@@ -52,17 +53,20 @@ public class SetQuantityFragment extends Fragment implements OnQuantityAddClickL
         viewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         this.categoriesPurchased = viewModel.getCategoriesPurchased();;
 
+        quantitiesPurchased = new ArrayList<>();
         for (String category : categoriesPurchased) {
-            Quantity quantity = new Quantity(category, 0);
+            Quantity quantity = new Quantity(category, 1);
             quantitiesPurchased.add(quantity);
         }
+
+        viewModel.setQuantitiesPurchased(quantitiesPurchased);
     }
 
     private void setAccounts(ArrayList<String> categoriesPurchased) {
         binding.recyclerviewQuantity.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerviewQuantity.setHasFixedSize(true);
 
-        adapter = new QuantityAdapter(categoriesPurchased, this, this);
+        adapter = new QuantityAdapter(quantitiesPurchased, this, this);
         binding.recyclerviewQuantity.setAdapter(adapter);
     }
 
@@ -77,13 +81,22 @@ public class SetQuantityFragment extends Fragment implements OnQuantityAddClickL
         setQuantity(position, quantity);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        viewModel.buttonText.setValue(getString(R.string.set_the_quantity));
+    }
+
     private void setQuantity(int position, int quantity) {
         if (quantity > 0) {
-            for (Quantity quantityPurchased : quantitiesPurchased) {
-                if (quantityPurchased.getName().equals(categoriesPurchased.get(position)))
-                    quantityPurchased.setQuantity(quantity);
-            }
-            checkIfAnyQuantityAdded();
+//            for (Quantity quantityPurchased : quantitiesPurchased) {
+//                if (quantityPurchased.getName().equals(categoriesPurchased.get(position)))
+//                    quantityPurchased.setQuantity(quantity);
+//            }
+
+            quantitiesPurchased.get(position).setQuantity(quantity);
+            Log.d("SetQuantityFragment",quantitiesPurchased.get(position).getQuantity() + " " + quantitiesPurchased.get(position).getName()+ " purchased");
+            viewModel.setQuantitiesPurchased(quantitiesPurchased);
         } else
             showCategoryRemoveConfirmationDialog(position);
     }
@@ -115,10 +128,10 @@ public class SetQuantityFragment extends Fragment implements OnQuantityAddClickL
             public void onClick(DialogInterface dialog, int which) {
                 // Handle positive button click
 
-                categoriesPurchased.remove(position);
+                quantitiesPurchased.remove(position);
                 adapter.notifyItemRemoved(position);
 
-                if (categoriesPurchased.isEmpty())
+                if (quantitiesPurchased.isEmpty())
                     requireActivity().getSupportFragmentManager().popBackStack();
 
                 viewModel.setQuantitiesPurchased(quantitiesPurchased);
