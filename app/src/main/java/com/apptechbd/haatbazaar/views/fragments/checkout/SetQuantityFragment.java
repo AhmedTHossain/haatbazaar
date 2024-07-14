@@ -85,6 +85,7 @@ public class SetQuantityFragment extends Fragment implements OnQuantityAddClickL
     public void onResume() {
         super.onResume();
         viewModel.buttonText.setValue(getString(R.string.set_the_quantity));
+        viewModel.setButtonEnabled(true);
     }
 
     private void setQuantity(int position, int quantity) {
