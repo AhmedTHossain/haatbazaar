@@ -62,9 +62,10 @@ public class PriceAdapter extends RecyclerView.Adapter<PriceAdapter.ViewHolder> 
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!s.toString().isEmpty()) {
+                if (!s.toString().isEmpty())
                     listener.onPriceEntered(Integer.parseInt(s.toString()), position);
-                }
+                else
+                    listener.onPriceEntered(0, position);
             }
         });
     }

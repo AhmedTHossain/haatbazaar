@@ -49,13 +49,14 @@ public class SetPriceFragment extends Fragment implements OnPriceEnteredListener
     public void onResume() {
         super.onResume();
         viewModel.buttonText.setValue(getString(R.string.set_the_price));
+        viewModel.setButtonEnabled(false);
     }
 
     private void setCart(ArrayList<String> cartList) {
         binding.recyclerviewPrice.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerviewPrice.setHasFixedSize(true);
         Log.d("SetPriceFragment", "number of items in cart = " + cartList.size());
-        adapter = new PriceAdapter(cartList,this);
+        adapter = new PriceAdapter(cartList, this);
         binding.recyclerviewPrice.setAdapter(adapter);
     }
 
@@ -67,7 +68,7 @@ public class SetPriceFragment extends Fragment implements OnPriceEnteredListener
         for (Quantity qty : quantitiesPurchased) {
             for (int i = 0; i < qty.getQuantity(); i++) {
                 cartList.add(qty.getName());
-                Sale sale = new Sale(qty.getName(),0,"");
+                Sale sale = new Sale(qty.getName(), 0, "");
                 salesList.add(sale);
             }
         }
@@ -76,9 +77,14 @@ public class SetPriceFragment extends Fragment implements OnPriceEnteredListener
 
     @Override
     public void onPriceEntered(int price, int position) {
-        for (int i=0; i<salesList.size();i++){
-            salesList.get(position).setPrice(price);
-        }
+        salesList.get(position).setPrice(price);
         viewModel.setSalesList(salesList);
+
+        boolean priceIsEmpty = true;
+        for (Sale sale : salesList)
+            if (sale.getPrice() == 0)
+                priceIsEmpty = false;
+
+        viewModel.setButtonEnabled(priceIsEmpty);
     }
 }
