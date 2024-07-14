@@ -65,6 +65,7 @@ public class SetPriceFragment extends Fragment implements OnPriceEnteredListener
         this.quantitiesPurchased = viewModel.getQuantitiesPurchased();
         Log.d("SetPriceFragment", quantitiesPurchased.get(0).getName() + "s purchased: " + quantitiesPurchased.get(0).getQuantity());
 
+        cartList = new ArrayList<>();
         for (Quantity qty : quantitiesPurchased) {
             for (int i = 0; i < qty.getQuantity(); i++) {
                 cartList.add(qty.getName());
