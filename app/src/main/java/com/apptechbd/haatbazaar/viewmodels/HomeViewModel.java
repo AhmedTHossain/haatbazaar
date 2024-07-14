@@ -11,11 +11,13 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.apptechbd.haatbazaar.R;
+import com.apptechbd.haatbazaar.adapters.Sale;
 import com.apptechbd.haatbazaar.databinding.ActivityAdminMainBinding;
 import com.apptechbd.haatbazaar.databinding.ActivityHomeBinding;
 import com.apptechbd.haatbazaar.models.Account;
 import com.apptechbd.haatbazaar.models.AllCategories;
 import com.apptechbd.haatbazaar.models.Quantity;
+import com.apptechbd.haatbazaar.repositories.AccountsRepository;
 import com.apptechbd.haatbazaar.repositories.HomeRepository;
 import com.apptechbd.haatbazaar.views.fragments.checkout.SetCategoryFragment;
 
@@ -24,18 +26,23 @@ import java.util.ArrayList;
 public class HomeViewModel extends AndroidViewModel {
     public LiveData<AllCategories> allCategories;
     private HomeRepository repository;
+    private AccountsRepository accountsRepository;
     private Account account;
     public MutableLiveData<String> buttonText = new MutableLiveData<>("");
     public MutableLiveData<Boolean> isButtonEnabled = new MutableLiveData<>(false);
+    public MutableLiveData<Boolean> isSalesListUpdated = new MutableLiveData<>(false);
     private ArrayList<String> categoriesPurchased = new ArrayList<>();
     private ArrayList<Quantity> quantitiesPurchased = new ArrayList<>();
+    public ArrayList<Sale> salesList = new ArrayList<>();
     public MutableLiveData<Boolean> signOutClicked  = new MutableLiveData<>(false);
 
     private SetCategoryFragment setCategoryFragment = new SetCategoryFragment();
+    public MutableLiveData<ArrayList<Account>> supplierAccounts;
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
         repository = new HomeRepository();
+        accountsRepository = new AccountsRepository();
     }
 
     public void replaceFragment(Fragment fragment, FragmentManager supportFragmentManager, String fragmentName) {
@@ -88,6 +95,15 @@ public class HomeViewModel extends AndroidViewModel {
         return quantitiesPurchased;
     }
 
+    public void setSalesList(ArrayList<Sale> salesList) {
+        this.salesList = salesList;
+        isSalesListUpdated.setValue(true);
+    }
+
+    public ArrayList<Sale> getSalesList() {
+        return salesList;
+    }
+
     public void onBottomNavMenuItemSelect(ActivityHomeBinding binding, FragmentManager supportFragmentManager) {
         binding.bottomNavigationviewHome.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
@@ -97,7 +113,7 @@ public class HomeViewModel extends AndroidViewModel {
             } else if (itemId == R.id.sales) {
 //                replaceFragment(accountsFragment, supportFragmentManager);
             } else if (itemId == R.id.logout) {
-                signOutClicked.setValue(true);
+                signOut();
             }
 
             return true;
@@ -106,5 +122,9 @@ public class HomeViewModel extends AndroidViewModel {
 
     public void signOut() {
         signOutClicked.setValue(true);
+    }
+
+    public void getSupplierAccounts(String admin) {
+        supplierAccounts = accountsRepository.getSupplierAccounts(admin);
     }
 }

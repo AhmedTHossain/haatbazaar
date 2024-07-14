@@ -20,6 +20,7 @@ import com.apptechbd.haatbazaar.viewmodels.HomeViewModel;
 import com.apptechbd.haatbazaar.views.fragments.checkout.SetPriceFragment;
 import com.apptechbd.haatbazaar.views.fragments.checkout.SetQuantityFragment;
 import com.apptechbd.haatbazaar.views.fragments.checkout.SetCategoryFragment;
+import com.apptechbd.haatbazaar.views.fragments.checkout.SetSellerInfoFragment;
 
 import java.util.Locale;
 
@@ -91,6 +92,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             String setTypeButtonText = getResources().getString(R.string.set_the_type);
             String setQuantityButtonText = getResources().getString(R.string.set_the_quantity);
             String setPriceButtonText = getResources().getString(R.string.set_the_price);
+            String setSellerButtonText = getResources().getString(R.string.set_the_seller_name);
 
             if (binding.buttonProceed.getText().toString().toLowerCase().equals(setTypeButtonText)) {
                 viewModel.replaceFragment(new SetQuantityFragment(), getSupportFragmentManager(), "SetQuantityFragment");
@@ -101,6 +103,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             }
 
             if (binding.buttonProceed.getText().toString().toLowerCase().equals(setPriceButtonText)) {
+                viewModel.replaceFragment(new SetSellerInfoFragment(), getSupportFragmentManager(), "SetSellerInfoFragment");
+            }
+            if (binding.buttonProceed.getText().toString().toLowerCase().equals(setSellerButtonText)){
 
             }
         }

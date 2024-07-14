@@ -9,6 +9,7 @@
         <item name="textAppearanceHeadlineLarge">@style/CustomHeadlineLarge</item>
         <item name="snackbarStyle">@style/CustomSnackbar</item>
         <item name="chipStyle">@style/CustomChipStyle</item>
+        <item name="shapeAppearanceOverlay">@style/RoundedImageView</item>
     </style>
 
     <!-- Light theme -->
@@ -121,6 +122,11 @@
 
     <style name="CustomHeaderToggleButton" parent="Widget.MaterialComponents.MaterialCalendar.HeaderToggleButton">
         <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="RoundedImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
     </style>
 
 </resources>

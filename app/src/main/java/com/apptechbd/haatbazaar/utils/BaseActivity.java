@@ -88,7 +88,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         sharedPreferences.edit().putString("account", jsonString).apply();
     }
 
-    protected Account getAccount(){
+    public Account getAccount(){
         String accountJson = sharedPreferences.getString("account", "");
         return new Gson().fromJson(accountJson, Account.class);
     }

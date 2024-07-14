@@ -11,20 +11,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.apptechbd.haatbazaar.R;
 import com.apptechbd.haatbazaar.adapters.PriceAdapter;
 import com.apptechbd.haatbazaar.adapters.QuantityAdapter;
+import com.apptechbd.haatbazaar.adapters.Sale;
 import com.apptechbd.haatbazaar.databinding.FragmentSetPriceBinding;
+import com.apptechbd.haatbazaar.interfaces.OnPriceEnteredListener;
 import com.apptechbd.haatbazaar.models.Quantity;
 import com.apptechbd.haatbazaar.viewmodels.HomeViewModel;
 
 import java.util.ArrayList;
 
-public class SetPriceFragment extends Fragment {
+public class SetPriceFragment extends Fragment implements OnPriceEnteredListener {
     private FragmentSetPriceBinding binding;
     private HomeViewModel viewModel;
     private ArrayList<Quantity> quantitiesPurchased = new ArrayList<>();
     private ArrayList<String> cartList = new ArrayList<>();
     private PriceAdapter adapter;
+    private ArrayList<Sale> salesList = new ArrayList<>();
 
     public SetPriceFragment() {
         // Required empty public constructor
@@ -41,11 +45,17 @@ public class SetPriceFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        viewModel.buttonText.setValue(getString(R.string.set_the_price));
+    }
+
     private void setCart(ArrayList<String> cartList) {
         binding.recyclerviewPrice.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerviewPrice.setHasFixedSize(true);
         Log.d("SetPriceFragment", "number of items in cart = " + cartList.size());
-        adapter = new PriceAdapter(cartList);
+        adapter = new PriceAdapter(cartList,this);
         binding.recyclerviewPrice.setAdapter(adapter);
     }
 
@@ -55,8 +65,20 @@ public class SetPriceFragment extends Fragment {
         Log.d("SetPriceFragment", quantitiesPurchased.get(0).getName() + "s purchased: " + quantitiesPurchased.get(0).getQuantity());
 
         for (Quantity qty : quantitiesPurchased) {
-            for (int i = 0; i < qty.getQuantity(); i++)
+            for (int i = 0; i < qty.getQuantity(); i++) {
                 cartList.add(qty.getName());
+                Sale sale = new Sale(qty.getName(),0,"");
+                salesList.add(sale);
+            }
         }
+        viewModel.setSalesList(salesList);
+    }
+
+    @Override
+    public void onPriceEntered(int price, int position) {
+        for (int i=0; i<salesList.size();i++){
+            salesList.get(position).setPrice(price);
+        }
+        viewModel.setSalesList(salesList);
     }
 }

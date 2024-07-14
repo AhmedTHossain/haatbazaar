@@ -64,4 +64,9 @@
     <string name="price">Price</string>
     <string name="retrieving_categories_title">Retrieving categories</string>
     <string name="retrieving_categories_disclaimer">Please wait while we retrieve your categories.</string>
+    <string name="retrieving_seller_accounts_title">Retrieving seller accounts</string>
+    <string name="retrieving_seller_accounts_disclaimer">Please wait while we retrieve your seller accounts.</string>
+    <string name="sellers_name">Seller\'s Name</string>
+    <string name="set_the_seller_name">Set the seller name</string>
+    <string name="set_the_seller_name_of_all_purchased_animals_disclaimer">Set the seller name of all purchased animals.</string>
 </resources>

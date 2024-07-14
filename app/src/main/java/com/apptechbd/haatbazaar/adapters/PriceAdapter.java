@@ -1,5 +1,7 @@
 package com.apptechbd.haatbazaar.adapters;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.apptechbd.haatbazaar.R;
+import com.apptechbd.haatbazaar.interfaces.OnPriceEnteredListener;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -17,9 +20,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PriceAdapter extends RecyclerView.Adapter<PriceAdapter.ViewHolder> {
     private ArrayList<String> cartList;
-
-    public PriceAdapter(ArrayList<String> cartList) {
+    private OnPriceEnteredListener listener;
+    public PriceAdapter(ArrayList<String> cartList, OnPriceEnteredListener listener) {
         this.cartList = cartList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -45,6 +49,24 @@ public class PriceAdapter extends RecyclerView.Adapter<PriceAdapter.ViewHolder> 
                 holder.imageView.setImageResource(R.drawable.image_camel);
                 break;
         }
+        holder.priceText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!s.toString().isEmpty()) {
+                    listener.onPriceEntered(Integer.parseInt(s.toString()), position);
+                }
+            }
+        });
     }
 
     @Override
@@ -59,7 +81,7 @@ public class PriceAdapter extends RecyclerView.Adapter<PriceAdapter.ViewHolder> 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageview_animal);
-            priceText = itemView.findViewById(R.id.inputEditText_quantity);
+            priceText = itemView.findViewById(R.id.inputEditText_price);
         }
 
         public ImageView getImageView() {

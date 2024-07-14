@@ -43,7 +43,7 @@
                 android:layout_toStartOf="@id/image_icon"
                 style="@style/Widget.Design.TextInputLayout">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inputEditText_quantity"
+                    android:id="@+id/inputEditText_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/price"
