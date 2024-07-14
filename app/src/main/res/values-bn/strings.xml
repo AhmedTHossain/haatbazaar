@@ -69,4 +69,11 @@
     <string name="sellers_name">বিক্রেতার নাম</string>
     <string name="set_the_seller_name">বিক্রেতার নাম নির্ধারণ করুন</string>
     <string name="set_the_seller_name_of_all_purchased_animals_disclaimer">সকল ক্রয়কৃত প্রাণীর বিক্রেতার নাম নির্ধারণ করুন।</string>
+    <string name="customers_name">ক্রেতার তথ্য</string>
+    <string name="set_customers_information_disclaimer">ক্রেতার তথ্য প্রবেশ করুন</string>
+    <string name="customers_code">ক্রেতার কোড</string>
+    <string name="fetch_customers_information">ক্রেতার তথ্য অনুসন্ধান করুন</string>
+    <string name="or_set_customers_information_manually_below">অথবা নীচে ক্রেতার তথ্য প্রবেশ করুন।</string>
+    <string name="customers_name_hint">ক্রেতার নাম</string>
+    <string name="customer_s_address">ক্রেতার ঠিকানা</string>
 </resources>

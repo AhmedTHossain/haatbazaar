@@ -17,6 +17,7 @@ import com.apptechbd.haatbazaar.R;
 import com.apptechbd.haatbazaar.databinding.ActivityHomeBinding;
 import com.apptechbd.haatbazaar.utils.BaseActivity;
 import com.apptechbd.haatbazaar.viewmodels.HomeViewModel;
+import com.apptechbd.haatbazaar.views.fragments.checkout.SetCustomerInfoFragment;
 import com.apptechbd.haatbazaar.views.fragments.checkout.SetPriceFragment;
 import com.apptechbd.haatbazaar.views.fragments.checkout.SetQuantityFragment;
 import com.apptechbd.haatbazaar.views.fragments.checkout.SetCategoryFragment;
@@ -106,7 +107,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 viewModel.replaceFragment(new SetSellerInfoFragment(), getSupportFragmentManager(), "SetSellerInfoFragment");
             }
             if (binding.buttonProceed.getText().toString().toLowerCase().equals(setSellerButtonText)){
-
+                viewModel.replaceFragment(new SetCustomerInfoFragment(), getSupportFragmentManager(), "SetCustomerInfoFragment");
             }
         }
     }

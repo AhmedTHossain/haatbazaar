@@ -61,6 +61,9 @@ public class HomeViewModel extends AndroidViewModel {
             case "SetPriceFragment":
                 buttonText.setValue(getApplication().getString(R.string.set_the_price));
                 break;
+            case "SetCustomerInfoFragment":
+                buttonText.setValue(getApplication().getString(R.string.set_customers_information_disclaimer));
+                break;
         }
     }
 

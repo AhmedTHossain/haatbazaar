@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.fragments.checkout.SetCustomerInfoFragment">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/text_screen_title"
+        style="@style/TextAppearance.Material3.HeadlineLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/customers_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/md_theme_primary"
+        app:layout_constraintStart_toStartOf="@id/text_screen_title"
+        app:layout_constraintTop_toBottomOf="@id/text_screen_title" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/text_select_seller_disclaimer"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/set_customers_information_disclaimer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_screen_title" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/textinputlayout_customer_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_select_seller_disclaimer">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Design.TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputEditText_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/customers_code"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_get_customer_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fetch_customers_information"
+        app:icon="@drawable/icon_fetch_customer_information"
+        app:layout_constraintTop_toBottomOf="@id/textinputlayout_customer_code"
+        android:layout_marginTop="10dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/text_or"
+        style="@style/TextAppearance.AppCompat.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/or_set_customers_information_manually_below"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_get_customer_detail" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/textinputlayout_customers_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_or">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Design.TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputEditText_customers_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/customers_name_hint"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/textinputlayout_customers_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textinputlayout_customers_name">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Design.TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputEditText_customers_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/customer_s_address"
+                android:inputType="textPostalAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

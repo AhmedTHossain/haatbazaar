@@ -69,4 +69,11 @@
     <string name="sellers_name">Seller\'s Name</string>
     <string name="set_the_seller_name">Set the seller name</string>
     <string name="set_the_seller_name_of_all_purchased_animals_disclaimer">Set the seller name of all purchased animals.</string>
+    <string name="customers_name">Customer\'s Information</string>
+    <string name="set_customers_information_disclaimer">Set customer\'s information</string>
+    <string name="customers_code">Customer\'s Code</string>
+    <string name="fetch_customers_information">Fetch customer\'s information</string>
+    <string name="or_set_customers_information_manually_below">Or set customer\'s information manually below</string>
+    <string name="customers_name_hint">Customer\'s Name</string>
+    <string name="customer_s_address">Customer\'s Address</string>
 </resources>
