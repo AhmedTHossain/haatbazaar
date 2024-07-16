@@ -16,6 +16,7 @@ import com.apptechbd.haatbazaar.databinding.ActivityAdminMainBinding;
 import com.apptechbd.haatbazaar.databinding.ActivityHomeBinding;
 import com.apptechbd.haatbazaar.models.Account;
 import com.apptechbd.haatbazaar.models.AllCategories;
+import com.apptechbd.haatbazaar.models.Customer;
 import com.apptechbd.haatbazaar.models.Quantity;
 import com.apptechbd.haatbazaar.repositories.AccountsRepository;
 import com.apptechbd.haatbazaar.repositories.HomeRepository;
@@ -35,7 +36,8 @@ public class HomeViewModel extends AndroidViewModel {
     private ArrayList<Quantity> quantitiesPurchased = new ArrayList<>();
     public ArrayList<Sale> salesList = new ArrayList<>();
     public MutableLiveData<Boolean> signOutClicked  = new MutableLiveData<>(false);
-
+    public LiveData<Customer> customer;
+    public MutableLiveData<Boolean> isCustomerFound = new MutableLiveData<>();
     private SetCategoryFragment setCategoryFragment = new SetCategoryFragment();
     public MutableLiveData<ArrayList<Account>> supplierAccounts;
 
@@ -129,5 +131,13 @@ public class HomeViewModel extends AndroidViewModel {
 
     public void getSupplierAccounts(String admin) {
         supplierAccounts = accountsRepository.getSupplierAccounts(admin);
+    }
+
+    public void getCustomer(String code){
+        customer = repository.getCustomer(code);
+        if (customer!=null)
+            isCustomerFound.setValue(true);
+        else
+            isCustomerFound.setValue(false);
     }
 }

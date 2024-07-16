@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import static com.apptechbd.haatbazaar.utils.Constants.TAG;
 
@@ -23,8 +24,13 @@ public class HelperClass {
         Snackbar snackbar = Snackbar.make(
                 layout,
                 msg,
-                Snackbar.LENGTH_SHORT
+                Snackbar.LENGTH_LONG
         );
+
+        // Customize the Snackbar's TextView to show multiple lines
+        View snackbarView = snackbar.getView();
+        TextView snackbarTextView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
+        snackbarTextView.setMaxLines(5);
 
         snackbar.setAnimationMode(Snackbar.ANIMATION_MODE_FADE);
 

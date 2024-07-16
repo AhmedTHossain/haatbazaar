@@ -1,21 +1,33 @@
 package com.apptechbd.haatbazaar.views.fragments.checkout;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import com.apptechbd.haatbazaar.R;
 import com.apptechbd.haatbazaar.databinding.FragmentSetCustomerInfoBinding;
+import com.apptechbd.haatbazaar.utils.HelperClass;
 import com.apptechbd.haatbazaar.viewmodels.HomeViewModel;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-public class SetCustomerInfoFragment extends Fragment {
+import java.util.Objects;
+
+public class SetCustomerInfoFragment extends Fragment implements View.OnClickListener {
     private FragmentSetCustomerInfoBinding binding;
     private HomeViewModel viewModel;
+    private AlertDialog progressDialog;
+    private MaterialAlertDialogBuilder builder;
 
     public SetCustomerInfoFragment() {
         // Required empty public constructor
@@ -27,6 +39,27 @@ public class SetCustomerInfoFragment extends Fragment {
         binding = FragmentSetCustomerInfoBinding.inflate(inflater, container, false);
 
         initViewModel();
+
+        binding.buttonGetCustomerDetail.setOnClickListener(this);
+        binding.inputEditTextCustomerCode.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() != 0)
+                    binding.buttonGetCustomerDetail.setEnabled(true);
+                else
+                    binding.buttonGetCustomerDetail.setEnabled(false);
+            }
+        });
 
         return binding.getRoot();
     }
@@ -40,5 +73,38 @@ public class SetCustomerInfoFragment extends Fragment {
         super.onResume();
         viewModel.buttonText.setValue(getString(R.string.set_customers_information_disclaimer));
         viewModel.setButtonEnabled(false);
+        binding.buttonGetCustomerDetail.setEnabled(false);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Log.d("SetCustomerInfoFragment", "On click called: YES!");
+        if (v.getId() == binding.buttonGetCustomerDetail.getId()) {
+            // Hide the soft keyboard
+            InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(binding.inputEditTextCustomerCode.getWindowToken(), 0);
+
+            String title = getString(R.string.retrieving_customer_info_title);
+            String disclaimer = getString(R.string.retrieving_customer_info_disclaimer);
+            progressDialog = new HelperClass().showProgressDialog(builder, title, disclaimer, progressDialog, requireContext());
+
+            viewModel.getCustomer(Objects.requireNonNull(binding.inputEditTextCustomerCode.getText()).toString());
+            viewModel.customer.observe(this, customer -> {
+                if (customer != null) {
+                    Log.d("SetCustomerInfoFragment", "customer name: " + customer.getName());
+                    binding.inputEditTextCustomersName.setText(customer.getName());
+                    binding.inputEditTextCustomersAddress.setText(customer.getAddress());
+                    binding.buttonGetCustomerDetail.setEnabled(false);
+                    viewModel.setButtonEnabled(true);
+                } else {
+                    binding.inputEditTextCustomersName.setText(null);
+                    binding.inputEditTextCustomersAddress.setText(null);
+                    viewModel.setButtonEnabled(false);
+                    new HelperClass().showSnackBar(binding.getRoot(), getString(R.string.customer_not_found_message));
+                    Log.d("SetCustomerInfoFragment", "customer not found");
+                }
+                progressDialog.dismiss();
+            });
+        }
     }
 }

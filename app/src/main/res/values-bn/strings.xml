@@ -62,6 +62,8 @@
     <string name="price_of_purchased_animal">ক্রয়কৃত প্রাণীর মূল্য</string>
     <string name="set_price_of_all_purchased_animals_disclaimer">সকল ক্রয়কৃত প্রাণীর মূল্য নির্ধারণ করুন।</string>
     <string name="price">মূল্য</string>
+    <string name="retrieving_customer_info_title">ক্রেতার তথ্য অনুসন্ধান করা হচ্ছে</string>
+    <string name="retrieving_customer_info_disclaimer">কিছুক্ষণ অপেক্ষা করুন, আমরা ক্রেতার তথ্য সংগ্রহ করছি।</string>
     <string name="retrieving_categories_title">Retrieving types</string>
     <string name="retrieving_categories_disclaimer">Please wait while we retrieve your types.</string>
     <string name="retrieving_seller_accounts_title">Retrieving seller accounts</string>
@@ -76,4 +78,5 @@
     <string name="or_set_customers_information_manually_below">অথবা নীচে ক্রেতার তথ্য প্রবেশ করুন।</string>
     <string name="customers_name_hint">ক্রেতার নাম</string>
     <string name="customer_s_address">ক্রেতার ঠিকানা</string>
+    <string name="customer_not_found_message">প্রদত্ত কোডের সাথে কোন গ্রাহক খুঁজে পাওয়া যায়নি। আপনি যে কোডটি লিখেছেন তা সঠিক কিনা যাচাই করুন। অথবা নীচের ফর্মে টাইপ করুন।</string>
 </resources>

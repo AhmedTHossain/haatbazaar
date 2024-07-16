@@ -4,8 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.apptechbd.haatbazaar.models.AllCategories;
+import com.apptechbd.haatbazaar.models.Customer;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -40,5 +43,55 @@ public class HomeRepository {
             }
         });
         return allCategories;
+    }
+
+//    public MutableLiveData<Customer> getCustomer(String code) {
+//        MutableLiveData<Customer> customer = new MutableLiveData<>();
+//        db.collection("customers").whereEqualTo("code", code).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    for (DocumentSnapshot document : task.getResult()) {
+//                        Customer customerFetched = document.toObject(Customer.class);
+//                        customer.setValue(customerFetched);
+//                    }
+//                } else
+//                    customer.setValue(null);
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                customer.setValue(null);
+//            }
+//        });
+//        return customer;
+//    }
+
+    public MutableLiveData<Customer> getCustomer(String code) {
+        MutableLiveData<Customer> customer = new MutableLiveData<>();
+        db.collection("customers").whereEqualTo("code", code).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    boolean customerFound = false;
+                    for (DocumentSnapshot document : task.getResult()) {
+                        Customer customerFetched = document.toObject(Customer.class);
+                        customer.setValue(customerFetched);
+                        customerFound = true;
+                    }
+                    if (!customerFound) {
+                        customer.setValue(null);
+                    }
+                } else {
+                    customer.setValue(null);
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                customer.setValue(null);
+            }
+        });
+        return customer;
     }
 }

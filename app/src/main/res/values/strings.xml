@@ -62,6 +62,8 @@
     <string name="price_of_purchased_animal">Purchased Animal Price</string>
     <string name="set_price_of_all_purchased_animals_disclaimer">Set the price of all purchased animals.</string>
     <string name="price">Price</string>
+    <string name="retrieving_customer_info_title">Retrieving customer\'s information</string>
+    <string name="retrieving_customer_info_disclaimer">Please wait while we retrieve the customer\'s information.</string>
     <string name="retrieving_categories_title">Retrieving categories</string>
     <string name="retrieving_categories_disclaimer">Please wait while we retrieve your categories.</string>
     <string name="retrieving_seller_accounts_title">Retrieving seller accounts</string>
@@ -76,4 +78,5 @@
     <string name="or_set_customers_information_manually_below">Or set customer\'s information manually below</string>
     <string name="customers_name_hint">Customer\'s Name</string>
     <string name="customer_s_address">Customer\'s Address</string>
+    <string name="customer_not_found_message">Unable to find a customer with the provided code. Please check if the you have entered the correct code or type in the form below.</string>
 </resources>

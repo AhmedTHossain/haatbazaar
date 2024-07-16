@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/layout_set_customer_info"
     tools:context=".views.fragments.checkout.SetCustomerInfoFragment">
 
     <com.google.android.material.textview.MaterialTextView
@@ -52,7 +53,7 @@
             android:paddingBottom="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputEditText_price"
+                android:id="@+id/inputEditText_customer_code"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/customers_code"
