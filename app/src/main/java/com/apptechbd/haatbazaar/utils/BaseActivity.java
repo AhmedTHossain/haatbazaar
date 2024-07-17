@@ -13,6 +13,8 @@ import com.apptechbd.haatbazaar.models.Account;
 import com.apptechbd.haatbazaar.models.AdminAccount;
 import com.google.gson.Gson;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -91,6 +93,17 @@ public abstract class BaseActivity extends AppCompatActivity {
     public Account getAccount(){
         String accountJson = sharedPreferences.getString("account", "");
         return new Gson().fromJson(accountJson, Account.class);
+    }
+
+    public String getTodaysDate() {
+        // Get the current date
+        Date date = new Date();
+
+        // Define the format for the date
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy",Locale.getDefault());
+
+        // Format the date and return it as a String
+        return formatter.format(date);
     }
 }
 

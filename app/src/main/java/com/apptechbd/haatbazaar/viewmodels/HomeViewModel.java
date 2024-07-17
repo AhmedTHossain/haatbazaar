@@ -17,6 +17,7 @@ import com.apptechbd.haatbazaar.databinding.ActivityHomeBinding;
 import com.apptechbd.haatbazaar.models.Account;
 import com.apptechbd.haatbazaar.models.AllCategories;
 import com.apptechbd.haatbazaar.models.Customer;
+import com.apptechbd.haatbazaar.models.Invoice;
 import com.apptechbd.haatbazaar.models.Quantity;
 import com.apptechbd.haatbazaar.repositories.AccountsRepository;
 import com.apptechbd.haatbazaar.repositories.HomeRepository;
@@ -40,6 +41,7 @@ public class HomeViewModel extends AndroidViewModel {
     public MutableLiveData<Boolean> isCustomerFound = new MutableLiveData<>();
     private SetCategoryFragment setCategoryFragment = new SetCategoryFragment();
     public MutableLiveData<ArrayList<Account>> supplierAccounts;
+    private Invoice invoice = new Invoice();
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
@@ -139,5 +141,13 @@ public class HomeViewModel extends AndroidViewModel {
             isCustomerFound.setValue(true);
         else
             isCustomerFound.setValue(false);
+    }
+
+    public Invoice getInvoice() {
+        return invoice;
+    }
+
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
     }
 }

@@ -7,6 +7,9 @@ public class AdminAccount {
     private String id, name, owner, email, phone, address;
     private long created_on;
 
+    public AdminAccount() {
+    }
+
     public AdminAccount(String id, String name, String owner, String email, String phone, String address, long created_on) {
         this.id = id;
         this.name = name;

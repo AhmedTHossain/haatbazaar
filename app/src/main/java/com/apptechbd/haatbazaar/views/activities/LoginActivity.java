@@ -170,8 +170,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                 // Remove observer to prevent potential leaks
                                 loginViewModel.staffProfile.removeObservers(this);
 
-                                new HelperClass().showSnackBar(binding.main, "Hello " + authenticatedUser.getDisplayName());// Add this line
-                                startActivity(new Intent(this, HomeActivity.class));
+                                loginViewModel.getAdminAccount(staffProfile.getAdmin());
+                                loginViewModel.adminAccount.observe(this, adminAccount -> {
+                                    if (adminAccount != null) {
+                                        loginViewModel.adminAccount.removeObservers(this);
+                                        storeAdminAccount(adminAccount);
+                                        new HelperClass().showSnackBar(binding.main, "Hello " + authenticatedUser.getDisplayName());// Add this line
+                                        startActivity(new Intent(this, HomeActivity.class));
+                                    }
+                                });
 //                                finish();
                             } else {
                                 new HelperClass().showSnackBar(binding.main, "No account found in Database! Please reach out to your admin for further assistance.");

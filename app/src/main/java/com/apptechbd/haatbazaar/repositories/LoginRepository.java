@@ -14,8 +14,10 @@ import androidx.lifecycle.MutableLiveData;
 import com.apptechbd.haatbazaar.models.Account;
 import com.apptechbd.haatbazaar.models.AdminAccount;
 import com.apptechbd.haatbazaar.utils.HelperClass;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -101,5 +103,33 @@ public class LoginRepository {
             }
         });
         return staffProfile;
+    }
+
+    public MutableLiveData<AdminAccount> getAdminAccount(String adminId) {
+        MutableLiveData<AdminAccount> adminAccount = new MutableLiveData<>();
+        db.collection("admins").whereEqualTo("id", adminId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    boolean adminAccountFound = false;
+                    for (DocumentSnapshot document : task.getResult()) {
+                        AdminAccount adminAccountFetched = document.toObject(AdminAccount.class);
+                        adminAccount.setValue(adminAccountFetched);
+                        adminAccountFound = true;
+                    }
+                    if (!adminAccountFound) {
+                        adminAccount.setValue(null);
+                    }
+                } else {
+                    adminAccount.setValue(null);
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                adminAccount.setValue(null);
+            }
+        });
+        return adminAccount;
     }
 }

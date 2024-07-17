@@ -16,11 +16,16 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
 import com.apptechbd.haatbazaar.R;
+import com.apptechbd.haatbazaar.adapters.Sale;
 import com.apptechbd.haatbazaar.databinding.FragmentSetCustomerInfoBinding;
+import com.apptechbd.haatbazaar.models.Customer;
+import com.apptechbd.haatbazaar.models.Invoice;
 import com.apptechbd.haatbazaar.utils.HelperClass;
 import com.apptechbd.haatbazaar.viewmodels.HomeViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class SetCustomerInfoFragment extends Fragment implements View.OnClickListener {
@@ -96,6 +101,7 @@ public class SetCustomerInfoFragment extends Fragment implements View.OnClickLis
                     binding.inputEditTextCustomersAddress.setText(customer.getAddress());
                     binding.buttonGetCustomerDetail.setEnabled(false);
                     viewModel.setButtonEnabled(true);
+                    createInvoice(customer);
                 } else {
                     binding.inputEditTextCustomersName.setText(null);
                     binding.inputEditTextCustomersAddress.setText(null);
@@ -106,5 +112,53 @@ public class SetCustomerInfoFragment extends Fragment implements View.OnClickLis
                 progressDialog.dismiss();
             });
         }
+    }
+
+    private void createInvoice(Customer customer) {
+        Invoice invoice = new Invoice();
+
+        ArrayList<Sale> saleArrayList = calculateSaleTotals(viewModel.getSalesList());
+        int totalAmount = 0;
+        StringBuilder sellerName = new StringBuilder();
+        HashMap<String, String> animalsPurchased = new HashMap<>();
+
+        for (int i = 0; i < saleArrayList.size(); i++) {
+            totalAmount += saleArrayList.get(i).getPrice() * saleArrayList.get(i).getQuantity();
+
+            if (!sellerName.toString().contains(saleArrayList.get(i).getSeller())) {
+                if (i < saleArrayList.size() - 2)
+                    sellerName.append(saleArrayList.get(i).getSeller()).append(",");
+                else
+                    sellerName.append(saleArrayList.get(i).getSeller());
+            }
+        }
+        invoice.setSellerName(sellerName.toString());
+        invoice.setTotalAmount(totalAmount);
+        invoice.setCustomerName(customer.getName());
+        invoice.setCustomerAddress(customer.getAddress());
+
+
+        viewModel.setInvoice(invoice);
+    }
+
+    public static ArrayList<Sale> calculateSaleTotals(ArrayList<Sale> salesList) {
+        ArrayList<Sale> resultList = new ArrayList<>();
+
+        int totalPrice = 0;
+        int totalQuantity = 0;
+
+        for (Sale sale : salesList) {
+            totalPrice += sale.getPrice() * sale.getQuantity();
+            totalQuantity += sale.getQuantity();
+
+            // Clone the Sale object to avoid modifying the original list
+            Sale newSale = new Sale(sale.getCategory(), sale.getPrice(), sale.getSeller(), sale.getQuantity());
+            resultList.add(newSale);
+        }
+
+        // Add a new Sale object with calculated totals to the result list
+        resultList.add(new Sale("Total", totalPrice, "", totalQuantity));
+
+        return resultList;
     }
 }

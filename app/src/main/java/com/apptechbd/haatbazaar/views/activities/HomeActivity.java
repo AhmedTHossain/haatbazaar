@@ -14,7 +14,9 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.apptechbd.haatbazaar.R;
+import com.apptechbd.haatbazaar.adapters.Sale;
 import com.apptechbd.haatbazaar.databinding.ActivityHomeBinding;
+import com.apptechbd.haatbazaar.models.Invoice;
 import com.apptechbd.haatbazaar.utils.BaseActivity;
 import com.apptechbd.haatbazaar.viewmodels.HomeViewModel;
 import com.apptechbd.haatbazaar.views.fragments.checkout.SetCustomerInfoFragment;
@@ -23,6 +25,8 @@ import com.apptechbd.haatbazaar.views.fragments.checkout.SetQuantityFragment;
 import com.apptechbd.haatbazaar.views.fragments.checkout.SetCategoryFragment;
 import com.apptechbd.haatbazaar.views.fragments.checkout.SetSellerInfoFragment;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class HomeActivity extends BaseActivity implements View.OnClickListener {
@@ -67,7 +71,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         viewModel.onBottomNavMenuItemSelect(binding, getSupportFragmentManager());
 
         viewModel.signOutClicked.observe(this, signOutClicked -> {
-            if (signOutClicked){
+            if (signOutClicked) {
                 saveSignInStatus(false);
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
@@ -94,6 +98,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             String setQuantityButtonText = getResources().getString(R.string.set_the_quantity);
             String setPriceButtonText = getResources().getString(R.string.set_the_price);
             String setSellerButtonText = getResources().getString(R.string.set_the_seller_name);
+            String setCustomerButtonText = getResources().getString(R.string.set_customers_information_disclaimer);
 
             if (binding.buttonProceed.getText().toString().toLowerCase().equals(setTypeButtonText)) {
                 viewModel.replaceFragment(new SetQuantityFragment(), getSupportFragmentManager(), "SetQuantityFragment");
@@ -106,8 +111,32 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             if (binding.buttonProceed.getText().toString().toLowerCase().equals(setPriceButtonText)) {
                 viewModel.replaceFragment(new SetSellerInfoFragment(), getSupportFragmentManager(), "SetSellerInfoFragment");
             }
-            if (binding.buttonProceed.getText().toString().toLowerCase().equals(setSellerButtonText)){
+            if (binding.buttonProceed.getText().toString().toLowerCase().equals(setSellerButtonText)) {
                 viewModel.replaceFragment(new SetCustomerInfoFragment(), getSupportFragmentManager(), "SetCustomerInfoFragment");
+            }
+            if (binding.buttonProceed.getText().toString().toLowerCase().equals(setCustomerButtonText)) {
+                Invoice invoice = viewModel.getInvoice();
+                invoice.setSaleDate(getTodaysDate());
+                invoice.setHutName(getAdminAccount().getName());
+                invoice.setHutAddress(getAdminAccount().getAddress());
+
+                ArrayList<Sale> saleArrayList = viewModel.getSalesList();
+                HashMap<String, Integer> purchasedAnimals = new HashMap<>();
+                int totalPrice = 0;
+
+                for (Sale sale : saleArrayList) {
+                    if (!purchasedAnimals.containsKey(sale.getCategory()))
+                        purchasedAnimals.put(sale.getCategory(), 1);
+                    else
+                        purchasedAnimals.put(sale.getCategory(), purchasedAnimals.getOrDefault(sale.getCategory(), 0) + 1);
+                    totalPrice += sale.getPrice();
+
+                }
+
+                invoice.setAnimalsPurchased(purchasedAnimals);
+                invoice.setTotalAmount(totalPrice);
+
+                Log.d("HomeActivity", "invoice: " + viewModel.getInvoice());
             }
         }
     }

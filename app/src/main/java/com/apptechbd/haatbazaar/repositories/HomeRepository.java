@@ -3,6 +3,7 @@ package com.apptechbd.haatbazaar.repositories;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.apptechbd.haatbazaar.models.AdminAccount;
 import com.apptechbd.haatbazaar.models.AllCategories;
 import com.apptechbd.haatbazaar.models.Customer;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,28 +46,6 @@ public class HomeRepository {
         return allCategories;
     }
 
-//    public MutableLiveData<Customer> getCustomer(String code) {
-//        MutableLiveData<Customer> customer = new MutableLiveData<>();
-//        db.collection("customers").whereEqualTo("code", code).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    for (DocumentSnapshot document : task.getResult()) {
-//                        Customer customerFetched = document.toObject(Customer.class);
-//                        customer.setValue(customerFetched);
-//                    }
-//                } else
-//                    customer.setValue(null);
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                customer.setValue(null);
-//            }
-//        });
-//        return customer;
-//    }
-
     public MutableLiveData<Customer> getCustomer(String code) {
         MutableLiveData<Customer> customer = new MutableLiveData<>();
         db.collection("customers").whereEqualTo("code", code).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -94,4 +73,32 @@ public class HomeRepository {
         });
         return customer;
     }
+
+//    public MutableLiveData<AdminAccount> getAdminAccount(String adminId) {
+//        MutableLiveData<AdminAccount> adminAccount = new MutableLiveData<>();
+//        db.collection("admins").whereEqualTo("id", adminId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    boolean adminAccountFound = false;
+//                    for (DocumentSnapshot document : task.getResult()) {
+//                        AdminAccount adminAccountFetched = document.toObject(AdminAccount.class);
+//                        adminAccount.setValue(adminAccountFetched);
+//                        adminAccountFound = true;
+//                    }
+//                    if (!adminAccountFound) {
+//                        adminAccount.setValue(null);
+//                    }
+//                } else {
+//                    adminAccount.setValue(null);
+//                }
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                adminAccount.setValue(null);
+//            }
+//        });
+//        return adminAccount;
+//    }
 }

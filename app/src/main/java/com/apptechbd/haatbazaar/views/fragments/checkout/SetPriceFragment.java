@@ -69,7 +69,7 @@ public class SetPriceFragment extends Fragment implements OnPriceEnteredListener
         for (Quantity qty : quantitiesPurchased) {
             for (int i = 0; i < qty.getQuantity(); i++) {
                 cartList.add(qty.getName());
-                Sale sale = new Sale(qty.getName(), 0, "");
+                Sale sale = new Sale(qty.getName(), 0, "",0);
                 salesList.add(sale);
             }
         }
