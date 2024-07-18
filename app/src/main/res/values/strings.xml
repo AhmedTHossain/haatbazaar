@@ -79,4 +79,5 @@
     <string name="customers_name_hint">Customer\'s Name</string>
     <string name="customer_s_address">Customer\'s Address</string>
     <string name="customer_not_found_message">Unable to find a customer with the provided code. Please check if the you have entered the correct code or type in the form below.</string>
+    <string name="invoice">Invoice</string>
 </resources>

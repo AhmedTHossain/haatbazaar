@@ -79,4 +79,5 @@
     <string name="customers_name_hint">ক্রেতার নাম</string>
     <string name="customer_s_address">ক্রেতার ঠিকানা</string>
     <string name="customer_not_found_message">প্রদত্ত কোডের সাথে কোন গ্রাহক খুঁজে পাওয়া যায়নি। আপনি যে কোডটি লিখেছেন তা সঠিক কিনা যাচাই করুন। অথবা নীচের ফর্মে টাইপ করুন।</string>
+    <string name="invoice">চালান</string>
 </resources>

@@ -19,6 +19,7 @@ import com.apptechbd.haatbazaar.databinding.ActivityHomeBinding;
 import com.apptechbd.haatbazaar.models.Invoice;
 import com.apptechbd.haatbazaar.utils.BaseActivity;
 import com.apptechbd.haatbazaar.viewmodels.HomeViewModel;
+import com.apptechbd.haatbazaar.views.fragments.checkout.PrintInvoiceFragment;
 import com.apptechbd.haatbazaar.views.fragments.checkout.SetCustomerInfoFragment;
 import com.apptechbd.haatbazaar.views.fragments.checkout.SetPriceFragment;
 import com.apptechbd.haatbazaar.views.fragments.checkout.SetQuantityFragment;
@@ -137,6 +138,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 invoice.setTotalAmount(totalPrice);
 
                 Log.d("HomeActivity", "invoice: " + viewModel.getInvoice());
+
+                viewModel.replaceFragment(new PrintInvoiceFragment(), getSupportFragmentManager(), "PrintInvoiceFragment");
             }
         }
     }
